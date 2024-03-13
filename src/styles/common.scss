@@ -1,0 +1,16 @@
+.disabled {
+    pointer-events: none;
+    &:hover {
+        pointer-events: none;
+    }
+}
+
+.bottom-right {
+    margin-left: auto;
+}
+
+.button-section {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

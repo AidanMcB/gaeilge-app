@@ -1,0 +1,469 @@
+{
+    "id": 0,
+    "section": 1,
+    "englishVocabulary": [
+        {
+            "id": 0,
+            "terms": [
+                {
+                    "id": 0,
+                    "englishTerm": "short verbs",
+                    "irishTerm": "briathra gearra"
+                },
+                {
+                    "id": 1,
+                    "englishTerm": "long verbs",
+                    "irishTerm": "briathra fada"
+                },
+                {
+                    "id": 2,
+                    "englishTerm": "verb",
+                    "irishTerm": "briathar"
+                },
+                {
+                    "id": 3,
+                    "englishTerm": "subject",
+                    "irishTerm": "ainmní"
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "terms": [
+                {
+                    "id": 4,
+                    "englishTerm": "object",
+                    "irishTerm": "cuspóir"
+                },
+                {
+                    "id": 5,
+                    "englishTerm": "masculine ",
+                    "irishTerm": "firinscneach"
+                },
+                {
+                    "id": 6,
+                    "englishTerm": "feminine",
+                    "irishTerm": "baininscneach"
+                },
+                {
+                    "id": 7,
+                    "englishTerm": "gender",
+                    "irishTerm": "inscne"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "terms": [
+                {
+                    "id": 8,
+                    "englishTerm": "the bread",
+                    "irishTerm": "an t-arán"
+                },
+                {
+                    "id": 9,
+                    "englishTerm": "key",
+                    "irishTerm": "eochair"
+                },
+                {
+                    "id": 10,
+                    "englishTerm": "the summer",
+                    "irishTerm": "an samhradh"
+                },
+                {
+                    "id": 11,
+                    "englishTerm": "tree",
+                    "irishTerm": "crann"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "terms": [
+                {
+                    "id": 12,
+                    "englishTerm": "the shoe",
+                    "irishTerm": "an bhróg"
+                },
+                {
+                    "id": 13,
+                    "englishTerm": "to do/make",
+                    "irishTerm": "déan"
+                },
+                {
+                    "id": 14,
+                    "englishTerm": "bad",
+                    "irishTerm": "dona"
+                },
+                {
+                    "id": 15,
+                    "englishTerm": "salt",
+                    "irishTerm": "salann"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "terms": [
+                {
+                    "id": 16,
+                    "englishTerm": "happy",
+                    "irishTerm": "sona"
+                },
+                {
+                    "id": 17,
+                    "englishTerm": "juice",
+                    "irishTerm": "sú"
+                },
+                {
+                    "id": 18,
+                    "englishTerm": "sugar",
+                    "irishTerm": "siúcra"
+                },
+                {
+                    "id": 19,
+                    "englishTerm": "to come",
+                    "irishTerm": "tar"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "terms": [
+                {
+                    "id": 20,
+                    "englishTerm": "sofa",
+                    "irishTerm": "tolg"
+                },
+                {
+                    "id": 21,
+                    "englishTerm": "dry",
+                    "irishTerm": "tirim"
+                },
+                {
+                    "id": 22,
+                    "englishTerm": "hot",
+                    "irishTerm": "te"
+                },
+                {
+                    "id": 23,
+                    "englishTerm": "person",
+                    "irishTerm": "duine"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "terms": [
+                {
+                    "id": 24,
+                    "englishTerm": "white",
+                    "irishTerm": "ban"
+                },
+                {
+                    "id": 25,
+                    "englishTerm": "I read",
+                    "irishTerm": "léim"
+                },
+                {
+                    "id": 26,
+                    "englishTerm": "young",
+                    "irishTerm": "óg"
+                },
+                {
+                    "id": 27,
+                    "englishTerm": "cake",
+                    "irishTerm": "cáca"
+                }
+            ]
+        },
+        {
+
+            "id": 7,
+            "terms": [
+                {
+                    "id": 28,
+                    "englishTerm": "clothes",
+                    "irishTerm": "éadaí"
+                },
+                {
+                    "id": 29,
+                    "englishTerm": "television",
+                    "irishTerm": "teilifís"
+                },
+                {
+                    "id": 30,
+                    "englishTerm": "book",
+                    "irishTerm": "leabhar"
+                },
+                {
+                    "id": 31,
+                    "englishTerm": "homework",
+                    "irishTerm": "obair bhaile"
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "terms": [
+                {
+                    "id": 32,
+                    "englishTerm": "baby",
+                    "irishTerm": "leanbh"
+                },
+                {
+                    "id": 33,
+                    "englishTerm": "to write",
+                    "irishTerm": "scríobh"
+                },
+                {
+                    "id": 34,
+                    "englishTerm": "black",
+                    "irishTerm": "dubh"
+                },
+                {
+                    "id": 35,
+                    "englishTerm": "excellent",
+                    "irishTerm": "go hiontach"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "terms": [
+                {
+                    "id": 36,
+                    "englishTerm": "blond hair",
+                    "irishTerm": "gruaig fhionn"
+                },
+                {
+                    "id": 37,
+                    "englishTerm": "in the garden",
+                    "irishTerm": "sa ghairdín"
+                },
+                {
+                    "id": 38,
+                    "englishTerm": "practice",
+                    "irishTerm": "cleachtadh"
+                },
+                {
+                    "id": 39,
+                    "englishTerm": "to kiss",
+                    "irishTerm": "póg"
+                }
+            ]
+        }
+    ],
+    "irishVocabulary": [
+        {
+            "id": 0,
+            "terms": [
+                {
+                    "id": 0,
+                    "irishTerm": "briathra gearra"
+                },
+                {
+                    "id": 1,
+                    "irishTerm": "briathra fada"
+                },
+                {
+                    "id": 2,
+                    "irishTerm": "briathar"
+                },
+                {
+                    "id": 3,
+                    "irishTerm": "ainmní"
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "terms": [                
+                {
+                    "id": 4,
+                    "irishTerm": "cuspóir"
+                },
+                {
+                    "id": 5,
+                    "irishTerm": "firinscneach"
+                },
+                {
+                    "id": 6,
+                    "irishTerm": "baininscneach"
+                },
+                {
+                    "id": 7,
+                    "irishTerm": "inscne"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "terms": [
+                {
+                    "id": 8,
+                    "irishTerm": "an t-arán"
+                },
+                {
+                    "id": 9,
+                    "irishTerm": "eochair"
+                },
+                {
+                    "id": 10,
+                    "irishTerm": "an samhradh"
+                },
+                {
+                    "id": 11,
+                    "irishTerm": "crann"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "terms": [
+                {
+                    "id": 12,
+                    "irishTerm": "an bhróg"
+                },
+                {
+                    "id": 13,
+                    "irishTerm": "déan"
+                },
+                {
+                    "id": 14,
+                    "irishTerm": "dona"
+                },
+                {
+                    "id": 15,
+                    "irishTerm": "salann"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "terms": [
+                {
+                    "id": 16,
+                    "irishTerm": "sona"
+                },
+                {
+                    "id": 17,
+                    "irishTerm": "sú"
+                },
+                {
+                    "id": 18,
+                    "irishTerm": "siúcra"
+                },
+                {
+                    "id": 19,
+                    "irishTerm": "tar"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "terms": [
+                {
+                    "id": 20,
+                    "irishTerm": "tolg"
+                },
+                {
+                    "id": 21,
+                    "irishTerm": "tirim"
+                },
+                {
+                    "id": 22,
+                    "irishTerm": "te"
+                },
+                {
+                    "id": 23,
+                    "irishTerm": "duine"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "terms": [
+                {
+                    "id": 24,
+                    "irishTerm": "ban"
+                },
+                {
+                    "id": 25,
+                    "irishTerm": "léim"
+                },
+                {
+                    "id": 26,
+                    "irishTerm": "óg"
+                },
+                {
+                    "id": 27,
+                    "irishTerm": "cáca"
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "terms": [
+                {
+                    "id": 28,
+                    "irishTerm": "éadaí"
+                },
+                {
+                    "id": 29,
+                    "irishTerm": "teilifís"
+                },
+                {
+                    "id": 30,
+                    "irishTerm": "leabhar"
+                },
+                {
+                    "id": 31,
+                    "irishTerm": "obair bhaile"
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "terms": [
+                {
+                    "id": 32,
+                    "irishTerm": "leanbh"
+                },
+                {
+                    "id": 33,
+                    "irishTerm": "scríobh"
+                },
+                {
+                    "id": 34,
+                    "irishTerm": "dubh"
+                },
+                {
+                    "id": 35,
+                    "irishTerm": "go hiontach"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "terms": [
+                {
+                    "id": 36,
+                    "irishTerm": "gruaig fhionn"
+                },
+                {
+                    "id": 37,
+                    "irishTerm": "sa ghairdín"
+                },
+                {
+                    "id": 38,
+                    "irishTerm": "cleachtadh"
+                },
+                {
+                    "id": 39,
+                    "irishTerm": "póg"
+                }
+            ]
+        }
+    ]
+}
