@@ -1,11 +1,10 @@
 <script setup lang='ts'>
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { type StoredData } from '../ts/interfaces';
+import { type QuizQuestion } from '../ts/interfaces';
 import { getLocalStorage } from '../utils/helper';
 
     const router = useRouter();
-    const resultsData = ref(getLocalStorage('answered_questions') as StoredData);
+	const storedData = getLocalStorage('answered_questions');
 
     function returnHome() {
         localStorage.removeItem('answered_questions');
@@ -17,34 +16,75 @@ import { getLocalStorage } from '../utils/helper';
         router.push('/quiz');
     }
 
+    function isCorrect(question: QuizQuestion, option: string): boolean {
+        return (option === question.correctAnswer);
+    }
+
+    function isIncorrect(question: QuizQuestion, option: string): boolean {
+        return (option === question.selectedAnswer && option != question.correctAnswer);
+    }
+
+    if (!storedData) {
+        // Return to previous view
+        router.go(-1);
+    }
+
+    const correctAnswers = storedData.submittedAnswers.filter(answ => answ.isCorrect === true)?.length;
+    const percentage = (correctAnswers / 10)*100;
 </script>
 
 <template>
-
-    <h2>You answered {{ resultsData.submittedAnswers.filter(answ => answ.isCorrect === true)?.length }} / 10 questions correctly correct</h2>
+    <div class='wrapper'>
+        <h2 :class="{
+            'text-3xl m-4 text-center font-bold lg:text-6xl': true,
+            'text-emerald-500': percentage > 80,
+            'text-orange-500': percentage > 70 && percentage > 80,
+            'text-rose-500': percentage < 80
+        }">
+            {{ percentage }}%
+        </h2>
+        <h2 class='text-xl m-2 sm:text-lg lg:text-2xl'>You answered {{ correctAnswers }} / 10 questions correctly.</h2>
     
-    <div class='button-section'>
-        <PrimeButton @click='tryAnotherQuiz' severity='secondary'>Try another quiz</PrimeButton>
-        <PrimeButton @click='returnHome' severity='info'>Home</PrimeButton>
-    </div>
+        <div class='card-grid grid gap-10 place-content-center mt-6 mb-1'>
 
-    <div class='card-grid'>
-        <PrimeCard v-for='(answerData, index) in resultsData.submittedAnswers' :header='answerData.questionText' :key='answerData.questionId'
-            :class="{
-                'is-correct': answerData.isCorrect,
-                'is-incorrect': !answerData.isCorrect
-            }">
-            <template #title><span class='card-title'>{{ index+1 }}. {{ answerData.questionText }}</span></template>
-            <template #content>
-                <p v-if='answerData.isCorrect' class='m-0 correct-content'>
-                    Answer: {{ answerData.answer }}
-                </p>
-                <p v-if='!answerData.isCorrect' class='m-0 incorrect-content'>
-                    <span>Your answer: {{ answerData.answer }}</span>
-                    <span>Correct answer: {{ answerData.correctAnswer }}</span>
-                </p>
-            </template>
-        </PrimeCard>
+            <PrimeCard v-for='(q, index) in storedData.submittedAnswers' :header='q.question' :key='q.id'>
+                <template #title>
+                    <span class='card-title text-lg font-bold sm:text-xl md:text-2xl'>{{ index+1 }}. {{ q.question }}</span>
+                </template>
+                <template #content>
+                    <div class='grid gap-2 grid-cols-2 grid-rows-4 md:grid-cols-3 place-content-center m-4 lg:text-2xl'>
+                        <div class='row-span-4 flex items-center'>
+                            <span v-if='!q.isCorrect' class='inline-flex items-center border border-rose-500 rounded-md bg-transparent text-base p-1 font-bold text-red-700 ring-1 ring-inset ring-red-600/10 lg:text-2xl lg:p-4'>Incorrect</span>
+                            <span v-if='q.isCorrect' class='inline-flex items-center border border-emerald-500 rounded-md bg-transparent text-base p-1 font-bold text-emerald-700 ring-1 ring-inset ring-emerald-600/10 lg:text-2xl'>Correct</span>
+                        </div>
+                        <div v-for='choice in q.choices' :key='choice' class='mr-2 flex justify-start items-center md:row-span-2 lg:mb-2 lg:mt-2'>
+                            <span :class="{
+                                'text-emerald-600': isCorrect(q, choice),
+                                'text-rose-500': isIncorrect(q, choice),
+                            }">
+                                {{ choice }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <hr class='h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25 dark:via-neutral-400 lg:m-4' />            
+                </template>
+            </PrimeCard>
+            
+            <div class='flex justify-evenly mb-16'>
+                <PrimeButton 
+                    class='transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-600 p-2 text-white lg:text-2xl lg:p-4 hover:bg-emerald-500 hover:text-white' 
+                    @click='tryAnotherQuiz' severity='secondary'>
+                    Try another quiz
+                </PrimeButton>
+                <PrimeButton 
+                    class='transition ease-in-out duration-300 text-lg border border-orange-500 rounded-md bg-orange-600 p-2 text-white lg:text-2xl lg:p-4 hover:bg-orange-500 hover:text-white' 
+                    @click='returnHome' severity='info'>
+                    Home
+                </PrimeButton>
+            </div>
+        </div>
+
     </div>
 
 </template>
@@ -58,27 +98,12 @@ h2 {
 .button-section {
     margin: 2em;
 }
-.card-grid {
-    display: grid;
-    grid-gap: 1em;
-}
-.card-title, .m-0 {
-    font-size: 0.9em;
-    span {
-        display: flex;;
-    }
-}
 .p-card {
     .p-card-body{
         padding: 1em;
     }
     color: #fff;
-    &.is-correct {
-        background: $green-1;
-    }
-    &.is-incorrect {
-        background: $error-1;
-    }
+
     .p-card-title {
         font-weight: bold;
     }

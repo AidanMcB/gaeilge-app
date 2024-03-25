@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import quizData from '../assets/quizQuestionsA.json';
+import { useQuizStore } from '../stores/quizQuestionStore';
 
-import Accordion from 'primevue/accordion';
-import AccordionTab from 'primevue/accordiontab';
-
-const router = useRouter()
+const router = useRouter();
+const store = useQuizStore();
 
 function handleCardClick(quizSection: number) {
+    store.clearStoredData();
     const startingQuestion = Math.floor(Math.random() * 10)+1;
     localStorage.setItem('answered_questions', JSON.stringify({ section: quizSection, answers: [] }) );
     localStorage.setItem('question_number', '1');
@@ -18,42 +18,83 @@ function handleCardClick(quizSection: number) {
 
 <template>
     <div class='quiz-page'>
-        <h2>Choose a section</h2>
+        <h1 class='font-bold text-center text-4xl m-2 lg:text5xl lg:mb-6'>Choose a section</h1>
 
-        <Accordion :activeIndex='0' class='grid gap-4 lg:grid-cols-2 sm:grid-cols-1'>
-            <AccordionTab v-for='quizSection in quizData' :key='quizSection.id' :header='"Section " + quizSection.section'>
-                <p class='m-0'>
-                    {{quizSection.description}}
-                </p>
-                <PrimeButton @click='handleCardClick(quizSection.section)' class='border border-green-500 p-1 rounded hover:bg-green-600 hover:text-red-300'>
-                    Start Quiz
-                </PrimeButton>
-            </AccordionTab> 
-            <AccordionTab class='disabled-card border-green-500'>
-                <template #header>Section 2</template>
-                <p class='m-0'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.
-                </p>
-            </AccordionTab>
-            <AccordionTab class='disabled-card'>
-                <template #header>Section 2</template>
-                <p class='m-0'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.
-                </p>
-            </AccordionTab>
-            <AccordionTab class='disabled-card'>
-                <template #header>Section 3</template>
-                <p class='m-0'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.
-                </p>
-            </AccordionTab>
-            <AccordionTab class='disabled-card'>
-                <template #header>Section 4</template>
-                <p class='m-0'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.
-                </p>
-            </AccordionTab>    
-        </Accordion>
+        <div :activeIndex='0' class='grid gap-6 lg:grid-cols-2 sm:grid-cols-1'>
+
+            <PrimeCard role='section' v-for='quizSection in quizData' :key='quizSection.id' class='p-2 border border-emerald-500 rounded lg:p-6'>
+                <template #title>
+                    <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>{{ "Section " + quizSection.section}}</h1>
+                </template>
+                <template #content>
+                    <div class='p-2 h-full'>
+                        <span class='lg:text-xl'>{{quizSection.description}}</span>
+                        <PrimeButton @click='handleCardClick(quizSection.section)' 
+                            class='m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex ml-auto lg:text-2xl'>
+                            Start Quiz
+                        </PrimeButton>
+                    </div>
+                </template>
+            </PrimeCard> 
+
+            <PrimeCard role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
+                <template #title>
+                    <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 2</h1>
+                </template>
+                <template #content>
+                    <div class='p-2'>
+                        <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
+                        <PrimeButton disabled 
+                            class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex ml-auto lg:text-2xl'>
+                            Start Quiz
+                        </PrimeButton>
+                    </div>
+                </template>
+            </PrimeCard>
+
+            <PrimeCard role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
+                <template #title>
+                    <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 3</h1>
+                </template>
+                <template #content>
+                    <div class='p-2'>
+                        <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
+                        <PrimeButton disabled class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex ml-auto lg:text-2xl'>
+                            Start Quiz
+                        </PrimeButton>
+                    </div>
+                </template>
+            </PrimeCard>
+
+            <PrimeCard role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
+                <template #title>
+                    <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 4</h1>
+                </template>               
+                <template #content>
+                    <div class='p-2'>
+                        <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
+                        <PrimeButton disabled class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex ml-auto lg:text-2xl'>
+                            Start Quiz
+                        </PrimeButton>
+                    </div>
+                </template>
+            </PrimeCard>
+
+            <PrimeCard role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
+                <template #title>
+                    <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 5</h1>
+                </template>                
+                <template #content>
+                    <div class='p-2'>
+                        <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
+                        <PrimeButton disabled class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex ml-auto lg:text-2xl'>
+                            Start Quiz
+                        </PrimeButton>
+                    </div>
+                </template>
+            </PrimeCard> 
+
+        </div>
 
     </div>
 </template>
@@ -69,7 +110,6 @@ function handleCardClick(quizSection: number) {
     padding: 1em;
     
     .p-card {
-        background: $green-1;
         color: #fff;
         .p-card-title {
             font-weight: bold;

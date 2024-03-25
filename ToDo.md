@@ -9,3 +9,8 @@ Stretch Goals
 - split up logic and  code
 - custom tailwind css styling
 - add  timer to matching-words
+
+
+
+// look into
+- reusable class combinations for tailiwnd to prevent really long class names

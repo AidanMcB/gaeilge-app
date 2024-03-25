@@ -1,27 +1,22 @@
-<script setup>
-
-</script>
-
 <template>
-  <div class="header-content">
-    <h1 class="text-green-600">Gaeilge</h1>
-    <RouterLink to="/quiz">
-        <PrimeButton class='bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded'>Cleachtadh do chuid Ghaeilge</PrimeButton>
-    </RouterLink>
-    <RouterLink to="/matching">
-        <PrimeButton class='bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded'>Cleachtadh do chuid Ghaeilge (Timer)</PrimeButton>
-    </RouterLink>
-  </div>
+    <div class='main-content'>
+        <h2 class='text-emerald-500 text-5xl m-4 md:w-full lg:text-8xl'>Cleachtadh Gaeilge</h2>
+        <RouterLink to='/quiz'>
+            <PrimeButton class='bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded sm:text-lg md:text-2xl'>Cleachtadh do chuid Ghaeilge</PrimeButton>
+        </RouterLink>
+        <RouterLink to='/matching'>
+            <PrimeButton class='bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded sm:text-lg md:text-2xl'>Cleachtadh do chuid Ghaeilge (Timer)</PrimeButton>
+        </RouterLink>
+    </div>
 </template>
 
-<style scoped lang="scss">
-
-.header-content {
+<style scoped lang='scss'>
+.main-content {
     display: flex;
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
-    height: 100%;
+    min-height: 100%;
 }
 
 h1 {
