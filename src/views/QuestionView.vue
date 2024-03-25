@@ -43,7 +43,7 @@
         <h1 class='question text-2xl lg:text-4xl'>{{ store.activeQuestion?.question }}</h1>
         
         <div class='options-grid'>
-            <MultipleChoiceOptions :question="store.activeQuestion"/>
+            <MultipleChoiceOptions/>
         </div>
 
         <div class='button-section'>

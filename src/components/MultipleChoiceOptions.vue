@@ -1,41 +1,33 @@
 
 <script setup lang='ts'>
 import { useQuizStore } from '../stores/quizQuestionStore';
-import RadioButton from 'primevue/radiobutton';
 import { type QuizQuestion } from '../ts/interfaces';
-import { toRefs } from 'vue';
 
-    const props = defineProps<{
-        question: QuizQuestion;
-    }>();
-
-    const { question } = toRefs(props);
     const store = useQuizStore();
 
     function isSubmittedAndCorrect(option: string): boolean {
-        return question.value.isSubmitted && option === question.value.correctAnswer
+        return store.activeQuestion.isSubmitted && option === store.activeQuestion.correctAnswer;
     }
 
     function isSubmittedAndIncorrect(option: string): boolean {
         return (
-            (question.value.isSubmitted && store.selected === option && store.selected !== question.value.correctAnswer) 
+            (store.activeQuestion.isSubmitted && store.selected === option && store.selected !== store.activeQuestion.correctAnswer) 
                 ||
-            (question.value.isSubmitted && option == question.value.selectedAnswer && !question.value.isCorrect)
+            (store.activeQuestion.isSubmitted && option == store.activeQuestion.selectedAnswer && !store.activeQuestion.isCorrect)
         );
     }
 
 </script>
 
 <template>
-    <span v-for='opt in question.choices' :key='opt' :disabled='question.isSubmitted'
+    <span v-for='opt in store.activeQuestion.choices' :key='opt' :disabled='store.activeQuestion.isSubmitted'
            :class="{
-               'is-selected': (!question.isSubmitted && store.selected === opt),
-               'is-correct': isSubmittedAndCorrect(opt),
-               'is-incorrect': isSubmittedAndIncorrect(opt),
+               'text-emerald-500': (!store.activeQuestion.isSubmitted && store.selected === opt) || isSubmittedAndCorrect(opt),
+               'text-rose-500': isSubmittedAndIncorrect(opt),
                'option': true
            }"
     >
-        <span v-if='question.isSubmitted' class='mr-2'>
+        <span v-if='store.activeQuestion.isSubmitted' class='mr-2'>
             <i class='pi pi-check text-emerald-500' v-if='isSubmittedAndCorrect(opt)'></i>
             <i class='pi pi-times text-rose-500' v-if='isSubmittedAndIncorrect(opt)'></i>
         </span>
@@ -46,16 +38,16 @@ import { toRefs } from 'vue';
             name='question'
             :id='opt' 
             :value='opt' 
-            :disabled='question.isSubmitted'
-            v-if='!question.isSubmitted'
+            :disabled='store.activeQuestion.isSubmitted'
+            v-if='!store.activeQuestion.isSubmitted'
             :class="{
                     'option mr-2 lg:mr-4': true,
-                    'is-incorrect': isSubmittedAndIncorrect(opt),
-                    'is-correct': isSubmittedAndCorrect(opt),
+                    'text-rose-500': isSubmittedAndIncorrect(opt),
+                    'text-emerald-500': isSubmittedAndCorrect(opt),
                }"
         />
         <label :for='opt' :class="{
-            'text-emerald-500': store.selected === opt && !question.isSubmitted,
+            'text-emerald-500': store.selected === opt && !store.activeQuestion.isSubmitted,
             'lg:text-4xl': true
         }"> {{ opt }} </label>
     </span>
