@@ -1,149 +1,71 @@
-<script setup lang="ts">
-    import { onBeforeMount, ref } from 'vue'
-	import { useRoute, useRouter } from 'vue-router'
+<script setup lang='ts'>
+    import { onMounted } from 'vue';
+	import { useRoute, useRouter } from 'vue-router';
 	import { useQuizStore } from '../stores/quizQuestionStore';
-    import RadioButton from 'primevue/radiobutton';
-    import { useToast } from 'primevue/usetoast';
-    import Toast from 'primevue/toast';
-    import { type StoredData, type QuizQuestion, type Answer } from '../ts/interfaces';
-    import { getLocalStorage } from '../utils/helper';
+    import { type QuizQuestion } from '../ts/interfaces';
 
     const route = useRoute()
     const router = useRouter();
-
-    const sectionId = parseInt(route.params.section_id as string);
-    const questionId = parseInt(route.params.question_id as string);
-
 	const store = useQuizStore();
-    const selected = ref();
-    const questionState = ref({
-        isSubmitted: false,
-        isCorrect: false
-    });
-    const storedData = ref(getLocalStorage('answered_questions'));
-    const activeQuestionNumber = ref(localStorage.getItem('question_number'));
 
-    onBeforeMount(() => {
-        store.setActiveQuiz(sectionId);
-        store.setActiveQuestion(questionId);
-
-        // check for answered questions in localStorage
-        const index = storedData.value.submittedAnswers?.findIndex(answer => questionId === answer.questionId);
-        if (index > -1) {
-            selected.value = storedData.value.submittedAnswers[index].answer;
-            questionState.value.isSubmitted = true;
-        }
-
+    onMounted(() => {
+        store.initQuestionView(parseInt(route.params.section_id as string), parseInt(route.params.question_id as string));
     });
 
     function handleSubmit(question: QuizQuestion) {
-        
-        const answer = selected.value;
+        const answer = store.selected;
         if (answer) {
-            questionState.value.isSubmitted = true;
+            store.activeQuestion.isSubmitted = true;
             const isCorrect = question.correctAnswer === answer;
-            showToast(isCorrect);
-
-            questionState.value.isCorrect = isCorrect;
-            
-            const newStoredAnswer: Answer = { 
-                questionId,
-                isCorrect,
-                answer,
-                correctAnswer: question.correctAnswer,
-                questionText: question.question
-            };
-
-            if (storedData.value) {
-                if (storedData.value.submittedAnswers) {
-                    const index = storedData.value.submittedAnswers?.findIndex(answer => answer.questionId === questionId);
-                    if (index === -1) {
-                        // if this question has not yet been answered, add the selected answer
-                        storedData.value.submittedAnswers.push(newStoredAnswer);
-                        localStorage.setItem('answered_questions', JSON.stringify(storedData.value));
-                    } else {
-                        // This question has already answered, shouldn't be able to get here
-                        console.log('already answered');
-                    }
-                } else {
-                    // first question being answered 
-                    const newStoredData: StoredData = { section: sectionId, submittedAnswers: [ { ...newStoredAnswer} ] };
-                    localStorage.setItem('answered_questions', JSON.stringify(newStoredData)); 
-                }
-            } else {
-                // create stored data
-                const newStoredData: StoredData = { section: sectionId, submittedAnswers: [ { ...newStoredAnswer} ] };
-                localStorage.setItem('answered_questions', JSON.stringify(newStoredData));
-            }
-        }
+            store.activeQuestion.isCorrect = isCorrect;
+            store.submitAnswer({ questionId: store.questionId, answer, isCorrect, selectedAnswer: answer });
+        } 
     }
 
     function isLastQuestionsInQuiz(): boolean {
-        if (storedData.value.submittedAnswers?.length === 10) {
-            return true;
-        } else {
-            return false;
-        }
+        return store.storedData.submittedAnswers?.length === 10;
     }
-
-    const toast = useToast();
-    const showToast = (isCorrect: boolean) => {
-        if (!isCorrect) {
-            toast.add({ severity: 'error', summary: 'Incorrect', detail: `The correct answer is "${store.activeQuestion.correctAnswer}".` });
-        } else {
-            toast.add({ severity: 'success', summary: 'Correct!' });
-        }
-    };
 
     function handleNext() {
         if (isLastQuestionsInQuiz()) {
-            router.push(`/quiz/section/${sectionId}/results`);
+            router.push(`/quiz/section/${store.sectionId}/results`);
         } else {
-            const questionNumber = parseInt(activeQuestionNumber.value || '1') || 1;
-            localStorage.setItem('question_number', (questionNumber + 1).toString());
-            const allQuestionIds: number[] = store.currentQuizData.questions.map(q => q.id);
-            const answeredQuestionIds: number[] = storedData.value.submittedAnswers?.map(answ => answ.questionId) || [];
-            const remainingQuestionIds: number[] = allQuestionIds.filter(id => !answeredQuestionIds.includes(id));
-            const nextQuestion = remainingQuestionIds[Math.floor(Math.random()*remainingQuestionIds.length)];
-            router.push(`/quiz/section/${sectionId}/question/${nextQuestion}`);
+            const nextQuestion = store.nextQuestion()
+            router.push(`/quiz/section/${store.sectionId}/question/${nextQuestion}`);
         }
     }
-
 
 </script>
 
 <template>
-	<div :class='"question-view " + (questionState.isSubmitted ? "submitted" : "")'>
-        <Toast />
+	<div :class="{'question-view': true, 'submitted': store.activeQuestion.isSubmitted }">
 
-        <h1 class='question'>{{ store.activeQuestion?.question }}</h1>
+        <h1 class='question text-2xl lg:text-4xl'>{{ store.activeQuestion?.question }}</h1>
+        
         <div class='options-grid'>
-            <span v-for='opt in store.activeQuestion.choices' :key='opt' :disabled="questionState.isSubmitted" 
-                :class="{
-                    'is-selected': (!questionState.isSubmitted && selected === opt),
-                    'is-correct': (questionState.isSubmitted && opt === store.activeQuestion.correctAnswer),
-                    'is-incorrect': (questionState.isSubmitted && selected === opt && selected !== store.activeQuestion.correctAnswer),
-                    'option': true
-                }"
-            >
-                <RadioButton v-model='selected' :inputId='opt' name='question' :value='opt' :disabled="questionState.isSubmitted"/>
-                <label :for='opt'> {{ opt }} </label>
-            </span>
+            <MultipleChoiceOptions :question="store.activeQuestion"/>
         </div>
 
         <div class='button-section'>
-            <PrimeButton @click="handleSubmit(store.activeQuestion)" :disabled='questionState.isSubmitted || !selected'>Submit</PrimeButton>
-            <PrimeButton @click="handleNext" v-if="questionState.isSubmitted" severity='info'>
-                <span v-if='isLastQuestionsInQuiz() && questionState.isSubmitted'>See Answers</span>
-                <span v-if='!isLastQuestionsInQuiz() && questionState.isSubmitted'>Next</span> 
+            <PrimeButton class='transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-500 p-2 text-white lg:text-2xl lg:p-4 disabled:opacity-60' 
+                @click='handleSubmit(store.activeQuestion)' 
+                :disabled='store.activeQuestion.isSubmitted || !store.selected'>
+                Submit
+            </PrimeButton>
+            <PrimeButton class='transition ease-in-out duration-300 text-lg border border-orange-500 rounded-md p-2 lg:text-2xl lg:p-4 hover:border-orange-200 hover:bg-orange-500 hover:text-white' 
+                v-if='store.activeQuestion.isSubmitted' 
+                @click='handleNext' 
+                severity='info'>
+                <span v-if='isLastQuestionsInQuiz() && store.activeQuestion.isSubmitted'>See Answers</span>
+                <span v-if='!isLastQuestionsInQuiz() && store.activeQuestion.isSubmitted'>Next</span>  
             </PrimeButton>
         </div>
 
-        <p class='bottom-right'>{{ activeQuestionNumber }} / 10</p>
+        <p class='bottom-right lg:text-2xl'>{{ store.activeQuestionNumber }} / 10</p>
 	</div>
 </template>
 
-<style lang="scss">
+<style lang='scss'>
 @import '../styles/variables';
 
 .question-view{
@@ -169,7 +91,6 @@
         }
         &.p-radiobutton, label {
             &:hover, &:active, &:focus {
-                color: $green-1;
                 cursor: pointer;
             }
         }
@@ -178,12 +99,7 @@
 .question-view.submitted {
     .options-grid{
         .option {
-            &.is-correct{
-                color: $green-2;
-            }
-            &.is-incorrect {
-                color: $error-1;
-            }
+
             pointer-events: none;
             .p-radiobutton, label {
                 &:hover {
@@ -193,12 +109,5 @@
         }
     }
 }
-
-.p-toast.p-component.p-toast-top-right.p-ripple-disabled{
-    max-width: calc(100vw - 40px);
-    top: 1em;
-    left: 1em;
-}
-
 
 </style>

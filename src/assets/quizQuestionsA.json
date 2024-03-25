@@ -12,7 +12,8 @@
                 "reason": "When addressing someone, add a séimhiú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             },
             {
                 "id": 2,
@@ -22,7 +23,8 @@
                 "reason": "Feminine nouns use the séimhiú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             },
             {
                 "id": 3,
@@ -32,7 +34,8 @@
                 "reason": "Counting things of 2 to 6 takes a séimhiú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             },
             {
                 "id": 4,
@@ -42,7 +45,8 @@
                 "reason": "Possessive mo, do, agus a (my, yours, and his) get a séimhiú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             },
             {
                 "id": 5,
@@ -57,7 +61,8 @@
                 "reason": "Some prepositions (such as \"i\" meaing \"in\") are followed by the úrú. The city of Dublin does not have an article \"an\" meaing \"the\".",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             },
             {
                 "id": 6,
@@ -72,7 +77,8 @@
                 "reason": "Mo (my), do (your), and a (his/her) get séimhiú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             },
             {
                 "id": 7,
@@ -87,7 +93,8 @@
                 "reason": "Mo (my), do (your), and a (his/her) get séimhiú. Literaly translation is \"I am in my sitting\".",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             },
             {
                 "id": 8,
@@ -102,7 +109,8 @@
                 "reason": "Regular verbs in the past tense get a séimhiú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             },
             {
                 "id": 9,
@@ -117,7 +125,8 @@
                 "reason": "Questions in future tense get an úrú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             },
             {
                 "id": 10,
@@ -132,7 +141,8 @@
                 "reason": "Possessions for our, your, and plural get an úrú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition"
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
             }
         ]
     }

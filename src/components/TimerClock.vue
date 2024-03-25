@@ -31,7 +31,3 @@ const timer = ref(time);
         {{ timer }}
     </div>
 </template>
-
-
-<style lang='ts'>
-</style>

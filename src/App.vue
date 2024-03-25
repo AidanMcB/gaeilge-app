@@ -1,13 +1,11 @@
-<script setup lang="ts">
+<script setup lang='ts'>
 
 </script>
 
 <template>
-    <div class="app-wrapper">
-        <header>
-            <div class="nav-wrapper">
-                <NavBar />
-            </div>
+    <div class='app-wrap grid'>
+        <header class='w-full absolute top-0'>
+            <NavBar />
         </header>
         <RouterView :key="$route.fullPath" />
     </div>
@@ -16,21 +14,20 @@
 <style scoped>
 .app-wrapper {
     height: 100%;
+    min-height: 100%;
     width: 100%;
+    /* align-self: center; */
 }
 
 header {
   line-height: 1.5;
-  max-height: 100vh;
 }
 
 nav {
   width: 100%;
   text-align: center;
   margin-top: 2rem;
-
 }
-
 
 @media (min-width: 1024px) {
     header {

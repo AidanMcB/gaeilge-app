@@ -1,8 +1,10 @@
 import "./assets/main.css";
+import "./index.css";
 import "./styles/index.scss";
 import "primevue/resources/themes/aura-light-green/theme.css";
 //Vue
 import { createApp } from "vue";
+import MultipleChoiceOptions from './components/MultipleChoiceOptions.vue';
 // PrimeVue
 import PrimeVue from "primevue/config";
 import Button from "primevue/button";
@@ -29,6 +31,7 @@ app.component("PrimeButton", Button);
 app.component("PrimeCard", Card);
 app.component("NavBar", NavBar);
 app.component("TimerClock", TimerClock);
+app.component("MultipleChoiceOptions", MultipleChoiceOptions);
 
 app.use(router);
 

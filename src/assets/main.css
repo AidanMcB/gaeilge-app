@@ -1,14 +1,12 @@
 @import './base.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 #app {
     max-width: 1280px;
     margin: 0 auto;
     padding: 2em;
     font-weight: normal;
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
 }
 
 a,
@@ -25,7 +23,7 @@ a,
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 700px) {
     body {
         display: flex;
         place-items: center;

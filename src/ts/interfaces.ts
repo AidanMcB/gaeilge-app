@@ -19,20 +19,21 @@ export interface QuizQuestion {
 	choices: string[];
 	correctAnswer: string;
 	reason: string;
-	state: string; // TBD: make enum value
+    state: string // TBD: make enum val
 	selectedAnswer: string;
 	category: string; // TBD: make enum value
+    isSubmitted: boolean,
+    isCorrect?: boolean,
 }
 
 export interface StoredData {
     section: number;
-    submittedAnswers: Answer[];
+    submittedAnswers: QuizQuestion[];
 }
 
 export interface Answer {
     questionId: number;
-    questionText: string;
-    isCorrect: boolean;
     answer: string;
-    correctAnswer: string;
+    isCorrect: boolean;
+    selectedAnswer: string;
 }
