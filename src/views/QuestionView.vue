@@ -49,6 +49,7 @@
         <div class='button-section'>
             <PrimeButton class='transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-500 p-2 text-white lg:text-2xl lg:p-4 disabled:opacity-60' 
                 @click='handleSubmit(store.activeQuestion)' 
+                v-if='!store.activeQuestion.isSubmitted'
                 :disabled='store.activeQuestion.isSubmitted || !store.selected'>
                 Submit
             </PrimeButton>

@@ -1,4 +1,5 @@
-import './matching.interfaces';
+import { Practice } from './enums.ts';
+import './matching.interfaces.ts';
 
 export interface TermCard {
 	id: number;
@@ -37,3 +38,5 @@ export interface Answer {
     isCorrect: boolean;
     selectedAnswer: string;
 }
+
+export type PracticeType = Practice.Quiz | Practice.Matching;

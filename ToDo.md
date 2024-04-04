@@ -14,3 +14,11 @@ Stretch Goals
 
 // look into
 - reusable class combinations for tailiwnd to prevent really long class names
+
+
+// matching
+    left english
+    right irish
+    - need to find a way to keep track of mistakes
+
+// notecards

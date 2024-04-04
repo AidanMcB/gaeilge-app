@@ -1,10 +1,10 @@
 <script setup lang='ts'>
 	import { useRouter } from 'vue-router';
+    import { clearAllStoredData } from '../utils/helper';
 	const router = useRouter();
 
 	function onClickHome() {
-        localStorage.removeItem('answered_questions');
-        localStorage.removeItem('question_number');
+        clearAllStoredData();
         router.push('/');
 	}
 </script>	

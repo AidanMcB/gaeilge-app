@@ -10,6 +10,7 @@ import PrimeVue from "primevue/config";
 import Button from "primevue/button";
 import ToastService from 'primevue/toastservice';
 import Card from 'primevue/card';
+
 // Pinia
 import { createPinia } from "pinia";
 
@@ -17,6 +18,7 @@ import App from "./App.vue";
 import router from "./router";
 import NavBar from "./components/NavBar.vue";
 import TimerClock from "./components/TimerClock.vue";
+import ResponseMessage from "./components/ResponseMessage.vue";
 
 
 const app = createApp(App);
@@ -32,6 +34,7 @@ app.component("PrimeCard", Card);
 app.component("NavBar", NavBar);
 app.component("TimerClock", TimerClock);
 app.component("MultipleChoiceOptions", MultipleChoiceOptions);
+app.component("ResponseMessage", ResponseMessage);
 
 app.use(router);
 

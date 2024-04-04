@@ -1,18 +1,19 @@
 <script setup lang='ts'>
 import { useRouter } from 'vue-router';
+import { MultipleChoiceDataKeys } from '../ts/enums';
 import { type QuizQuestion } from '../ts/interfaces';
-import { getLocalStorage } from '../utils/helper';
+import { clearAllStoredData, getLocalQuizData } from '../utils/helper';
 
     const router = useRouter();
-	const storedData = getLocalStorage('answered_questions');
+	const storedData = getLocalQuizData(MultipleChoiceDataKeys.AnsweredQuestions);
 
     function returnHome() {
-        localStorage.removeItem('answered_questions');
+        clearAllStoredData();
         router.push('/');
     }
 
     function tryAnotherQuiz() {
-        localStorage.removeItem('answered_questions');
+        clearAllStoredData();
         router.push('/quiz');
     }
 

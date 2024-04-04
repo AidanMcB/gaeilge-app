@@ -38,15 +38,10 @@ const router = createRouter({
             component: ResultsView
         },
         {
-            path: '/matching',
+            path: '/matching/section/:section_id/group/:vocab_group_id',
             name: 'matching',
             component: MatchingView,
         }
-        // {
-        //     path: '/speech',
-        //     name: 'speech',
-        //     component: SpeechView,
-        // }
     ]
 })
 

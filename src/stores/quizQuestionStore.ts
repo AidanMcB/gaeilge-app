@@ -1,9 +1,11 @@
-import type { Answer, QuizQuestion, QuizQuestionData, StoredData } from "@/ts/interfaces";
-import { defineStore } from "pinia";
-import questionDataJSON from "../assets/quizQuestionsA.json";
-import { getLocalStorage } from "@/utils/helper";
-  
-export const useQuizStore = defineStore("quizStore", {
+import type { Answer, QuizQuestion, QuizQuestionData, StoredData } from '@/ts/interfaces';
+import { defineStore } from 'pinia';
+import questionDataJSON from '../assets/quizQuestionsA.json';
+import { getLocalQuizData } from '@/utils/helper';
+import router from '@/router';
+import { MultipleChoiceDataKeys } from '@/ts/enums';
+
+export const useQuizStore = defineStore('quizStore', {
 	state: () => ({
 		id: 0,
         storedData: {} as StoredData,
@@ -19,7 +21,7 @@ export const useQuizStore = defineStore("quizStore", {
         initQuestionView(sectionId: number, questionId: number) {
             this.sectionId = sectionId;
             this.questionId = questionId;
-            this.activeQuestionNumber = localStorage.getItem('question_number') || '0';
+            this.activeQuestionNumber = localStorage.getItem(MultipleChoiceDataKeys.QuestionNumber) || '0';
             
             this.setStoredData();
             this.setActiveQuiz(sectionId);
@@ -45,12 +47,12 @@ export const useQuizStore = defineStore("quizStore", {
 			}
 		},
         setStoredData(): void {
-            this.storedData = getLocalStorage('answered_questions');
+            this.storedData = getLocalQuizData(MultipleChoiceDataKeys.AnsweredQuestions);
         },
         submitAnswer(answeredQuestion: Answer): void {
             const matchedQuestion = this.currentQuizData.questions.find(q => q.id === answeredQuestion.questionId);
             if (!matchedQuestion) {
-                return
+                return;
             }
             if (this.storedData) {
                 // If not the first question
@@ -64,7 +66,7 @@ export const useQuizStore = defineStore("quizStore", {
                             isSubmitted: true,
                             selectedAnswer: answeredQuestion.selectedAnswer
                         });
-                        localStorage.setItem('answered_questions', JSON.stringify(this.storedData));
+                        localStorage.setItem(MultipleChoiceDataKeys.AnsweredQuestions, JSON.stringify(this.storedData));
                     } else {
                         console.log('Already Answered');
                     }
@@ -82,7 +84,7 @@ export const useQuizStore = defineStore("quizStore", {
                     };
     
                     this.storedData = newStoredData;
-                    localStorage.setItem('answered_questions', JSON.stringify(newStoredData)); 
+                    localStorage.setItem(MultipleChoiceDataKeys.AnsweredQuestions, JSON.stringify(newStoredData)); 
                 }
             // Create stored data if does not exist
             } else {
@@ -95,14 +97,14 @@ export const useQuizStore = defineStore("quizStore", {
                         selectedAnswer: answeredQuestion.selectedAnswer
                     } 
                 ] };
-                localStorage.setItem('answered_questions', JSON.stringify(newStoredData));
+                localStorage.setItem(MultipleChoiceDataKeys.AnsweredQuestions, JSON.stringify(newStoredData));
                 this.storedData = newStoredData;
             }
         },
         nextQuestion(): number {
             const questionNumber = parseInt(this.activeQuestionNumber || '1') || 1;
             // Increment question_number to display in UI
-            localStorage.setItem('question_number', (questionNumber + 1).toString());
+            localStorage.setItem(MultipleChoiceDataKeys.QuestionNumber, (questionNumber + 1).toString());
 
             const allQuestionIds: number[] = this.currentQuizData.questions.map(q => q.id);
             const answeredQuestionIds: number[] = this.storedData.submittedAnswers?.map(q => q.id) || [];
@@ -126,7 +128,14 @@ export const useQuizStore = defineStore("quizStore", {
         updateSelected(val: string): void {
             this.selected = val;
         },
-        clearStoredData(): void {
+        startNewQuiz(quizSection: number): void {
+            this.clearQuizData();
+            const startingQuestion = Math.floor(Math.random() * 10)+1;
+            localStorage.setItem(MultipleChoiceDataKeys.AnsweredQuestions, JSON.stringify({ section: quizSection, answers: [] }) );
+            localStorage.setItem(MultipleChoiceDataKeys.QuestionNumber, '1');
+            router.push(`/quiz/section/${quizSection}/question/${startingQuestion}`);
+        },
+        clearQuizData(): void {
             this.id = 0;
             this.storedData = {} as StoredData;
             this.currentQuizData = {} as QuizQuestionData;
