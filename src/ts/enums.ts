@@ -1,4 +1,3 @@
-
 export enum Practice {
     Quiz = 'quiz',
     Matching = 'matching'

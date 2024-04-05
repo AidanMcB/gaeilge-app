@@ -1,7 +1,6 @@
 
 <script setup lang='ts'>
-import { useQuizStore } from '../stores/quizQuestionStore';
-import { type QuizQuestion } from '../ts/interfaces';
+import { useQuizStore } from '../stores/quizStore';
 
     const store = useQuizStore();
 
@@ -53,3 +52,4 @@ import { type QuizQuestion } from '../ts/interfaces';
     </span>
 
 </template>
+../stores/quizStore

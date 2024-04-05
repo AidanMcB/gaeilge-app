@@ -1,15 +1,16 @@
 <script setup lang='ts'>
     import { onMounted } from 'vue';
 	import { useRoute, useRouter } from 'vue-router';
-	import { useQuizStore } from '../stores/quizQuestionStore';
+	import { useQuizStore } from '../stores/quizStore';
     import { type QuizQuestion } from '../ts/interfaces';
+import { randomNextQuestion } from '../utils/helper';
 
     const route = useRoute()
     const router = useRouter();
 	const store = useQuizStore();
 
-    onMounted(() => {
-        store.initQuestionView(parseInt(route.params.section_id as string), parseInt(route.params.question_id as string));
+    onMounted(async () => {
+        await store.initQuestionView(parseInt(route.params.section_id as string), parseInt(route.params.question_id as string));
     });
 
     function handleSubmit(question: QuizQuestion) {
@@ -23,14 +24,14 @@
     }
 
     function isLastQuestionsInQuiz(): boolean {
-        return store.storedData.submittedAnswers?.length === 10;
+        return store.submittedData.questions?.length === 10;
     }
 
     function handleNext() {
         if (isLastQuestionsInQuiz()) {
             router.push(`/quiz/section/${store.sectionId}/results`);
         } else {
-            const nextQuestion = store.nextQuestion()
+            const nextQuestion = randomNextQuestion(store.activeQuiz.questions, store.submittedData.questions);
             router.push(`/quiz/section/${store.sectionId}/question/${nextQuestion}`);
         }
     }
@@ -38,7 +39,12 @@
 </script>
 
 <template>
-	<div :class="{'question-view': true, 'submitted': store.activeQuestion.isSubmitted }">
+	<div :class="{
+        'question-view transition-all duration-200': true, 
+        'submitted': store.activeQuestion.isSubmitted,
+        'opacity-100': store.activeQuestion.id,
+        'opacity-0': !store.activeQuestion.id
+    }">
 
         <h1 class='question text-2xl lg:text-4xl'>{{ store.activeQuestion?.question }}</h1>
         
@@ -62,7 +68,7 @@
             </PrimeButton>
         </div>
 
-        <p class='bottom-right lg:text-2xl'>{{ store.activeQuestionNumber }} / 10</p>
+        <p class='bottom-right lg:text-2xl'> {{ store.submittedData?.questions?.length }} / 10</p>
 	</div>
 </template>
 
@@ -112,3 +118,4 @@
 }
 
 </style>
+../stores/quizStore

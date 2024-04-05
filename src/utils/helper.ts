@@ -1,14 +1,14 @@
 import { MatchingDataKeys, MultipleChoiceDataKeys } from "@/ts/enums";
-import type { StoredData } from "@/ts/interfaces";
+import type { QuizQuestion, SubmittedData } from "@/ts/interfaces";
 import type { VocabStoredData } from "@/ts/matching.interfaces";
 
 export function getLocalQuizData(itemKey: string) {
     const localStorageData = localStorage.getItem(itemKey);
-    let storedData: StoredData = {} as StoredData;
+    let submittedData: SubmittedData = {} as SubmittedData;
     if (localStorageData) {
-        storedData = JSON.parse(localStorageData);
+        submittedData = JSON.parse(localStorageData);
     } 
-    return storedData;
+    return submittedData;
 }
 
 export function getLocalVocabData(itemKey: string) {
@@ -30,4 +30,15 @@ export function clearAllStoredData(): void {
 
 export function randomSort(a: any, b: any): number {
     return 0.5 - Math.random();
+}
+
+export function randomNextQuestion(allQuestions: QuizQuestion[], submittedQuestions: QuizQuestion[]): number {
+    const allQuestionIds: number[] = allQuestions.map(q => q.id);
+    const answeredQuestionIds: number[] = submittedQuestions?.map(q => q.id) || [];
+    const remainingQuestionIds = allQuestionIds.filter(id => !answeredQuestionIds.includes(id));
+    return remainingQuestionIds[Math.floor(Math.random()*remainingQuestionIds.length)];
+}
+
+export function calcPercent(num: number, total: number): number {
+    return ((num / total)*100);
 }

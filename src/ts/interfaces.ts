@@ -7,7 +7,7 @@ export interface TermCard {
 	irishTerm?: string;
 }
 
-export interface QuizQuestionData {
+export interface QuizData {
 	id: number;
 	section: number;
 	description: string;
@@ -27,9 +27,9 @@ export interface QuizQuestion {
     isCorrect?: boolean,
 }
 
-export interface StoredData {
+export interface SubmittedData {
     section: number;
-    submittedAnswers: QuizQuestion[];
+    questions: QuizQuestion[];
 }
 
 export interface Answer {
