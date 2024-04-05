@@ -68,7 +68,14 @@ import { randomNextQuestion } from '../utils/helper';
             </PrimeButton>
         </div>
 
-        <p class='bottom-right lg:text-2xl'> {{ store.submittedData?.questions?.length }} / 10</p>
+        <div class='flex items-center'>
+            <span v-if='!store.activeQuestion.id' class='text-emerald-500 lg:text-2xl'> 
+                <i class='pi pi-spinner animate-spin lg:text-2xl'></i>
+                loading ...
+            </span>
+            <p class='ml-auto lg:text-2xl'> {{ store.submittedData?.questions?.length }} / 10</p>
+        </div>
+
 	</div>
 </template>
 

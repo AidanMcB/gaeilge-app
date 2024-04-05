@@ -7,7 +7,6 @@ import { AnswerState, Language, MatchingDataKeys } from '@/ts/enums';
   
 export const useMatchingStore = defineStore('matchingStore', {
 	state: () => ({
-		id: 0,
         sectionId: 0,
         groupId: 0,
         activeGroupId: 0,
@@ -33,6 +32,7 @@ export const useMatchingStore = defineStore('matchingStore', {
             this.setCurrentMatchingDataBySection(sectionId);
             this.setActiveVocabGroupById(vocabGroupId);
         },
+        // Setters
 		setCurrentMatchingDataBySection(vocabSection: number): void {
 			const matchingDataSection = this.allMatchingData.find( (data) => data.section === vocabSection );
 			if (matchingDataSection) {
@@ -77,7 +77,6 @@ export const useMatchingStore = defineStore('matchingStore', {
             router.push(`/matching/section/${section}/group/${vocabGroupId}`);
         },
         clearMatchingData(): void {
-            this.id =  0;
             this.currentMatchingData =  {} as MatchingData;
             this.allMatchingData =  translateTerms as MatchingData[];
             this.activeVocabGroup =  {} as VocabGroup;
@@ -95,6 +94,7 @@ export const useMatchingStore = defineStore('matchingStore', {
             }
 
         },
+        // Getters
         _checkMatchingTerms(): void {
             // Correct
             if (this.selectedEnglishTerm?.id === this.selectedIrishTerm?.id) {
