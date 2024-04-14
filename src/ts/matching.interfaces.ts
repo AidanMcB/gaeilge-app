@@ -1,16 +1,26 @@
-export interface MatchingData {
-    id: number;
-    section: number;
-    vocab: VocabGroup[];
-}
+import type { AnswerState, Language } from './enums';
 
-export interface VocabGroup {
+export interface VocabSection {
     id: number;
-    terms: Term[];
+    section: number,
+    englishTerms: Term[];
+    irishTerms: Term[];
 }
 
 export interface Term {
     id: number;
-    englishTerm: string;
-    irishTerm: string;
+    phrase: string;
+    isSelected?: boolean;
+    lang?: LanguageType;
+    state?: AnswerStateType;
 }
+
+export interface VocabSubmittedData {
+    section: number;
+    submittedTerms: Term[];
+    score?: number
+}
+
+export type LanguageType = Language.English | Language.Irish;
+
+export type AnswerStateType = AnswerState.Correct | AnswerState.Incorrect | AnswerState.Unanswered;

@@ -1,15 +1,16 @@
 <script setup lang='ts'>
     import { onMounted } from 'vue';
 	import { useRoute, useRouter } from 'vue-router';
-	import { useQuizStore } from '../stores/quizQuestionStore';
+	import { useQuizStore } from '../stores/quizStore';
     import { type QuizQuestion } from '../ts/interfaces';
+    import { randomNextQuestion } from '../utils/helper';
 
     const route = useRoute()
     const router = useRouter();
 	const store = useQuizStore();
 
-    onMounted(() => {
-        store.initQuestionView(parseInt(route.params.section_id as string), parseInt(route.params.question_id as string));
+    onMounted(async () => {
+        await store.initQuestionView(parseInt(route.params.section_id as string), parseInt(route.params.question_id as string));
     });
 
     function handleSubmit(question: QuizQuestion) {
@@ -23,14 +24,14 @@
     }
 
     function isLastQuestionsInQuiz(): boolean {
-        return store.storedData.submittedAnswers?.length === 10;
+        return store.submittedData.questions?.length === 10;
     }
 
     function handleNext() {
         if (isLastQuestionsInQuiz()) {
             router.push(`/quiz/section/${store.sectionId}/results`);
         } else {
-            const nextQuestion = store.nextQuestion()
+            const nextQuestion = randomNextQuestion(store.activeQuiz.questions, store.submittedData.questions);
             router.push(`/quiz/section/${store.sectionId}/question/${nextQuestion}`);
         }
     }
@@ -38,8 +39,12 @@
 </script>
 
 <template>
-	<div :class="{'question-view': true, 'submitted': store.activeQuestion.isSubmitted }">
-
+	<div :class="{
+        'question-view transition-all duration-200': true, 
+        'submitted': store.activeQuestion.isSubmitted,
+        'opacity-100': store.activeQuestion.id,
+        'opacity-0': !store.activeQuestion.id
+    }">
         <h1 class='question text-2xl lg:text-4xl'>{{ store.activeQuestion?.question }}</h1>
         
         <div class='options-grid'>
@@ -49,6 +54,7 @@
         <div class='button-section'>
             <PrimeButton class='transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-500 p-2 text-white lg:text-2xl lg:p-4 disabled:opacity-60' 
                 @click='handleSubmit(store.activeQuestion)' 
+                v-if='!store.activeQuestion.isSubmitted'
                 :disabled='store.activeQuestion.isSubmitted || !store.selected'>
                 Submit
             </PrimeButton>
@@ -61,7 +67,14 @@
             </PrimeButton>
         </div>
 
-        <p class='bottom-right lg:text-2xl'>{{ store.activeQuestionNumber }} / 10</p>
+        <div class='flex items-center'>
+            <span v-if='!store.activeQuestion.id' class='text-emerald-500 lg:text-2xl'> 
+                <i class='pi pi-spinner animate-spin lg:text-2xl'></i>
+                loading ...
+            </span>
+            <p class='ml-auto lg:text-2xl'> {{ store.submittedData?.questions?.length }} / 10</p>
+        </div>
+
 	</div>
 </template>
 
@@ -111,3 +124,4 @@
 }
 
 </style>
+../stores/quizStore

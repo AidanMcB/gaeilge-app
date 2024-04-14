@@ -1,12 +1,13 @@
-import './matching.interfaces';
+import { Practice } from './enums.ts';
+import './matching.interfaces.ts';
 
 export interface TermCard {
 	id: number;
-	englishTerm?: string;
-	irishTerm?: string;
+	englishPhrase?: string;
+	irishPhrase?: string;
 }
 
-export interface QuizQuestionData {
+export interface QuizData {
 	id: number;
 	section: number;
 	description: string;
@@ -26,9 +27,9 @@ export interface QuizQuestion {
     isCorrect?: boolean,
 }
 
-export interface StoredData {
+export interface SubmittedData {
     section: number;
-    submittedAnswers: QuizQuestion[];
+    questions: QuizQuestion[];
 }
 
 export interface Answer {
@@ -37,3 +38,5 @@ export interface Answer {
     isCorrect: boolean;
     selectedAnswer: string;
 }
+
+export type PracticeType = Practice.Quiz | Practice.Matching;
