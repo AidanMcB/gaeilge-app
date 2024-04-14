@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class='app-wrap grid'>
+    <div class='app-wrap grid w-full'>
         <header class='w-full absolute top-0'>
             <NavBar />
         </header>

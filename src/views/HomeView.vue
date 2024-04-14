@@ -4,9 +4,6 @@
         <RouterLink to='/quiz'>
             <PrimeButton class='bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded sm:text-lg md:text-2xl'>Cleachtadh do chuid Ghaeilge</PrimeButton>
         </RouterLink>
-        <RouterLink to='/matching'>
-            <PrimeButton class='bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded sm:text-lg md:text-2xl'>Cleachtadh do chuid Ghaeilge (Timer)</PrimeButton>
-        </RouterLink>
     </div>
 </template>
 

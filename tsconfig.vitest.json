@@ -1,5 +1,14 @@
 {
   "extends": "./tsconfig.app.json",
+  "include": [
+    "env.d.ts", 
+    "src/**/*", 
+    "src/**/*.vue", 
+    "src/**/*.ts", 
+    "src/services/*.service.ts",
+    "src/**/*.js",
+    "src/services/quiz.service.ts"
+],
   "exclude": [],
   "compilerOptions": {
     "composite": true,
