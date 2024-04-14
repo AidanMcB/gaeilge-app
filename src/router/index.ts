@@ -4,7 +4,7 @@ import QuizView from '../views/QuizView.vue';
 import QuestionView from '../views/QuestionView.vue';
 import ResultsView from '../views/ResultsView.vue';
 import MatchingView from '../views/MatchingView.vue';
-// import SpeechView from '@/views/SpeechView.vue';
+import MatchingResultsView from '@/views/MatchingResultsView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,10 +38,15 @@ const router = createRouter({
             component: ResultsView
         },
         {
-            path: '/matching/section/:section_id/group/:vocab_group_id',
+            path: '/matching/section/:section_id/',
             name: 'matching',
             component: MatchingView,
-        }
+        },
+        {
+            path: '/matching/section/:section_id/results',
+            name: 'matchingResults',
+            component:  MatchingResultsView
+        },
     ]
 })
 

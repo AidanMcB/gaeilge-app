@@ -1,212 +1,243 @@
 import { defineStore } from 'pinia';
-import translateTerms from '../assets/translateTerms.json';
-import type { LanguageType,  MatchingData,  Term,  VocabGroup,  VocabStoredData } from '@/ts/matching.interfaces';
-import router from '@/router';
-import { getLocalVocabData, randomSort } from '@/utils/helper';
-import { AnswerState, Language, MatchingDataKeys } from '@/ts/enums';
-  
+import type { LanguageType,  Term,  VocabSection } from '@/ts/matching.interfaces';
+import { AnswerState, Language } from '@/ts/enums';
+import * as matchingService from '@/services/matching.service';
+import { calcPercent } from '@/utils/helper';
+
 export const useMatchingStore = defineStore('matchingStore', {
 	state: () => ({
         sectionId: 0,
-        groupId: 0,
-        activeGroupId: 0,
-        activeGroupNumber: '1',
-		currentMatchingData: {} as MatchingData,
-		allMatchingData: translateTerms as MatchingData[],
-		activeVocabGroup: {} as VocabGroup,
-        storedData: {} as VocabStoredData,
-        selectedEnglishTerm: {} as Term,
-        selectedIrishTerm: {} as Term,
+        // Source of truth for 4 irish terms and english terms
+		activeVocab: {} as VocabSection,
+        // Source of truth for All Vocab data
+        activeVocabSection: {} as VocabSection,
         isDisabled: false,
-        sectionComplete: false,
+        termsToPractice: [] as Term[],
         errorCount: 0,
+        isLoading: true
 	}),
 	actions: {
-        initVocabMatchingView(sectionId: number, vocabGroupId: number): void {
-            this.sectionId = sectionId;
-            this.groupId = vocabGroupId;
-            this.activeGroupNumber = localStorage.getItem(MatchingDataKeys.GroupNumber) || '1';
-            
-            this.storedData = getLocalVocabData(MatchingDataKeys.AnsweredQuestions);
-            this.errorCount = parseInt(localStorage.getItem(MatchingDataKeys.ErrorCount) || '0');
-            this.setCurrentMatchingDataBySection(sectionId);
-            this.setActiveVocabGroupById(vocabGroupId);
-        },
         // Setters
-		setCurrentMatchingDataBySection(vocabSection: number): void {
-			const matchingDataSection = this.allMatchingData.find( (data) => data.section === vocabSection );
-			if (matchingDataSection) {
-				this.currentMatchingData = matchingDataSection;
-			}
-		},
-		setActiveVocabGroupById(vocabGroupId: number): void {
-            const answeredVocabGroup = this.storedData?.submittedAnswers?.find( (group) => group.id === vocabGroupId );
-            const vocabGroup = this.currentMatchingData?.vocab.find( (group) => group.id === vocabGroupId );
-
-			if (vocabGroup) {
-                vocabGroup?.englishTerms.map((term) => {
-                    answeredVocabGroup?.englishTerms.map((answTerm) => {
-                        if (term.id === answTerm.id) {
-                            term.state = AnswerState.Correct;
-                        }                        
-                    });            
-                });
-                vocabGroup?.irishTerms.map((term) => {
-                    answeredVocabGroup?.irishTerms.map((answTerm) => {
-                        if (term.id === answTerm.id) {
-                            term.state = AnswerState.Correct;
-                        }                        
-                    });
-                });
-                const randomizedVocabGroup = {
-                    id: vocabGroup.id,
-                    englishTerms: vocabGroup.englishTerms.sort(randomSort),
-                    irishTerms: vocabGroup.irishTerms.sort(randomSort)
-                }
-				this.activeVocabGroup = randomizedVocabGroup;
-			}
-		},
-        clearActiveVocabGroup(): void {
-            this.activeVocabGroup = {} as VocabGroup;
-        },
-        startNewMatching(section: number) {
+        startNewMatchingQuiz(matchingData: VocabSection): void {
+            // clear all previous data in state and storage
             this.clearMatchingData();
-            const vocabGroupId = Math.floor(Math.random() * 10)+1;
-            localStorage.setItem(MatchingDataKeys.AnsweredQuestions, JSON.stringify({ section: section, answers: [], score: 0 }) );
-            localStorage.setItem(MatchingDataKeys.GroupNumber, '1');
-            router.push(`/matching/section/${section}/group/${vocabGroupId}`);
+            // Set activeVocabSection data
+            this.activeVocabSection = matchingData;
+            // Set db (localStorage) submitted data
+            matchingService._updateActiveVocabSection(matchingData);
+            this.isLoading = false;
         },
-        clearMatchingData(): void {
-            this.currentMatchingData =  {} as MatchingData;
-            this.allMatchingData =  translateTerms as MatchingData[];
-            this.activeVocabGroup =  {} as VocabGroup;
+        async initVocabMatchingView(sectionId: number): Promise<void> {
+            this.sectionId = sectionId;
+            await this.setActiveVocabSection();
+            await this.setTermsToPractice();
+            this.setActiveVocab();
+            this.errorCount = await this.getErrorCount() || 0;
+            this.isLoading = false;
         },
-        handleSelectTerm(term: Term, language: LanguageType): void {
-            if (language === Language.English) {
-                this.selectedEnglishTerm = term;
-            } else if (language === Language.Irish) {
-                this.selectedIrishTerm = term;
-            }
-
-            if (this.selectedEnglishTerm?.id && this.selectedIrishTerm?.id) {
-                this.isDisabled = true;
-                this._checkMatchingTerms();
-            }
-
-        },
-        // Getters
-        _checkMatchingTerms(): void {
-            // Correct
-            if (this.selectedEnglishTerm?.id === this.selectedIrishTerm?.id) {
-                this._handleCorrectAnswer(this.selectedEnglishTerm); // arbitrary choice of English, if question is correct either will work here
-            } else if (this.selectedEnglishTerm?.id !== this.selectedIrishTerm?.id) {
-            // Incorrect
-                this._handleIncorrectAnswer(AnswerState.Incorrect);
-            }
-        },
-        _handleCorrectAnswer(term: Term): void {
-            // // Update activeVocabGroup
-            this.activeVocabGroup.englishTerms.map((term: Term) => {
-                if (term.id === this.selectedEnglishTerm.id) {
-                    term.state = AnswerState.Correct;
-                } 
-            }); 
-            this.activeVocabGroup.irishTerms.map((term: Term) => {
-                if (term.id === this.selectedIrishTerm.id) {
-                    term.state = AnswerState.Correct;
-                } 
+        setActiveVocab(): void {
+            // filter terms that state === AnswerState.Unanswered;
+            const unAnsweredTerms: Term[] = this.activeVocabSection.englishTerms.filter(term => term.state === AnswerState.Unanswered || !term.state);
+            // grab 4 random unused irish terms
+            const randomEnglishTerms: Term[] = unAnsweredTerms.sort(() => Math.random() - Math.random()).slice(0, 4);
+            const irishTranslationTerms: Term[] = [] as Term[];
+            // match to the 4 unused english terms
+            this.activeVocabSection.irishTerms.filter(irTerm => {
+                randomEnglishTerms.forEach(engTerm => {
+                    if (engTerm.id === irTerm.id) {
+                        irishTranslationTerms.push(irTerm);
+                    }
+                })
             });
 
-            this.selectedEnglishTerm = {} as Term;
-            this.selectedIrishTerm = {} as Term;
-            
-            // Update storedData and localStorage
-            const englishAnswer = this.activeVocabGroup.englishTerms.find(t => t.id === term.id);
-            const irishAnswer = this.activeVocabGroup.irishTerms.find(t => t.id === term.id);
-            if (englishAnswer && irishAnswer) {
-                //  if no answers yet submitted
-                if (!this.storedData.submittedAnswers) {
-                    this.storedData = {
-                        groupId: this.groupId,
-                        submittedAnswers: [
-                            { 
-                                id: this.groupId, 
-                                englishTerms: [{...englishAnswer, state: AnswerState.Correct }],
-                                irishTerms: [{...irishAnswer, state: AnswerState.Correct }]
-                            }
-                        ]
-                    }
-                } else {
-                // if not the first question submitted
-                    const localSubmittedAnswers = this.storedData.submittedAnswers;
-                    const group: VocabGroup | undefined = localSubmittedAnswers.find((group: VocabGroup) => group.id === this.groupId);
-                    // Update group
-                    if (group) {
-                        group.englishTerms.push({
-                            ...englishAnswer,
-                            state: AnswerState.Correct
-                        });
-                        group.irishTerms.push({
-                            ...irishAnswer,
-                            state: AnswerState.Correct
-                        });
+            const activeVocab: VocabSection = {
+                id: this.activeVocabSection.id,
+                section: this.activeVocabSection.section,
+                englishTerms: randomEnglishTerms,
+                irishTerms: irishTranslationTerms,
+            };
 
-                        // Update localSubmittedAnswers
-                        const index = localSubmittedAnswers.findIndex((localGroup: VocabGroup) => localGroup.id === group.id);
-                        if (index > -1) {
-                            localSubmittedAnswers.splice(index, 1, group);
-                            // Update storedData
-                            this.storedData.submittedAnswers = localSubmittedAnswers;
-                        }
-                    }
+            this.activeVocab = activeVocab;
+        },
+        setVocabToUnselected(englishIndex: number, irishIndex: number): void {
+            this.activeVocab.englishTerms[englishIndex].isSelected = false
+            this.activeVocab.irishTerms[irishIndex].isSelected = false;
+        },
+        setVocabStatesToUnanswered(englishIndex: number, irishIndex: number): void {
+            this.activeVocab.englishTerms[englishIndex].state = AnswerState.Unanswered;
+            this.activeVocab.irishTerms[irishIndex].state = AnswerState.Unanswered;
+            this.isDisabled = false;
+        },
+        async setTermsToPractice(term?: Term): Promise<void> {
+            // only add terms that have not yet failed
+            if (term) {
+                if (this.termsToPractice.findIndex((t: Term) => t.id === term.id) === -1) {
+                    this.termsToPractice = [...this.termsToPractice, term];
                 }
-                // set localStorage via stored data
-                localStorage.setItem(MatchingDataKeys.AnsweredQuestions, JSON.stringify(this.storedData));
-                this.isDisabled = false;
+            } else {
+                this.termsToPractice = await this.getTermsToPractice() || [];
+            }
+            try {
+                const resp = matchingService._setTermsToPractice(this.termsToPractice);
+                if (resp) {
+                    return resp;
+                }
+            }
+            catch (err) {
+                console.error('Failed to set the terms to practice. Error: ', err);
+                return undefined;
             }
         },
-        _handleIncorrectAnswer(state: AnswerState): void {
-            this.selectedEnglishTerm.state = AnswerState.Incorrect;
-            this.selectedIrishTerm.state = AnswerState.Incorrect;
-            this.errorCount = this.errorCount + 1;
-            localStorage.setItem(MatchingDataKeys.ErrorCount, JSON.stringify(this.errorCount));
-            setTimeout(() => {
-                // English
-                this.activeVocabGroup?.englishTerms?.map((term: Term) => {
-                    if (state === AnswerState.Incorrect) {
-                        if (term.id === this.selectedEnglishTerm.id) {
-                            term.state = AnswerState.Unanswered;
-                        } 
+        clearActiveVocabGroup(): void {
+            this.activeVocab = {} as VocabSection;
+        },
+        async setActiveVocabSection(): Promise<void> {
+            try {
+                const activeVocabSection = await matchingService._getActiveVocabSectionById(this.sectionId);
+                if (activeVocabSection) {
+                    this.activeVocabSection = activeVocabSection;
+                }
+            } catch (err) {
+                console.error('Failed to get submitted matching data. Error: ', err);
+            }
+        },
+        incrementErrorCount(): void {
+            this.errorCount += 1;
+            // set error in DB (localStorage) also
+            matchingService._updateMatchingErrorCount(this.errorCount);
+        },
+        clearMatchingData(): void {
+            this.activeVocab = {} as VocabSection;
+            this.activeVocabSection = {} as VocabSection;
+        },
+        async handleSelectTerm(selectedTerm: Term, language: LanguageType): Promise<void> {
+            if (language === Language.English) {
+                this.activeVocab.englishTerms.map((term: Term) => {
+                    if (term.id === selectedTerm.id) {
+                        term.isSelected = true;
+                    } else if (term.state === AnswerState.Unanswered || !term.state) {
+                        term.isSelected = false;
                     }
                 });
-                // Irish
-                this.activeVocabGroup?.irishTerms?.map((term: Term) => {
-                    if (state === AnswerState.Incorrect) {
-                        if (term.id === this.selectedIrishTerm.id) {
-                            term.state = AnswerState.Unanswered;
-                        } 
+            } else if (language === Language.Irish) {
+                this.activeVocab.irishTerms.map((term: Term) => {
+                    if (term.id === selectedTerm.id) {
+                        term.isSelected = true;
+                    } else if (term.state === AnswerState.Unanswered || !term.state) {
+                        term.isSelected = false;
                     }
-                });
+                });       
+            }
 
-                this.selectedEnglishTerm = {} as Term;
-                this.selectedIrishTerm = {} as Term;
-                this.isDisabled = false;
-            }, 1500);
+            if(this.areTwoTermsSelected()) {
+                const irishIndex = this.activeVocab.irishTerms.findIndex(term => term.isSelected === true);
+                const englishIndex = this.activeVocab.englishTerms.findIndex(term => term.isSelected === true);
+
+                if (irishIndex > -1 && englishIndex > -1) {
+                    if (this.isSelectedVocabCorrect(englishIndex, irishIndex)) {
+                        this.handleCorrectAnswer(englishIndex, irishIndex);
+                    } else {
+                        await this.handleIncorrectAnswer(englishIndex, irishIndex);
+                    }
+                }
+            }
         },
-        handleNextVocabGroup(): number {
-            const allGroupIds: number[] = this.currentMatchingData.vocab.map(vocabGroup => vocabGroup.id);
-            const completedVocabGroupIds: number[] = this.storedData.submittedAnswers?.map(q => q.id) || [];
-            console.log('Complete Vocab Group: ', completedVocabGroupIds);
-            const remainingVocabGroupIds: number[] = allGroupIds.filter(id => !completedVocabGroupIds.includes(id));
-            console.log('Remaining Question Ids: ', remainingVocabGroupIds)
+        handleCorrectAnswer(englishIndex: number, irishIndex: number): void {
+            // Update activeVocab state
+            this.activeVocab.englishTerms[englishIndex].state = AnswerState.Correct;
+            this.activeVocab.irishTerms[irishIndex].state = AnswerState.Correct;
 
+            // Find index of terms in activeVocabSection
+            const activeSectionEnglishIndex = this.activeVocabSection.englishTerms.findIndex(term => term.id === this.activeVocab.englishTerms[englishIndex].id);
+            const activeSectionIrishIndex = this.activeVocabSection.irishTerms.findIndex(term => term.id === this.activeVocab.irishTerms[irishIndex].id);
+
+            // Update activeVocabSection state
+            this.activeVocabSection.englishTerms[activeSectionEnglishIndex].state = AnswerState.Correct;
+            this.activeVocabSection.irishTerms[activeSectionIrishIndex].state = AnswerState.Correct;
+            
+            // Update db (localStorage)
+            matchingService._updateActiveVocabSection(this.activeVocabSection);
+            this.setVocabToUnselected(englishIndex, irishIndex);
+        },
+        async handleIncorrectAnswer(englishIndex: number, irishIndex: number): Promise<void> {
+            this.isDisabled = true;
+            this.activeVocab.englishTerms[englishIndex].state = AnswerState.Incorrect;
+            this.activeVocab.irishTerms[irishIndex].state = AnswerState.Incorrect;
+            // add englishTerm and irishTerm to terms-to-practice
+            this.setTermsToPractice(this.activeVocab.irishTerms[irishIndex]);
+            this.incrementErrorCount();
             setTimeout(() => {
-                this.activeGroupNumber = (parseInt(this.activeGroupNumber )+ 1).toString();
-                localStorage.setItem(MatchingDataKeys.GroupNumber, (this.activeGroupNumber).toString());
-            }, 100)
-
-            const nextVocabGroupId = remainingVocabGroupIds[Math.floor(Math.random()*remainingVocabGroupIds.length)];
-            return nextVocabGroupId;
+                this.setVocabToUnselected(englishIndex, irishIndex);
+                this.setVocabStatesToUnanswered(englishIndex, irishIndex);
+            }, 1000);
         },
+        // Getters
+        async getNewVocabSectionData(sectionId: number): Promise<VocabSection | undefined> {
+            try {
+                const currentSectionVocab = await matchingService._getNewVocabSectionById(sectionId);
+                return currentSectionVocab;
+            } catch (err) {
+                console.error('Failed to get current section data. Error: ', err);
+                return undefined;
+            }
+        },
+        async getErrorCount(): Promise<number | undefined> {
+           const terms = await this.getTermsToPractice();
+            if (terms) {
+                return terms.length;
+            } else {
+                return 0;
+           }
+        },
+        getTranslatedTerm(term: Term): Term {
+            let index;
+            if (term.lang === Language.English) {
+                index = this.activeVocabSection.irishTerms.findIndex((t: Term) => t.id === term.id);
+                return this.activeVocabSection.irishTerms[index];
+            } else {
+                index = this.activeVocabSection.englishTerms.findIndex((t: Term) => t.id === term.id);
+                return this.activeVocabSection.englishTerms[index];
+            }
+        },
+        getPercentageAnswered(): number | undefined {
+            if (this.activeVocabSection.englishTerms && this.activeVocabSection.englishTerms.length > 0){
+                const answered: Term[] = this.activeVocabSection.englishTerms.filter((term: Term) => term.state === AnswerState.Correct);
+                return calcPercent(answered.length, this.activeVocabSection.englishTerms.length);
+            }
+        },
+        async getTermsToPractice(): Promise<Term[] | undefined> {
+            try {
+                const termsToPractice = await matchingService._getTermsToPractice();
+                if (termsToPractice) {
+                    return termsToPractice;
+                }
+            } catch (err) {
+                console.error('Failed to get terms to practice. Error: ', err);
+                return undefined;
+            }
+        },
+        // Checks
+        areTwoTermsSelected(): boolean {
+            // Check if two answers are selected
+            const answeredEnglishTerm: Term[] = this.activeVocab.englishTerms.filter(term => term.isSelected === true);
+            const answeredIrishTerm: Term[] = this.activeVocab.irishTerms.filter(term => term.isSelected === true);
+            return (answeredEnglishTerm?.length > 0 && answeredIrishTerm?.length > 0);
+        },
+        isSelectedVocabCorrect(englishIndex: number, irishIndex: number): boolean {
+            return (this.activeVocab.englishTerms[englishIndex].id === this.activeVocab.irishTerms[irishIndex].id)
+        },
+        nextBatchOfVocabQuestions(): void {
+            this.activeVocab = {} as VocabSection;
+            this.setActiveVocab();
+        },
+        isComplete(): boolean {
+            if (
+                this.activeVocabSection &&
+                this.activeVocabSection.englishTerms?.filter(term => term.state === AnswerState.Correct).length === this.activeVocabSection?.englishTerms?.length
+            ) {
+                return true;
+            }
+            return false;
+        }
 	},
 });

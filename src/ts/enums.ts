@@ -22,5 +22,6 @@ export enum MultipleChoiceDataKeys {
 export enum MatchingDataKeys {
     ErrorCount = 'vocab_err_count',
     AnsweredQuestions = 'answered_vocab_questions',
-    GroupNumber = 'vocab_group_number'
+    GroupNumber = 'vocab_group_number',
+    TermsToPractice = 'terms_to_practice'
 }

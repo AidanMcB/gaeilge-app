@@ -1,6 +1,6 @@
-import { MatchingDataKeys, MultipleChoiceDataKeys } from "@/ts/enums";
-import type { QuizQuestion, SubmittedData } from "@/ts/interfaces";
-import type { VocabStoredData } from "@/ts/matching.interfaces";
+import { MatchingDataKeys, MultipleChoiceDataKeys } from '@/ts/enums';
+import type { QuizQuestion, SubmittedData } from '@/ts/interfaces';
+import type { VocabSection } from '@/ts/matching.interfaces';
 
 export function getLocalQuizData(itemKey: string) {
     const localStorageData = localStorage.getItem(itemKey);
@@ -13,7 +13,7 @@ export function getLocalQuizData(itemKey: string) {
 
 export function getLocalVocabData(itemKey: string) {
     const localStorageData = localStorage.getItem(itemKey);
-    let storedData: VocabStoredData = {} as VocabStoredData;
+    let storedData: VocabSection = {} as VocabSection;
     if (localStorageData) {
         storedData = JSON.parse(localStorageData);
     } 
@@ -26,6 +26,7 @@ export function clearAllStoredData(): void {
     localStorage.removeItem(MatchingDataKeys.ErrorCount);
     localStorage.removeItem(MatchingDataKeys.AnsweredQuestions);
     localStorage.removeItem(MatchingDataKeys.GroupNumber);
+    localStorage.clear();
 }
 
 export function randomSort(a: any, b: any): number {

@@ -1,399 +1,330 @@
 [
-    {
+    { 
         "id": 0,
         "section": 1,
-        "vocab": [
+        "englishTerms": [
+            {
+                "id": 0,
+                "phrase": "short verbs"
+            },
             {
                 "id": 1,
-                "englishTerms": [
-                    {
-                        "id": 0,
-                        "phrase": "short verbs"
-                    },
-                    {
-                        "id": 1,
-                        "phrase": "long verbs"
-                    },
-                    {
-                        "id": 2,
-                        "phrase": "verb"
-                    },
-                    {
-                        "id": 3,
-                        "phrase": "subject"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 0,
-                        "phrase": "briathra gearra"
-                    },
-                    {
-                        "id": 1,
-                        "phrase": "briathra fada"
-                    },
-                    {
-                        "id": 2,
-                        "phrase": "briathar"
-                    },
-                    {
-                        "id": 3,
-                        "phrase": "ainmní"
-                    }
-                ]
+                "phrase": "long verbs"
             },
             {
                 "id": 2,
-                "englishTerms": [
-                    {
-                        "id": 4,
-                        "phrase": "object"
-                    },
-                    {
-                        "id": 5,
-                        "phrase": "masculine "
-                    },
-                    {
-                        "id": 6,
-                        "phrase": "feminine"
-                    },
-                    {
-                        "id": 7,
-                        "phrase": "gender"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 4,
-                        "phrase": "cuspóir"
-                    },
-                    {
-                        "id": 5,
-                        "phrase": "firinscneach"
-                    },
-                    {
-                        "id": 6,
-                        "phrase": "baininscneach"
-                    },
-                    {
-                        "id": 7,
-                        "phrase": "inscne"
-                    }
-                ]
+                "phrase": "verb"
             },
             {
                 "id": 3,
-                "englishTerms": [
-                    {
-                        "id": 8,
-                        "phrase": "the bread"
-                    },
-                    {
-                        "id": 9,
-                        "phrase": "key"
-                    },
-                    {
-                        "id": 10,
-                        "phrase": "the summer"
-                    },
-                    {
-                        "id": 11,
-                        "phrase": "tree"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 8,
-                        "phrase": "an t-arán"
-                    },
-                    {
-                        "id": 9,
-                        "phrase": "eochair"
-                    },
-                    {
-                        "id": 10,
-                        "phrase": "an samhradh"
-                    },
-                    {
-                        "id": 11,
-                        "phrase": "crann"
-                    }
-                ]
+                "phrase": "subject"
             },
             {
                 "id": 4,
-                "englishTerms": [
-                    {
-                        "id": 12,
-                        "phrase": "the shoe"
-                    },
-                    {
-                        "id": 13,
-                        "phrase": "to do/make"
-                    },
-                    {
-                        "id": 14,
-                        "phrase": "bad"
-                    },
-                    {
-                        "id": 15,
-                        "phrase": "salt"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 12,
-                        "phrase": "an bhróg"
-                    },
-                    {
-                        "id": 13,
-                        "phrase": "déan"
-                    },
-                    {
-                        "id": 14,
-                        "phrase": "dona"
-                    },
-                    {
-                        "id": 15,
-                        "phrase": "salann"
-                    }
-                ]
+                "phrase": "object"
             },
             {
                 "id": 5,
-                "englishTerms": [
-                    {
-                        "id": 16,
-                        "phrase": "happy"
-                    },
-                    {
-                        "id": 17,
-                        "phrase": "juice"
-                    },
-                    {
-                        "id": 18,
-                        "phrase": "sugar"
-                    },
-                    {
-                        "id": 19,
-                        "phrase": "to come"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 16,
-                        "phrase": "sona"
-                    },
-                    {
-                        "id": 17,
-                        "phrase": "sú"
-                    },
-                    {
-                        "id": 18,
-                        "phrase": "siúcra"
-                    },
-                    {
-                        "id": 19,
-                        "phrase": "tar"
-                    }
-                ]
+                "phrase": "masculine "
             },
             {
                 "id": 6,
-                "englishTerms": [
-                    {
-                        "id": 20,
-                        "phrase": "sofa"
-                    },
-                    {
-                        "id": 21,
-                        "phrase": "dry"
-                    },
-                    {
-                        "id": 22,
-                        "phrase": "hot"
-                    },
-                    {
-                        "id": 23,
-                        "phrase": "person"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 20,
-                        "phrase": "tolg"
-                    },
-                    {
-                        "id": 21,
-                        "phrase": "tirim"
-                    },
-                    {
-                        "id": 22,
-                        "phrase": "te"
-                    },
-                    {
-                        "id": 23,
-                        "phrase": "duine"
-                    }
-                ]
+                "phrase": "feminine"
             },
             {
                 "id": 7,
-                "englishTerms": [
-                    {
-                        "id": 24,
-                        "phrase": "white"
-                    },
-                    {
-                        "id": 25,
-                        "phrase": "I read"
-                    },
-                    {
-                        "id": 26,
-                        "phrase": "young"
-                    },
-                    {
-                        "id": 27,
-                        "phrase": "cake"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 24,
-                        "phrase": "ban"
-                    },
-                    {
-                        "id": 25,
-                        "phrase": "léim"
-                    },
-                    {
-                        "id": 26,
-                        "phrase": "óg"
-                    },
-                    {
-                        "id": 27,
-                        "phrase": "cáca"
-                    }
-                ]
+                "phrase": "gender"
             },
             {
-
                 "id": 8,
-                "englishTerms": [
-                    {
-                        "id": 28,
-                        "phrase": "clothes"
-                    },
-                    {
-                        "id": 29,
-                        "phrase": "television"
-                    },
-                    {
-                        "id": 30,
-                        "phrase": "book"
-                    },
-                    {
-                        "id": 31,
-                        "phrase": "homework"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 28,
-                        "phrase": "éadaí"
-                    },
-                    {
-                        "id": 29,
-                        "phrase": "teilifís"
-                    },
-                    {
-                        "id": 30,
-                        "phrase": "leabhar"
-                    },
-                    {
-                        "id": 31,
-                        "phrase": "obair bhaile"
-                    }
-                ]
+                "phrase": "the bread"
             },
             {
                 "id": 9,
-                "englishTerms": [
-                    {
-                        "id": 32,
-                        "phrase": "baby"
-                    },
-                    {
-                        "id": 33,
-                        "phrase": "to write"
-                    },
-                    {
-                        "id": 34,
-                        "phrase": "black"
-                    },
-                    {
-                        "id": 35,
-                        "phrase": "excellent"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 32,
-                        "phrase": "leanbh"
-                    },
-                    {
-                        "id": 33,
-                        "phrase": "scríobh"
-                    },
-                    {
-                        "id": 34,
-                        "phrase": "dubh"
-                    },
-                    {
-                        "id": 35,
-                        "phrase": "go hiontach"
-                    }
-                ]
+                "phrase": "key"
             },
             {
                 "id": 10,
-                "englishTerms": [
-                    {
-                        "id": 36,
-                        "phrase": "blond hair"
-                    },
-                    {
-                        "id": 37,
-                        "phrase": "in the garden"
-                    },
-                    {
-                        "id": 38,
-                        "phrase": "practice"
-                    },
-                    {
-                        "id": 39,
-                        "phrase": "to kiss"
-                    }
-                ],
-                "irishTerms": [
-                    {
-                        "id": 36,
-                        "phrase": "gruaig fhionn"
-                    },
-                    {
-                        "id": 37,
-                        "phrase": "sa ghairdín"
-                    },
-                    {
-                        "id": 38,
-                        "phrase": "cleachtadh"
-                    },
-                    {
-                        "id": 39,
-                        "phrase": "póg"
-                    }
-                ]
+                "phrase": "the summer"
+            },
+            {
+                "id": 11,
+                "phrase": "tree"
+            },
+            {
+                "id": 12,
+                "phrase": "the shoe"
+            },
+            {
+                "id": 13,
+                "phrase": "to do/make"
+            },
+            {
+                "id": 14,
+                "phrase": "bad"
+            },
+            {
+                "id": 15,
+                "phrase": "salt"
+            },
+            {
+                "id": 16,
+                "phrase": "happy"
+            },
+            {
+                "id": 17,
+                "phrase": "juice"
+            },
+            {
+                "id": 18,
+                "phrase": "sugar"
+            },
+            {
+                "id": 19,
+                "phrase": "to come"
+            },
+            {
+                "id": 20,
+                "phrase": "sofa"
+            },
+            {
+                "id": 21,
+                "phrase": "dry"
+            },
+            {
+                "id": 22,
+                "phrase": "hot"
+            },
+            {
+                "id": 23,
+                "phrase": "person"
+            },
+            {
+                "id": 24,
+                "phrase": "white"
+            },
+            {
+                "id": 25,
+                "phrase": "I read"
+            },
+            {
+                "id": 26,
+                "phrase": "young"
+            },
+            {
+                "id": 27,
+                "phrase": "cake"
+            },
+            {
+                "id": 28,
+                "phrase": "clothes"
+            },
+            {
+                "id": 29,
+                "phrase": "television"
+            },
+            {
+                "id": 30,
+                "phrase": "book"
+            },
+            {
+                "id": 31,
+                "phrase": "homework"
+            },
+            {
+                "id": 32,
+                "phrase": "baby"
+            },
+            {
+                "id": 33,
+                "phrase": "to write"
+            },
+            {
+                "id": 34,
+                "phrase": "black"
+            },
+            {
+                "id": 35,
+                "phrase": "excellent"
+            },
+            {
+                "id": 36,
+                "phrase": "blond hair"
+            },
+            {
+                "id": 37,
+                "phrase": "in the garden"
+            },
+            {
+                "id": 38,
+                "phrase": "practice"
+            },
+            {
+                "id": 39,
+                "phrase": "to kiss"
             }
+        ],
+        "irishTerms": [
+            {
+                "id": 0,
+                "phrase": "briathra gearra"
+            },
+            {
+                "id": 1,
+                "phrase": "briathra fada"
+            },
+            {
+                "id": 2,
+                "phrase": "briathar"
+            },
+            {
+                "id": 3,
+                "phrase": "ainmní"
+            },
+            {
+                "id": 4,
+                "phrase": "cuspóir"
+            },
+            {
+                "id": 5,
+                "phrase": "firinscneach"
+            },
+            {
+                "id": 6,
+                "phrase": "baininscneach"
+            },
+            {
+                "id": 7,
+                "phrase": "inscne"
+            },
+            {
+                "id": 8,
+                "phrase": "an t-arán"
+            },
+            {
+                "id": 9,
+                "phrase": "eochair"
+            },
+            {
+                "id": 10,
+                "phrase": "an samhradh"
+            },
+            {
+                "id": 11,
+                "phrase": "crann"
+            },
+            {
+                "id": 12,
+                "phrase": "an bhróg"
+            },
+            {
+                "id": 13,
+                "phrase": "déan"
+            },
+            {
+                "id": 14,
+                "phrase": "dona"
+            },
+            {
+                "id": 15,
+                "phrase": "salann"
+            },
+            {
+                "id": 16,
+                "phrase": "sona"
+            },
+            {
+                "id": 17,
+                "phrase": "sú"
+            },
+            {
+                "id": 18,
+                "phrase": "siúcra"
+            },
+            {
+                "id": 19,
+                "phrase": "tar"
+            },
+            {
+                "id": 20,
+                "phrase": "tolg"
+            },
+            {
+                "id": 21,
+                "phrase": "tirim"
+            },
+            {
+                "id": 22,
+                "phrase": "te"
+            },
+            {
+                "id": 23,
+                "phrase": "duine"
+            },
+            {
+                "id": 24,
+                "phrase": "ban"
+            },
+            {
+                "id": 25,
+                "phrase": "léim"
+            },
+            {
+                "id": 26,
+                "phrase": "óg"
+            },
+            {
+                "id": 27,
+                "phrase": "cáca"
+            },
+            {
+                "id": 28,
+                "phrase": "éadaí"
+            },
+            {
+                "id": 29,
+                "phrase": "teilifís"
+            },
+            {
+                "id": 30,
+                "phrase": "leabhar"
+            },
+            {
+                "id": 31,
+                "phrase": "obair bhaile"
+            },
+            {
+                "id": 32,
+                "phrase": "leanbh"
+            },
+            {
+                "id": 33,
+                "phrase": "scríobh"
+            },
+            {
+                "id": 34,
+                "phrase": "dubh"
+            },
+            {
+                "id": 35,
+                "phrase": "go hiontach"
+            },
+            {
+                "id": 36,
+                "phrase": "gruaig fhionn"
+            },
+            {
+                "id": 37,
+                "phrase": "sa ghairdín"
+            },
+            {
+                "id": 38,
+                "phrase": "cleachtadh"
+            },
+            {
+                "id": 39,
+                "phrase": "póg"
+            }        
         ]
     }
 ]

@@ -1,13 +1,8 @@
-import type { AnswerState, Language } from "./enums";
+import type { AnswerState, Language } from './enums';
 
-export interface MatchingData {
+export interface VocabSection {
     id: number;
-    section: number;
-    vocab: VocabGroup[];
-}
-
-export interface VocabGroup {
-    id: number;
+    section: number,
     englishTerms: Term[];
     irishTerms: Term[];
 }
@@ -15,12 +10,15 @@ export interface VocabGroup {
 export interface Term {
     id: number;
     phrase: string;
+    isSelected?: boolean;
+    lang?: LanguageType;
     state?: AnswerStateType;
 }
 
-export interface VocabStoredData {
-    groupId: number;
-    submittedAnswers: VocabGroup[];
+export interface VocabSubmittedData {
+    section: number;
+    submittedTerms: Term[];
+    score?: number
 }
 
 export type LanguageType = Language.English | Language.Irish;

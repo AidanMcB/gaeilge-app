@@ -6,6 +6,7 @@ import { useMatchingStore } from '../stores/matchingStore';
 import { _getAllQuizData, _getQuizById } from '../services/quiz.service';
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router';
+import { _getNewVocabSectionById } from '../services/matching.service';
 
 const router = useRouter();
 const quizStore = useQuizStore();
@@ -27,11 +28,15 @@ onMounted(async () => {
     }
 })
 
-async function handleCardClick(quizSection: number, type: PracticeType) {
+async function handleCardClick(sectionId: number, type: PracticeType) {
     if (type == Practice.Matching) {
-        matchingStore.startNewMatching(quizSection);
+        const matchingData = await _getNewVocabSectionById(sectionId);
+        if (matchingData) {
+            matchingStore.startNewMatchingQuiz(matchingData);
+            router.push(`/matching/section/${sectionId}/`);
+        }
     } else if (type == Practice.Quiz) {
-        const quizData = await _getQuizById(quizSection);
+        const quizData = await _getQuizById(sectionId);
         if (quizData) {
             const startingQuestion = quizStore.startNewQuiz(quizData);
             router.push(`/quiz/section/${quizData.id}/question/${startingQuestion}`);
@@ -58,7 +63,6 @@ async function handleCardClick(quizSection: number, type: PracticeType) {
                 'grid gap-6 lg:grid-cols-2 sm:grid-cols-1 transition-all duration-200': true,
                 'opacity-100': !state.isLoading,
                 'opacity-0': state.isLoading
-
             }">
             <PrimeCard role='section' v-for='quizSection in state.allQuizData' :key='quizSection.id' class='p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
@@ -213,5 +217,4 @@ a {
         margin-right: 6px;
     }
 }
-
 </style>

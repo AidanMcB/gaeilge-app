@@ -9,8 +9,8 @@
     const route = useRoute();
     const router = useRouter();
 
-    onMounted(() => {
-        store.initVocabMatchingView(parseInt(route.params.section_id as string), parseInt(route.params.vocab_group_id as string));
+    onMounted( async () => {
+        await store.initVocabMatchingView(parseInt(route.params.section_id as string));
     })
 
     function handleItemClick( term: Term, language: LanguageType ): void {
@@ -20,24 +20,11 @@
     }
 
     function handleNext(): void {
-        if (isLastQuestionsInQuiz()) {
+        if (store.isComplete()) {
             router.push(`/matching/section/${store.sectionId}/results`);
         } else {
-            const nextVocabGroupId = store.handleNextVocabGroup();
-            router.push(`/matching/section/${store.sectionId}/group/${nextVocabGroupId}`);
+           store.nextBatchOfVocabQuestions();
         }
-    }
-    
-    function isLastQuestionsInQuiz(): boolean {
-        return store.storedData.submittedAnswers?.length === 10;
-    }
-
-    function isEnglishIncorrect(english: Term): boolean {
-        return english.state === AnswerState.Incorrect && english.phrase === store.selectedEnglishTerm.phrase;
-    }
-
-    function isIrishIncorrect(irish: Term): boolean {
-        return irish.state === AnswerState.Incorrect && irish.phrase === store.selectedIrishTerm.phrase;
     }
 
 </script>
@@ -51,21 +38,26 @@
         </h2>
 
         <div class='flex justify-center flex-wrap text-xl'>
-            <span v-if='store.activeVocabGroup.englishTerms?.every(el => el.state === AnswerState.Correct)' class='w-full text-center self-center text-emerald-500'>Complete!</span>
+            <span v-if='!store.isLoading && store.isComplete()' class='w-full text-center self-center text-emerald-500'>Complete!</span>
         </div>
 
-        <div class='flex'>
+        <div :class="{
+                'flex transition-all duration-200': true,
+                'opacity-100': store.activeVocab?.englishTerms?.length,
+                'opacity-0': !store.activeVocab?.englishTerms?.length,
+            }">
             <div class='w-2/4 flex-col flex justify-between mr-4'>
                 <PrimeCard 
-                role='english-terms' v-for='english in store.activeVocabGroup.englishTerms' :key='english.id'
+                role='english-terms' v-for='english in store.activeVocab.englishTerms' :key='english.id'
                 :class="{
                     'mt-2 mb-2 p-2 h-28 basis-1/4 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 sm:w-36 md:w-48 LG:p-6 lg:w-60 xl:w-60': true,
-                    'bg-transparent border-rose-500': isEnglishIncorrect(english),
-                    'bg-emerald-500 text-white': english.id === store.selectedEnglishTerm.id,
-                    'opacity-30 bg-emerald-500 text-white': english.state === AnswerState.Correct,
+                    'hover:bg-transparent hover:pointer-events-disabled hover:cursor-default hover:text-gray-400': store.isDisabled,
+                    'bg-emerald-500 text-white': english.isSelected,
+                    'bg-transparent border-rose-500 hover:bg-transparent': english.state === AnswerState.Incorrect && english.isSelected,
+                    'opacity-30 bg-emerald-500 text-white pointer-events-none': english.state === AnswerState.Correct,
                 }"  
-                    :disabled='english.state === AnswerState.Correct'
-                    @click='handleItemClick(english, Language.English)'>
+                :disabled='(english.state === AnswerState.Correct) || (english.state === AnswerState.Incorrect && english.isSelected)'
+                @click='handleItemClick(english, Language.English)'>
                     <template #title>
                         <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>{{ english.phrase }}</h1>
                     </template>
@@ -74,15 +66,16 @@
 
             <div class='w-2/4 flex-col flex justify-between ml-4'>
                 <PrimeCard 
-                role='irish-terms' v-for='irish in store.activeVocabGroup.irishTerms' :key='irish.id'
+                role='irish-terms' v-for='irish in store.activeVocab.irishTerms' :key='irish.id'
                 :class="{
                     'mt-2 mb-2 p-2 h-28 basis-1/4 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 sm:w-36 md:w-48 LG:p-6 lg:w-60 xl:w-60': true,
-                    'bg-transparent border-rose-500 text-rose-500': isIrishIncorrect(irish),
-                    'bg-emerald-500 text-white': irish.id === store.selectedIrishTerm.id,
+                    'hover:bg-transparent hover:pointer-events-disabled hover:cursor-default hover:text-gray-400': store.isDisabled,
+                    'bg-emerald-500 text-white': irish.isSelected,
+                    'bg-transparent border-rose-500 hover:bg-transparent': irish.state === AnswerState.Incorrect && irish.isSelected,
                     'opacity-30 bg-emerald-500 text-white': irish.state === AnswerState.Correct,
                 }"  
-                    :disabled='irish.state === AnswerState.Correct'
-                    @click='handleItemClick(irish, Language.Irish)'>
+                :disabled='irish.state === AnswerState.Correct'
+                @click='handleItemClick(irish, Language.Irish)'>
                     <template #title>
                         <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>{{ irish.phrase }}</h1>
                     </template>
@@ -90,16 +83,21 @@
             </div>
         </div>
 
-        <div class='flex justify-center flex-wrap text-xl'>
-            <button v-if='store.activeVocabGroup.englishTerms?.every(el => el.state === AnswerState.Correct)' 
+        <div class='flex justify-center self-end flex-wrap text-xl'>
+            <button v-if='store.activeVocab.englishTerms?.every(el => el.state === AnswerState.Correct)' 
                 @click='handleNext()'
-                class='flex self-center transition ease-in-out duration-300 text-lg border border-orange-500 rounded-md p-2 lg:text-2xl lg:p-4 hover:border-orange-200 hover:bg-orange-500 hover:text-white'>
-                Next
+                class='flex self-center transition ease-in-out duration-300 text-lg border border-orange-500 rounded-md p-2 lg:text-2xl lg:p-2 hover:border-orange-200 hover:bg-orange-500 hover:text-white'>
+               <span v-if='store.isComplete()'>See Results</span>
+               <span v-else>Next</span>
             </button>
         </div>
 
         <div class='flex items-end'>
-            <progress id='vocab-progress transition ease-in-out delay-1000' :value='parseInt(store.activeGroupNumber)*10' max='100'></progress>
+            <span v-if='store.isLoading && !store.isComplete()' class='text-emerald-500 lg:text-2xl'> 
+                <i class='pi pi-spinner animate-spin lg:text-2xl'></i>
+                loading ...
+            </span>
+            <progress v-if='store.activeVocab?.englishTerms?.length' id='vocab-progress transition ease-in-out delay-1000' :value='store.getPercentageAnswered()' max='100'></progress>
         </div>
 
     </div>
@@ -107,6 +105,9 @@
 </template>
 
 <style lang='scss'>
+    .default-text {
+        color: rgba(235, 235, 235, 0.64);
+    }
     progress {
         border: none;
         width: 100%;

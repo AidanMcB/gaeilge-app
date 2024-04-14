@@ -3,7 +3,7 @@
 	import { useRoute, useRouter } from 'vue-router';
 	import { useQuizStore } from '../stores/quizStore';
     import { type QuizQuestion } from '../ts/interfaces';
-import { randomNextQuestion } from '../utils/helper';
+    import { randomNextQuestion } from '../utils/helper';
 
     const route = useRoute()
     const router = useRouter();
@@ -45,7 +45,6 @@ import { randomNextQuestion } from '../utils/helper';
         'opacity-100': store.activeQuestion.id,
         'opacity-0': !store.activeQuestion.id
     }">
-
         <h1 class='question text-2xl lg:text-4xl'>{{ store.activeQuestion?.question }}</h1>
         
         <div class='options-grid'>

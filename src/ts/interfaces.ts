@@ -3,8 +3,8 @@ import './matching.interfaces.ts';
 
 export interface TermCard {
 	id: number;
-	englishTerm?: string;
-	irishTerm?: string;
+	englishPhrase?: string;
+	irishPhrase?: string;
 }
 
 export interface QuizData {
