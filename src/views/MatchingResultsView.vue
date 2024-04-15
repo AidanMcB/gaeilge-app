@@ -35,7 +35,7 @@ import { clearAllStoredData } from '../utils/helper';
 
     function tryAnotherQuiz() {
         clearAllStoredData();
-        router.push('/quiz');
+        router.push('/section-select');
     }
 
 </script>

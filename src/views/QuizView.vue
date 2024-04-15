@@ -61,7 +61,7 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                 'opacity-100': !state.isLoading,
                 'opacity-0': state.isLoading
             }">
-            <PrimeCard role='section' v-for='quizSection in state.allQuizData' :key='quizSection.id' class='p-2 border border-emerald-500 rounded lg:p-6'>
+            <PrimeCard :data-testid="'section-'+quizSection.id" role='section' v-for='quizSection in state.allQuizData' :key='quizSection.id' class='p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
                     <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>{{ "Section " + quizSection.section}}</h1>
                 </template>
@@ -70,10 +70,12 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                         <span class='lg:text-xl'>{{quizSection.description}}</span>
                         <div class='flex justify-around'>
                             <PrimeButton @click='handleCardClick(quizSection.section, Practice.Matching)' 
+                                data-testid='matching'
                                 class='m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Matching
                             </PrimeButton>
                             <PrimeButton @click='handleCardClick(quizSection.section, Practice.Quiz)' 
+                                data-testid='quiz'
                                 class='m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Quiz 
                             </PrimeButton>
@@ -82,7 +84,7 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                 </template>
             </PrimeCard> 
 
-            <PrimeCard role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
+            <PrimeCard :data-testid="'section-'+2" role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
                     <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 2</h1>
                 </template>
@@ -91,11 +93,13 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                         <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
                         <div class='flex justify-around'>
                             <PrimeButton
+                                data-testid='matching'
                                 disabled
                                 class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Matching
                             </PrimeButton>
                             <PrimeButton
+                                data-testid='quiz'
                                 disabled 
                                 class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Quiz
@@ -105,7 +109,7 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                 </template>
             </PrimeCard>
 
-            <PrimeCard role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
+            <PrimeCard :data-testid="'section-'+3" role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
                     <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 3</h1>
                 </template>
@@ -114,11 +118,13 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                         <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
                         <div class='flex justify-around'>
                             <PrimeButton
+                                data-testid='matching'
                                 disabled
                                 class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Matching
                             </PrimeButton>
                             <PrimeButton
+                                data-testid='quiz'
                                 disabled 
                                 class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Quiz
@@ -128,7 +134,7 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                 </template>
             </PrimeCard>
 
-            <PrimeCard role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
+            <PrimeCard :data-testid="'section-'+4" role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
                     <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 4</h1>
                 </template>               
@@ -137,11 +143,13 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                         <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
                         <div class='flex justify-around'>
                             <PrimeButton
+                                data-testid='matching'
                                 disabled
                                 class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Matching
                             </PrimeButton>
                             <PrimeButton
+                                data-testid='quiz'
                                 disabled 
                                 class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Quiz
@@ -151,7 +159,7 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                 </template>
             </PrimeCard>
 
-            <PrimeCard role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
+            <PrimeCard :data-testid="'section-'+5" role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
                     <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 5</h1>
                 </template>                
@@ -160,11 +168,13 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                         <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
                         <div class='flex justify-around'>
                             <PrimeButton
+                                data-testid='matching'
                                 disabled
                                 class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Matching
                             </PrimeButton>
                             <PrimeButton
+                                data-testid='quiz'
                                 disabled 
                                 class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Quiz

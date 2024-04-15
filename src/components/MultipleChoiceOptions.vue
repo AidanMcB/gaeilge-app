@@ -19,7 +19,7 @@ import { useQuizStore } from '../stores/quizStore';
 </script>
 
 <template>
-    <span v-for='opt in store.activeQuestion?.choices' :key='opt' :disabled='store.activeQuestion.isSubmitted'
+    <span v-for='(opt, index) in store.activeQuestion?.choices' :key='opt' :disabled='store.activeQuestion.isSubmitted'
            :class="{
                'text-emerald-500': (!store.activeQuestion.isSubmitted && store.selected === opt) || isSubmittedAndCorrect(opt),
                'text-rose-500': isSubmittedAndIncorrect(opt),
@@ -39,6 +39,7 @@ import { useQuizStore } from '../stores/quizStore';
             :value='opt' 
             :disabled='store.activeQuestion.isSubmitted'
             v-if='!store.activeQuestion.isSubmitted'
+            :data-testid="'radio-option-'+index"
             :class="{
                     'option mr-2 lg:mr-4': true,
                     'text-rose-500': isSubmittedAndIncorrect(opt),

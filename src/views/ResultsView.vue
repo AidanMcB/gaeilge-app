@@ -44,7 +44,7 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
     function tryAnotherQuiz() {
         store.clearQuizData();
         clearAllStoredData();
-        router.push('/quiz');
+        router.push('/section-select');
     }
 
     function isCorrect(question: QuizQuestion, option: string): boolean {

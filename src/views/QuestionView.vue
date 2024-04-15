@@ -43,7 +43,8 @@
 </script>
 
 <template>
-	<div :class="{
+	<div data-testid='question-view'
+    :class="{
         'question-view transition-all duration-200': true, 
         'submitted': store.activeQuestion.isSubmitted,
         'opacity-100': store.activeQuestion.id && !state.isLoading,
@@ -59,13 +60,15 @@
             <PrimeButton class='transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-500 p-2 text-white lg:text-2xl lg:p-4 disabled:opacity-60' 
                 @click='handleSubmit(store.activeQuestion)' 
                 v-if='!store.activeQuestion.isSubmitted'
-                :disabled='store.activeQuestion.isSubmitted || !store.selected'>
+                :disabled='store.activeQuestion.isSubmitted || !store.selected'
+                data-testid='submit-btn'>
                 Submit
             </PrimeButton>
             <PrimeButton class='transition ease-in-out duration-300 text-lg border border-orange-500 rounded-md p-2 lg:text-2xl lg:p-4 hover:border-orange-200 hover:bg-orange-500 hover:text-white' 
                 v-if='store.activeQuestion.isSubmitted' 
                 @click='handleNext' 
-                severity='info'>
+                severity='info'
+                data-testid='next-or-see-answer-btn'>
                 <span v-if='isLastQuestionsInQuiz() && store.activeQuestion.isSubmitted'>See Answers</span>
                 <span v-if='!isLastQuestionsInQuiz() && store.activeQuestion.isSubmitted'>Next</span>  
             </PrimeButton>
