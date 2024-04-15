@@ -19,7 +19,7 @@ import { useQuizStore } from '../stores/quizStore';
 </script>
 
 <template>
-    <span v-for='opt in store.activeQuestion.choices' :key='opt' :disabled='store.activeQuestion.isSubmitted'
+    <span v-for='opt in store.activeQuestion?.choices' :key='opt' :disabled='store.activeQuestion.isSubmitted'
            :class="{
                'text-emerald-500': (!store.activeQuestion.isSubmitted && store.selected === opt) || isSubmittedAndCorrect(opt),
                'text-rose-500': isSubmittedAndIncorrect(opt),
@@ -52,4 +52,3 @@ import { useQuizStore } from '../stores/quizStore';
     </span>
 
 </template>
-../stores/quizStore

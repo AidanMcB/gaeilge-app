@@ -1,6 +1,6 @@
 import type { Answer, QuizQuestion, QuizData, SubmittedData } from '@/ts/interfaces';
 import { defineStore } from 'pinia';
-import { getLocalQuizData } from '@/utils/helper';
+import { clearCachedQuestion, clearCachedQuiz, clearCachedSubmittedData, getLocalQuizData } from '@/utils/helper';
 import { MultipleChoiceDataKeys } from '@/ts/enums';
 import * as quizService from '@/services/quiz.service';
 
@@ -14,13 +14,12 @@ export const useQuizStore = defineStore('quizStore', {
         submittedData: {} as SubmittedData,
         sectionId: 0,
         questionId: 0,
-        selected: ''
+        selected: '',
 	}),
 	actions: {
-        startNewQuiz(quizData: QuizData): Number {
+        startNewQuiz(id: number): Number {
             this.clearQuizData();
-            this.setActiveQuiz(quizData);
-            quizService._setSubmittedQuizData({ section: quizData.id, questions: []});
+            quizService._setSubmittedQuizData({ section: id, questions: []});
             return Math.floor(Math.random() * 10)+1;
         },
         // Getters
@@ -138,9 +137,11 @@ export const useQuizStore = defineStore('quizStore', {
             this.selected = val;
         },
         clearQuizData(): void {
-            this.submittedData = {} as SubmittedData;
-            this.activeQuiz = {} as QuizData;
-            this.activeQuestion = {} as QuizQuestion;
+            // Because currently using JSON file instead of db, some caching is throwing things off
+            // these functions reset any possible cached data by reassigning to desired empty values
+            this.activeQuiz = clearCachedQuiz(this.activeQuiz);
+            this.activeQuestion = clearCachedQuestion(this.activeQuestion);
+            this.submittedData = clearCachedSubmittedData(this.submittedData);
             this.sectionId = 0;
             this.questionId = 0;
             this.selected = '';

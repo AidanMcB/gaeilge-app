@@ -33,9 +33,7 @@
 <template>
     <div class='matching-wrapper w-full p-2 grid grid-rows-[1fr,1fr,8fr,1fr,1fr]'>
 
-        <h2 class='text-3xl m-4 text-center font-bold lg:text-6xl'>        
-            Matching
-        </h2>
+        <h1 class='text-3xl m-4 text-center font-bold lg:text-6xl'>Matching</h1>
 
         <div class='flex justify-center flex-wrap text-xl'>
             <span v-if='!store.isLoading && store.isComplete()' class='w-full text-center self-center text-emerald-500'>Complete!</span>

@@ -1,27 +1,11 @@
-<script>
+<script setup lang='ts'>
 	import { ref } from 'vue';
 
-    export default {
-        name: 'FlippingCard',
-        props: {
-            bgColor: {
-                type: Object,
-                default: function () {
-                    return {
-                        front: 'rgba(0,0,0,0)',
-                        back: 'rgba(0,0,0,0)',
-                    };
-                },
-            },
-        },
-        setup() {
-           const flipped = ref(false);
-           const flip = () => {
-               flipped.value = !flipped.value;
-           };
-           return { flipped, flip };
-        },
+    const flipped = ref(false);
+    const flip = () => {
+        flipped.value = !flipped.value;
     };
+
 </script>
 
 <template>
@@ -30,10 +14,10 @@
 		@mouseleave='flip'
 		:class="['card-container hover:cursor-pointer', flipped ? 'flipped' : '']"
 	>
-		<div class='front' :style='{ background: bgColor.front }'>
+		<div class='front'>
 			<slot name='front'></slot>
 		</div>
-		<div class='back' :style='{ background: bgColor.back }'>
+		<div class='back'>
 			<slot name='back'></slot>
 		</div>
 	</div>
@@ -45,9 +29,11 @@
     padding: 0;
     position: relative;
     box-sizing: border-box;
+    width: 50%;
 
     .front,
     .back {
+        background: rgba(0,0,0,0);
         box-sizing: border-box;
         height: 100%;
         width: 100%;
@@ -75,6 +61,19 @@
         .back {
             transform: rotateY(0deg);
         }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1535px) { 
+    .card-container {
+        width: 33%;
+    }
+}
+
+
+@media (min-width: 1536px) {  
+    .card-container {
+        width: 33%;
     }
 }
 </style>

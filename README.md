@@ -66,4 +66,19 @@ npm run test:e2e
 ```sh
 npm run lint
 ```
+
+### Testing
+Uses Vitest for Unit testing and Cypress for e2e testing
+
+
+To run Vitest unit tests, run
+```sh
+npm run test:unit
+```
+
+To run Cypress e2e tests, run
+```sh
+npm run test:e2e
+```
+
 # gaeilge-app

@@ -1,5 +1,5 @@
 import { MatchingDataKeys, MultipleChoiceDataKeys } from '@/ts/enums';
-import type { QuizQuestion, SubmittedData } from '@/ts/interfaces';
+import type { QuizData, QuizQuestion, SubmittedData } from '@/ts/interfaces';
 import type { VocabSection } from '@/ts/matching.interfaces';
 
 export function getLocalQuizData(itemKey: string) {
@@ -26,11 +26,19 @@ export function clearAllStoredData(): void {
     localStorage.removeItem(MatchingDataKeys.ErrorCount);
     localStorage.removeItem(MatchingDataKeys.AnsweredQuestions);
     localStorage.removeItem(MatchingDataKeys.GroupNumber);
-    localStorage.clear();
+    localStorage.removeItem(MatchingDataKeys.TermsToPractice);
 }
 
-export function randomSort(a: any, b: any): number {
-    return 0.5 - Math.random();
+export function randomInt(max: number): number {
+    return Math.floor(Math.random() * max);
+}
+
+export function randomizeArr(arr: any[]): any[] {
+    if (arr) {
+        return  arr.sort(() => Math.random() - 0.5);
+    } else {
+        return [];
+    }
 }
 
 export function randomNextQuestion(allQuestions: QuizQuestion[], submittedQuestions: QuizQuestion[]): number {
@@ -42,4 +50,28 @@ export function randomNextQuestion(allQuestions: QuizQuestion[], submittedQuesti
 
 export function calcPercent(num: number, total: number): number {
     return ((num / total)*100);
+}
+
+export function clearCachedQuestion(question: QuizQuestion): QuizQuestion {
+    return {
+        ...question,
+        state: 'unanswered',
+        selectedAnswer: '',
+        isSubmitted: false,
+        isCorrect: undefined,
+    }
+}
+
+export function clearCachedQuiz(quiz: QuizData): QuizData {
+    return {
+        ...quiz,
+        questions: quiz?.questions?.map(q => clearCachedQuestion(q)) || []
+    };
+}
+
+export function clearCachedSubmittedData(data: SubmittedData): SubmittedData {
+    return {
+        ...data,
+        questions: []
+    };
 }
