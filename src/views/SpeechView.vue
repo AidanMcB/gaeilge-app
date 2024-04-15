@@ -39,7 +39,7 @@ const SpeechRecognition = window?.SpeechRecognition || window?.webkitSpeechRecog
 
 <template>
     <div>
-        <h2>Speech</h2>
+        <h1>Speech</h1>
     </div>
 </template>
 

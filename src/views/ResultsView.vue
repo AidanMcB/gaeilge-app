@@ -2,10 +2,12 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { _getSubmittedAnswers } from '../services/quiz.service';
+import { useQuizStore } from '../stores/quizStore';
 import { type QuizQuestion, type SubmittedData } from '../ts/interfaces';
 import { calcPercent, clearAllStoredData } from '../utils/helper';
 
     const router = useRouter();
+    const store = useQuizStore();
     const state = ref({
         isLoading: true,
         error: '',
@@ -40,6 +42,7 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
     }
 
     function tryAnotherQuiz() {
+        store.clearQuizData();
         clearAllStoredData();
         router.push('/quiz');
     }
@@ -85,15 +88,15 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
             'opacity-0': state.isLoading && !state.isQuizComplete
         }">
             
-            <h2 :class="{
+            <h1 :class="{
                 'text-3xl m-4 text-center font-bold lg:text-6xl': true,
                 'text-emerald-500': state.percentage > 80,
                 'text-orange-500': state.percentage > 70 && state.percentage < 80,
                 'text-rose-500': state.percentage < 70
             }">
                 {{ state.percentage }}%
-            </h2>
-            <h2 class='text-xl m-2 sm:text-lg lg:text-2xl'>You answered {{ state.correctAnswers }} / 10 questions correctly.</h2>
+            </h1>
+            <h1 class='text-xl m-2 sm:text-lg lg:text-2xl'>You answered {{ state.correctAnswers }} / 10 questions correctly.</h1>
             <div class='card-grid grid gap-10 place-content-center mt-6 mb-1'>
 
                 <PrimeCard v-for='(q, index) in state.answeredQuestions.questions' :header='q.question' :key='q.id'>
@@ -142,7 +145,7 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
 
 <style lang='scss'>
 @import '../styles/variables';
-h2 {
+h1 {
     text-align: center;
     font-weight: bold;
 }

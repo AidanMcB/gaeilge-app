@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-    import { onMounted } from 'vue';
+    import { onMounted, ref } from 'vue';
 	import { useRoute, useRouter } from 'vue-router';
 	import { useQuizStore } from '../stores/quizStore';
     import { type QuizQuestion } from '../ts/interfaces';
@@ -8,9 +8,13 @@
     const route = useRoute()
     const router = useRouter();
 	const store = useQuizStore();
+    const state = ref({
+        isLoading: true,
+    });
 
     onMounted(async () => {
         await store.initQuestionView(parseInt(route.params.section_id as string), parseInt(route.params.question_id as string));
+        state.value.isLoading = false;
     });
 
     function handleSubmit(question: QuizQuestion) {
@@ -42,12 +46,12 @@
 	<div :class="{
         'question-view transition-all duration-200': true, 
         'submitted': store.activeQuestion.isSubmitted,
-        'opacity-100': store.activeQuestion.id,
-        'opacity-0': !store.activeQuestion.id
+        'opacity-100': store.activeQuestion.id && !state.isLoading,
+        'opacity-0': !store.activeQuestion.id || state.isLoading
     }">
         <h1 class='question text-2xl lg:text-4xl'>{{ store.activeQuestion?.question }}</h1>
         
-        <div class='options-grid'>
+        <div class='options-grid' v-if='store.activeQuestion?.choices'>
             <MultipleChoiceOptions/>
         </div>
 
@@ -68,7 +72,7 @@
         </div>
 
         <div class='flex items-center'>
-            <span v-if='!store.activeQuestion.id' class='text-emerald-500 lg:text-2xl'> 
+            <span v-if='!store.activeQuestion.id || state.isLoading' class='text-emerald-500 lg:text-2xl'> 
                 <i class='pi pi-spinner animate-spin lg:text-2xl'></i>
                 loading ...
             </span>
@@ -124,4 +128,3 @@
 }
 
 </style>
-../stores/quizStore
