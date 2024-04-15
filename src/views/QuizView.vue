@@ -3,7 +3,7 @@ import { useQuizStore } from '../stores/quizStore';
 import { type QuizData, type PracticeType } from '../ts/interfaces';
 import { Practice } from '../ts/enums';
 import { useMatchingStore } from '../stores/matchingStore';
-import { _getAllQuizData, _getQuizById } from '../services/quiz.service';
+import { _getAllQuizData } from '../services/quiz.service';
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router';
 import { _getNewVocabSectionById } from '../services/matching.service';
@@ -36,11 +36,8 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
             router.push(`/matching/section/${sectionId}/`);
         }
     } else if (type == Practice.Quiz) {
-        const quizData = await _getQuizById(sectionId);
-        if (quizData) {
-            const startingQuestion = quizStore.startNewQuiz(quizData);
-            router.push(`/quiz/section/${quizData.id}/question/${startingQuestion}`);
-        }
+        const startingQuestion = quizStore.startNewQuiz(sectionId);
+        router.push(`/quiz/section/${sectionId}/question/${startingQuestion}`);
     }
 }
 

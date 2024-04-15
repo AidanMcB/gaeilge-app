@@ -1,6 +1,6 @@
 <template>
     <div class='main-content'>
-        <h2 class='text-emerald-500 text-5xl m-4 md:w-full lg:text-8xl'>Cleachtadh Gaeilge</h2>
+        <h1 class='text-emerald-500 text-5xl m-4 md:w-full lg:text-8xl'>Cleachtadh Gaeilge</h1>
         <RouterLink to='/quiz'>
             <PrimeButton class='bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded sm:text-lg md:text-2xl'>Cleachtadh do chuid Ghaeilge</PrimeButton>
         </RouterLink>

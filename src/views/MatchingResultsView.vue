@@ -16,14 +16,15 @@ import { clearAllStoredData } from '../utils/helper';
 
     onMounted( async () => {
         await store.initVocabMatchingView(parseInt(route.params.section_id as string));
-        store.termsToPractice.forEach((term: Term) => {
+        for (let i = 0; i < store.termsToPractice.length; i++) {
+            const term = store.termsToPractice[i];
             let translation = store.getTranslatedTerm(term);
             state.value.translated.push({
                 id: term.id,
                 englishPhrase: term.phrase,
                 irishPhrase: translation.phrase,
             });
-        })
+        }
         state.value.isLoading = false;
     });
 
@@ -42,7 +43,7 @@ import { clearAllStoredData } from '../utils/helper';
 <template>
     <div class='matching-wrapper justify-center w-full p-2 grid grid-rows-[1fr,1fr,4fr,1fr] text-center'>
 
-        <h2 class='text-xl m-2 sm:text-xl lg:text-3xl self-center'>Section {{store.sectionId}} Matching Results</h2>
+        <h1 class='text-xl m-2 sm:text-xl lg:text-3xl self-center'>Section {{store.sectionId}} Matching Results</h1>
 
         <!-- how many answers incorrect -->
         <div :class="{
@@ -59,15 +60,16 @@ import { clearAllStoredData } from '../utils/helper';
         </div>
 
         <!-- answers that you got wrong --> 
-        <div v-if='state.translated && state.translated.length > 0' class='grid grid-cols-2 overflow-y-auto md:grid-cols-3 overflow-x-hidden answer-grid'>
+        <!-- grid grid-cols-2 md:grid-cols-3 -->
+        <div v-if='state.translated && state.translated.length > 0' class='flex justify-around flex-wrap overflow-y-auto answer-grid'>
             <FlipCard v-for='(term) in state.translated' :key='term.id'>
                 <template v-slot:front>
-                    <span class='m-4 inline-flex items-center bg-transparent text-base p-1 font-bold text-lg lg:text-2xl lg:p-4'>
+                    <span class='inline-flex items-center bg-transparent text-base font-bold text-lg lg:text-2xl'>
                         {{ term.englishPhrase }}
                     </span>
                 </template>
                 <template v-slot:back>
-                    <span class='m-4 inline-flex items-center bg-transparent text-base p-1 font-bold text-emerald-500 text-lg lg:text-2xl lg:p-4'>
+                    <span class='inline-flex items-center bg-transparent text-base font-bold text-emerald-500 text-lg lg:text-2xl'>
                         {{ term.irishPhrase }}
                     </span>
                 </template>
@@ -105,13 +107,7 @@ import { clearAllStoredData } from '../utils/helper';
     }
 }
 
-@media (min-width: 1024px) and (max-width: 1279px) { 
-    .answer-grid {
-        width: 80vw;
-    }
-}
-
-@media (min-width: 1280px) and (max-width: 1535px) { 
+@media (min-width: 1024px) and (max-width: 1535px) { 
     .answer-grid {
         width: 80vw;
     }
@@ -120,7 +116,7 @@ import { clearAllStoredData } from '../utils/helper';
 @media (min-width: 1536px) { 
     .answer-grid {
         width: 70vw;
-    }   
+    }
 }
 
 .matching-wrapper {
