@@ -44,7 +44,7 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
     function tryAnotherQuiz() {
         store.clearQuizData();
         clearAllStoredData();
-        router.push('/quiz');
+        router.push('/section-select');
     }
 
     function isCorrect(question: QuizQuestion, option: string): boolean {
@@ -88,7 +88,9 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
             'opacity-0': state.isLoading && !state.isQuizComplete
         }">
             
-            <h1 :class="{
+            <h1 
+                data-testid='result-percentage'
+                :class="{
                 'text-3xl m-4 text-center font-bold lg:text-6xl': true,
                 'text-emerald-500': state.percentage > 80,
                 'text-orange-500': state.percentage > 70 && state.percentage < 80,
