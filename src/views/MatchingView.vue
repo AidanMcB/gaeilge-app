@@ -31,7 +31,7 @@
 
 
 <template>
-    <div class='w-full p-2 grid grid-rows-[1fr,8fr,1fr,1fr]'>
+    <div class='w-full h-full p-2 grid grid-rows-[1fr,8fr,1fr,1fr]'>
 
         <div class='flex justify-center flex-wrap text-xl'>
             <span v-if='!store.isLoading && store.isComplete()' class='w-full text-center self-center text-emerald-500'>Complete!</span>
