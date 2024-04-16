@@ -1,5 +1,5 @@
 import type { QuizData, SubmittedData } from '@/ts/interfaces';
-import questionDataJSON from '../assets/quizQuestionsA.json';
+import questionDataSection1 from '../assets/quizQuestions1.json';
 import { clearCachedQuiz, getLocalQuizData } from '@/utils/helper';
 import { MultipleChoiceDataKeys } from '@/ts/enums';
 
@@ -10,7 +10,7 @@ export function _getAllQuizData(): Promise<QuizData[]> {
     // Faked as async to mimic future behavior when API is built
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve(questionDataJSON as QuizData[]);
+            resolve(questionDataSection1 as QuizData[]);
         }, 500);
     });
 }
@@ -19,7 +19,7 @@ export function _getQuizById(id: number): Promise<QuizData | undefined> {
     // Faked as async to mimic future behavior when API is built
     return new Promise(resolve => {
         setTimeout(() => {
-            const quiz = questionDataJSON.find((quiz: QuizData) => quiz.section === id);
+            const quiz = questionDataSection1.find((quiz: QuizData) => quiz.section === id);
             if (quiz) {
                 const cacheClearedQuiz = clearCachedQuiz(quiz);
                 resolve(cacheClearedQuiz);
