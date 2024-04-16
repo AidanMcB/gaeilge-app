@@ -14,12 +14,10 @@ describe('Multiple Choice Quiz', () => {
             // go to next questions
             cy.get('[data-testid="next-or-see-answer-btn"]').click()
         }
+        // After test completes
+        cy.get('[data-testid="result-percentage"]').should('contain.text', '30%')
 
     });
-
-    // it('First quiz questions should be loaded into view', () => {
-    //     cy.get('[data-testid="question-view"]')
-    // });
 
 });
   

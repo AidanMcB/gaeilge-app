@@ -1,12 +1,19 @@
 @import './base.css';
 
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+
 #app {
-    max-width: 1280px;
-    margin: 0 auto;
     padding: 2em;
     font-weight: normal;
-    min-height: 100vh;
-    display: flex;
+    min-height: 100%;
+    position: fixed;
+    inset: 0;
+    overflow: auto;
+    display: grid;
+    place-items: center;
 }
 
 a,
@@ -23,9 +30,3 @@ a,
     }
 }
 
-@media (min-width: 700px) {
-    body {
-        display: flex;
-        place-items: center;
-    }
-}
