@@ -1,0 +1,296 @@
+[
+    {
+        "id": 1,
+        "section": 1,
+        "description": "Features of the language, pronunciation, the alphabet, and simple greetings.",
+        "questions" : [
+            {
+                "id": 1,
+                "question": "Which is the correct lenition of \"Dear friend\"?",
+                "choices": ["a cara", "a gcara", "a chara", "ah cara"],
+                "correctAnswer": "a chara",
+                "reason": "When addressing someone, add a séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 2,
+                "question": "How would you say \"the shoe\"?",
+                "choices": ["tá bróg", "an bhróg", "ná bhróga", "mo bhróg"],
+                "correctAnswer": "an bhróg",
+                "reason": "Feminine nouns use the séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 3,
+                "question": "How would you say \"three cats\"?",
+                "choices": ["trí chat", "tríuir chata", "ná cait trí", "an cait trí"],
+                "correctAnswer": "trí chat",
+                "reason": "Counting things of 2 to 6 takes a séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 4,
+                "question": "How would you say \"I am living in...\"?",
+                "choices": ["Táim cóaní orm...", "Tá mé i mo cóaní i...", "Tá cóaní agam...", "Tá mé i mo chónaí i..."],
+                "correctAnswer": "Tá mé i mo chónaí i...",
+                "reason": "Possessive mo, do, agus a (my, yours, and his) get a séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 5,
+                "question": "How would you say \"You are in Dublin\"?",
+                "choices": [
+                    "Tá tú i mBaile Átha Cliath.", 
+                    "Tá tú i Baile Átha Cliath.",
+                    "Tá muid i mBaile Átha Cliath.", 
+                    "Tá muid i Baile Átha Cliath."
+                ],
+                "correctAnswer": "Tá tú i mBaile Átha Cliath.",
+                "reason": "Some prepositions (such as \"i\" meaing \"in\") are followed by the úrú. The city of Dublin does not have an article \"an\" meaing \"the\".",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 6,
+                "question": "Which is the correct conjugation of \"Your family\"?",
+                "choices": [
+                    "Tú teaghlach",
+                    "Do teaghlach",
+                    "A theaghlach",
+                    "Do theaghlach"
+                ],
+                "correctAnswer": "Do theaghlach",
+                "reason": "Mo (my), do (your), and a (his/her) get séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 7,
+                "question": "How would you say \"I am sitting\"?",
+                "choices": [
+                    "Tá mé i mo shuí",
+                    "Tá mo shuí",
+                    "Tá me i mo suí",
+                    "Táimid inár suí"
+                ],
+                "correctAnswer": "Tá mé i mo shuí",
+                "reason": "Mo (my), do (your), and a (his/her) get séimhiú. Literaly translation is \"I am in my sitting\".",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 8,
+                "question": "What is the correct translation for \"I was at work\"?",
+                "choices": [
+                    "Bí mé ag obair",
+                    "Bhí mé ag obair",
+                    "Táim ag obair",
+                    "Tá mé i mo obair"
+                ],
+                "correctAnswer": "Bhí mé ag obair",
+                "reason": "Regular verbs in the past tense get a séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 9,
+                "question": "What is the correct translation for \"Will you be there\"?",
+                "choices": [
+                    "An beidh tú ann?",
+                    "An mbeidh tú ann?",
+                    "An bhfuil tú ann?",
+                    "An gbeidh tú ann?"
+                ],
+                "correctAnswer": "An mbeidh tú ann?",
+                "reason": "Questions in future tense get an úrú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 10,
+                "question": "What is the correct translation for \"Our home?\"",
+                "choices": [
+                    "Ár gteach",
+                    "Ár teach",
+                    "Ár dteach",
+                    "Ár theach"
+                ],
+                "correctAnswer": "Ár dteach",
+                "reason": "Possessions for our, your, and plural get an úrú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "section": 2,
+        "description": "Numbers and times, counting things, articles and animals, the bí verb and the weather, likes, dislikes and food.",
+        "questions" : [
+            {
+                "id": 1,
+                "question": "Which is the correct lenition of \"Dear friend\"?",
+                "choices": ["a cara", "a gcara", "a chara", "ah cara"],
+                "correctAnswer": "a chara",
+                "reason": "When addressing someone, add a séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 2,
+                "question": "How would you say \"the shoe\"?",
+                "choices": ["tá bróg", "an bhróg", "ná bhróga", "mo bhróg"],
+                "correctAnswer": "an bhróg",
+                "reason": "Feminine nouns use the séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 3,
+                "question": "How would you say \"three cats\"?",
+                "choices": ["trí chat", "tríuir chata", "ná cait trí", "an cait trí"],
+                "correctAnswer": "trí chat",
+                "reason": "Counting things of 2 to 6 takes a séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 4,
+                "question": "How would you say \"I am living in...\"?",
+                "choices": ["Táim cóaní orm...", "Tá mé i mo cóaní i...", "Tá cóaní agam...", "Tá mé i mo chónaí i..."],
+                "correctAnswer": "Tá mé i mo chónaí i...",
+                "reason": "Possessive mo, do, agus a (my, yours, and his) get a séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 5,
+                "question": "How would you say \"You are in Dublin\"?",
+                "choices": [
+                    "Tá tú i mBaile Átha Cliath.", 
+                    "Tá tú i Baile Átha Cliath.",
+                    "Tá muid i mBaile Átha Cliath.", 
+                    "Tá muid i Baile Átha Cliath."
+                ],
+                "correctAnswer": "Tá tú i mBaile Átha Cliath.",
+                "reason": "Some prepositions (such as \"i\" meaing \"in\") are followed by the úrú. The city of Dublin does not have an article \"an\" meaing \"the\".",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 6,
+                "question": "Which is the correct conjugation of \"Your family\"?",
+                "choices": [
+                    "Tú teaghlach",
+                    "Do teaghlach",
+                    "A theaghlach",
+                    "Do theaghlach"
+                ],
+                "correctAnswer": "Do theaghlach",
+                "reason": "Mo (my), do (your), and a (his/her) get séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 7,
+                "question": "How would you say \"I am sitting\"?",
+                "choices": [
+                    "Tá mé i mo shuí",
+                    "Tá mo shuí",
+                    "Tá me i mo suí",
+                    "Táimid inár suí"
+                ],
+                "correctAnswer": "Tá mé i mo shuí",
+                "reason": "Mo (my), do (your), and a (his/her) get séimhiú. Literaly translation is \"I am in my sitting\".",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 8,
+                "question": "What is the correct translation for \"I was at work\"?",
+                "choices": [
+                    "Bí mé ag obair",
+                    "Bhí mé ag obair",
+                    "Táim ag obair",
+                    "Tá mé i mo obair"
+                ],
+                "correctAnswer": "Bhí mé ag obair",
+                "reason": "Regular verbs in the past tense get a séimhiú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 9,
+                "question": "What is the correct translation for \"Will you be there\"?",
+                "choices": [
+                    "An beidh tú ann?",
+                    "An mbeidh tú ann?",
+                    "An bhfuil tú ann?",
+                    "An gbeidh tú ann?"
+                ],
+                "correctAnswer": "An mbeidh tú ann?",
+                "reason": "Questions in future tense get an úrú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            },
+            {
+                "id": 10,
+                "question": "What is the correct translation for \"Our home?\"",
+                "choices": [
+                    "Ár gteach",
+                    "Ár teach",
+                    "Ár dteach",
+                    "Ár theach"
+                ],
+                "correctAnswer": "Ár dteach",
+                "reason": "Possessions for our, your, and plural get an úrú.",
+                "state": "unanswered",
+                "selectedAnswer": "",
+                "category": "Eclipsis and Lenition",
+                "isSubmitted": false
+            }
+        ]
+    }
+]

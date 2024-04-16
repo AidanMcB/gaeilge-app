@@ -30,6 +30,8 @@ coverage
 *.tsbuildinfo
 
 ToDo.md
+scrap.txt
+/src/assets/quizQuestions2.json
 /src/assets/translateTermsBackup.json
 /src/assets/translateTermsBackup2.json
 /src/assets/translateTermsDivided.json
