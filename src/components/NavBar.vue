@@ -21,11 +21,13 @@
 	@import '../styles/variables.scss';
         .nav-card {
             position: fixed;
-            top: 1em;
-            right: 1em;
+            top: .5em;
+            right: .5em;
             color: var(--orange-400);
             &:hover {
                 cursor: pointer;
+                -webkit-box-shadow: 0 0 15px hsla(160, 100%, 37%, 0.2);
+                box-shadow: 0 0 15px hsla(160, 100%, 37%, 0.2);
             }
             &:active {
                 color: var(--orange-200);

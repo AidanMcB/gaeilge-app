@@ -1,9 +1,5 @@
-<script setup lang='ts'>
-
-</script>
-
 <template>
-    <div class='app-wrap grid w-full'>
+    <div class='app-wrap grid w-full h-full'>
         <header class='w-full absolute top-0'>
             <NavBar />
         </header>
@@ -16,7 +12,6 @@
     height: 100%;
     min-height: 100%;
     width: 100%;
-    /* align-self: center; */
 }
 
 header {

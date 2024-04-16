@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useMatchingStore } from '../stores/matchingStore';
 import { type TermCard } from '../ts/interfaces';
-import { type Term } from '../ts/matching.interfaces';
 import { clearAllStoredData } from '../utils/helper';
 
     const store = useMatchingStore();
@@ -35,7 +34,7 @@ import { clearAllStoredData } from '../utils/helper';
 
     function tryAnotherQuiz() {
         clearAllStoredData();
-        router.push('/quiz');
+        router.push('/section-select');
     }
 
 </script>
@@ -43,7 +42,7 @@ import { clearAllStoredData } from '../utils/helper';
 <template>
     <div class='matching-wrapper justify-center w-full p-2 grid grid-rows-[1fr,1fr,4fr,1fr] text-center'>
 
-        <h1 class='text-xl m-2 sm:text-xl lg:text-3xl self-center'>Section {{store.sectionId}} Matching Results</h1>
+        <h1 class='text-3xl m-4 text-center font-bold lg:text-6xl'>Section {{store.sectionId}} Matching Results</h1>
 
         <!-- how many answers incorrect -->
         <div :class="{
@@ -56,7 +55,7 @@ import { clearAllStoredData } from '../utils/helper';
                 'text-orange-500': store.errorCount < 15 && store.errorCount > 6,
                 'text-emerald-500': store.errorCount <= 5 
             }">&nbsp;{{ store.errorCount }}&nbsp;</span>
-            terms incorrect.
+            terms incorrect. Click on the terms to see the correct translation.
         </div>
 
         <!-- answers that you got wrong --> 
@@ -64,7 +63,7 @@ import { clearAllStoredData } from '../utils/helper';
         <div v-if='state.translated && state.translated.length > 0' class='flex justify-around flex-wrap overflow-y-auto answer-grid'>
             <FlipCard v-for='(term) in state.translated' :key='term.id'>
                 <template v-slot:front>
-                    <span class='inline-flex items-center bg-transparent text-base font-bold text-lg lg:text-2xl'>
+                    <span class='inline-flex items-center bg-transparent text-base font-bold text-lg lg:text-2xl text-rose-500'>
                         {{ term.englishPhrase }}
                     </span>
                 </template>
@@ -99,8 +98,6 @@ import { clearAllStoredData } from '../utils/helper';
 </template>
 
 <style lang='scss'>
-
-
 @media (min-width: 768px) and (max-width: 1023px) { 
     .answer-grid {
         width: 60vw;
