@@ -119,7 +119,6 @@
 .question-view.submitted {
     .options-grid{
         .option {
-
             pointer-events: none;
             .p-radiobutton, label {
                 &:hover {

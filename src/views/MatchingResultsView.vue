@@ -40,13 +40,13 @@ import { clearAllStoredData } from '../utils/helper';
 </script>
 
 <template>
-    <div class='matching-wrapper justify-center w-full p-2 grid grid-rows-[1fr,1fr,4fr,1fr] text-center'>
+    <div class='justify-center h-full w-full p-2 grid grid-rows-[1fr,1fr,40vh,1fr] text-center'>
 
-        <h1 class='text-3xl m-4 text-center font-bold lg:text-6xl'>Section {{store.sectionId}} Matching Results</h1>
+        <h1 class='text-3xl text-center content-center font-bold lg:text-6xl'>Section {{store.sectionId}} <br/>Matching Results</h1>
 
         <!-- how many answers incorrect -->
         <div :class="{
-                'text-xl m-2 sm:text-lg lg:text-2xl transition-all duration-200 w-full flex flex-wrap justify-center': true,
+                'text-lg content-start sm:text-lg lg:text-2xl transition-all duration-200 w-full flex flex-wrap justify-center': true,
                 'opacity-100': !store.isLoading,
                 'opacity-0': store.isLoading,
             }">You got 
@@ -59,9 +59,8 @@ import { clearAllStoredData } from '../utils/helper';
         </div>
 
         <!-- answers that you got wrong --> 
-        <!-- grid grid-cols-2 md:grid-cols-3 -->
-        <div v-if='state.translated && state.translated.length > 0' class='flex justify-around flex-wrap overflow-y-auto answer-grid'>
-            <FlipCard v-for='(term) in state.translated' :key='term.id'>
+        <div v-if='state.translated && state.translated.length > 0' class='flex justify-around flex-wrap overflow-y-scroll answer-grid p-4'>
+            <FlipCard v-for='(term) in state.translated' :key='term.id' class='h-12'>
                 <template v-slot:front>
                     <span class='inline-flex items-center bg-transparent text-base font-bold text-lg lg:text-2xl text-rose-500'>
                         {{ term.englishPhrase }}
@@ -98,6 +97,7 @@ import { clearAllStoredData } from '../utils/helper';
 </template>
 
 <style lang='scss'>
+@import '../styles/variables.scss';
 @media (min-width: 768px) and (max-width: 1023px) { 
     .answer-grid {
         width: 60vw;
@@ -115,8 +115,31 @@ import { clearAllStoredData } from '../utils/helper';
         width: 70vw;
     }
 }
+.answer-gird {
+    height: 30vh;
+}
 
-.matching-wrapper {
-    height: 90vh;
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 8px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--emerald-500);
+    border-radius: 10px;
+    // border: 1px solid var(--emerald-500);
+
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: black;
 }
 </style>

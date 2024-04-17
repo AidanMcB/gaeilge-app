@@ -3,15 +3,19 @@
 
     const flipped = ref(false);
     const flip = () => {
-        flipped.value = !flipped.value;
+        if (flipped.value === false) {
+            flipped.value = !flipped.value;
+            setTimeout(() => {
+                flipped.value = false;
+            }, 1500)
+        }
     };
 
 </script>
 
 <template>
 	<div
-		@mouseenter='flip'
-		@mouseleave='flip'
+		@click='flip'
 		:class="['card-container hover:cursor-pointer', flipped ? 'flipped' : '']"
 	>
 		<div class='front'>
