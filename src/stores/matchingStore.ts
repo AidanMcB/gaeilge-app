@@ -169,7 +169,7 @@ export const useMatchingStore = defineStore('matchingStore', {
             setTimeout(() => {
                 this.setVocabToUnselected(englishIndex, irishIndex);
                 this.setVocabStatesToUnanswered(englishIndex, irishIndex);
-            }, 1000);
+            }, 500);
         },
         // Getters
         async getNewVocabSectionData(sectionId: number): Promise<VocabSection | undefined> {
