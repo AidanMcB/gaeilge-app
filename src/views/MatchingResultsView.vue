@@ -134,8 +134,6 @@ import { clearAllStoredData } from '../utils/helper';
 ::-webkit-scrollbar-thumb {
     background-color: var(--emerald-500);
     border-radius: 10px;
-    // border: 1px solid var(--emerald-500);
-
 }
 
 ::-webkit-scrollbar-track {
