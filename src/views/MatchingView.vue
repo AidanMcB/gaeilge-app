@@ -46,7 +46,7 @@
                 <PrimeCard v-for='english in store.activeVocab.englishTerms' :key='english.id'
                     role='english-terms' 
                     :class="{
-                        'p-2 h-28 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 md:w-72 lg:w-80': true,
+                        'p-2 h-24 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 md:w-72 lg:w-80': true,
                         'hover:bg-transparent hover:pointer-events-disabled hover:cursor-default hover:text-gray-400': store.isDisabled,
                         'bg-emerald-500 text-white': english.isSelected,
                         'bg-transparent border-rose-500 hover:bg-transparent': english.state === AnswerState.Incorrect && english.isSelected,
@@ -64,11 +64,11 @@
                 <PrimeCard v-for='irish in store.activeVocab.irishTerms' :key='irish.id'
                     role='irish-terms'
                     :class="{
-                        'p-2 h-28 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 md:w-72 lg:w-80': true,
+                        'p-2 h-24 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 md:w-72 lg:w-80': true,
                         'hover:bg-transparent hover:pointer-events-disabled hover:cursor-default hover:text-gray-400': store.isDisabled,
                         'bg-emerald-500 text-white': irish.isSelected,
                         'bg-transparent border-rose-500 hover:bg-transparent': irish.state === AnswerState.Incorrect && irish.isSelected,
-                        'opacity-30 bg-emerald-500 text-white': irish.state === AnswerState.Correct,
+                        'opacity-30 bg-emerald-500 text-white pointer-events-none': irish.state === AnswerState.Correct,
                     }"  
                     :disabled='irish.state === AnswerState.Correct'
                     @click='handleItemClick(irish, Language.Irish)'>
