@@ -14,7 +14,8 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
         answeredQuestions: {} as SubmittedData,
         isQuizComplete: false,
         percentage: 0,
-        correctAnswers: 0
+        correctAnswers: 0,
+        unlockedNewSection: null,
     });
 
     onMounted(async () => {
@@ -27,6 +28,15 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
                     state.value.isQuizComplete = true;
                     state.value.correctAnswers = submittedAnswers.questions.filter(answ => answ.isCorrect === true)?.length;
                     state.value.percentage = calcPercent(submittedAnswers.questions.filter(answ => answ.isCorrect === true)?.length, 10);
+
+                    if (state.value.percentage > 70) {
+                        // If score over 70, unlock next quiz sections
+                        store.setAvailableSection([...store.availableSections, state.value.answeredQuestions.section + 1]);
+                        // Show some kind of banner or alert
+                        state.value.unlockedNewSection = true;
+                    } else {
+                        state.value.unlockedNewSection = false;
+                    }
                 }
             }
         } catch (err) {
@@ -64,6 +74,13 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
 
 <template>
     <div class='wrapper'>
+
+        <BannerMessage v-if='state.unlockedNewSection !== null' 
+            :isVisible='state.unlockedNewSection' 
+            :mainText='"Congratulations! You have unlocked "'
+            :actionText='"Section " + (state.answeredQuestions.section + 1)'
+            :handleClick='tryAnotherQuiz'
+        />
 
         <span v-if='state.isLoading' class='flex flex-col justify-center items-center h-5/6'>
             <i class='pi pi-spinner animate-spin text-emerald-500 text-8xl'></i>
