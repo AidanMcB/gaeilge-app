@@ -17,11 +17,13 @@ export enum AnswerState {
 export enum MultipleChoiceDataKeys {
     AnsweredQuestions = 'answered_questions',
     QuestionNumber = 'question_number',
+    AvailableSections = 'available_sections'
 }
 
 export enum MatchingDataKeys {
     ErrorCount = 'vocab_err_count',
     AnsweredQuestions = 'answered_vocab_questions',
     GroupNumber = 'vocab_group_number',
-    TermsToPractice = 'terms_to_practice'
+    TermsToPractice = 'terms_to_practice',
+    AvailableSections = 'available_sections'
 }

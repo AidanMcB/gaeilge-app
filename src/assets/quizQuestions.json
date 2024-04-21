@@ -153,35 +153,35 @@
         "questions" : [
             {
                 "id": 1,
-                "question": "Which is the correct lenition of \"Dear friend\"?",
-                "choices": ["a cara", "a gcara", "a chara", "ah cara"],
-                "correctAnswer": "a chara",
-                "reason": "When addressing someone, add a séimhiú.",
+                "question": "How would you say the nuber \"eleven\"?",
+                "choices": ["a haon dhéag", "éag a haon", "a haon ó", "a dhéag amháin"],
+                "correctAnswer": "a a haon déag",
+                "reason": "No séimhiú on eleven.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             },
             {
                 "id": 2,
-                "question": "How would you say \"the shoe\"?",
-                "choices": ["tá bróg", "an bhróg", "ná bhróga", "mo bhróg"],
-                "correctAnswer": "an bhróg",
-                "reason": "Feminine nouns use the séimhiú.",
+                "question": "Translate \"Tá sé a leathuar tar éis a haon\".",
+                "choices": ["It is five o'clock", "It is quarter past one", "It is quarter to one", "It is half past one"],
+                "correctAnswer": "It is half past one",
+                "reason": "\"Leathuar\" means half an hour, \"tar éis\" is after.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             },
             {
                 "id": 3,
-                "question": "How would you say \"three cats\"?",
-                "choices": ["trí chat", "tríuir chata", "ná cait trí", "an cait trí"],
-                "correctAnswer": "trí chat",
-                "reason": "Counting things of 2 to 6 takes a séimhiú.",
+                "question": "How would you say \"now\"?",
+                "choices": ["anois", "arís", "ann", "ansin"],
+                "correctAnswer": "anois",
+                "reason": "Other answers are \"again\", \"there\", and \"then\".",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             },
             {
@@ -192,103 +192,103 @@
                 "reason": "Possessive mo, do, agus a (my, yours, and his) get a séimhiú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             },
             {
                 "id": 5,
-                "question": "How would you say \"You are in Dublin\"?",
+                "question": "How would you say \"in the afternoon\"?",
                 "choices": [
-                    "Tá tú i mBaile Átha Cliath.", 
-                    "Tá tú i Baile Átha Cliath.",
-                    "Tá muid i mBaile Átha Cliath.", 
-                    "Tá muid i Baile Átha Cliath."
+                    "ar maidin", 
+                    "sa trathnóna", 
+                    "san oíche",
+                    "ar an trathnóna"
                 ],
-                "correctAnswer": "Tá tú i mBaile Átha Cliath.",
-                "reason": "Some prepositions (such as \"i\" meaing \"in\") are followed by the úrú. The city of Dublin does not have an article \"an\" meaing \"the\".",
+                "correctAnswer": "sa trathnóna",
+                "reason": "\"sa\" means \"in the\" in this context.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             },
             {
                 "id": 6,
-                "question": "Which is the correct conjugation of \"Your family\"?",
+                "question": "Cé mhéad leabhar?",
                 "choices": [
-                    "Tú teaghlach",
-                    "Do teaghlach",
-                    "A theaghlach",
-                    "Do theaghlach"
+                    "dó leabhair",
+                    "dhá leabhair",
+                    "dhá leabhar",
+                    "dó leabhar"
                 ],
-                "correctAnswer": "Do theaghlach",
-                "reason": "Mo (my), do (your), and a (his/her) get séimhiú.",
+                "correctAnswer": "dhá leahbar",
+                "reason": "The word for two things is \"dhá\" and the noun remains singular",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             },
             {
                 "id": 7,
-                "question": "How would you say \"I am sitting\"?",
+                "question": "How would you say \"19 houses\"?",
                 "choices": [
-                    "Tá mé i mo shuí",
-                    "Tá mo shuí",
-                    "Tá me i mo suí",
-                    "Táimid inár suí"
+                    "naoi dteach déag",
+                    "naoi dteach dhéag",
+                    "naoi theach déág",
+                    "naoi theach dhéag"
                 ],
-                "correctAnswer": "Tá mé i mo shuí",
-                "reason": "Mo (my), do (your), and a (his/her) get séimhiú. Literaly translation is \"I am in my sitting\".",
+                "correctAnswer": "nao dteach déag",
+                "reason": "17-19 get an urú",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             },
             {
                 "id": 8,
-                "question": "What is the correct translation for \"I was at work\"?",
+                "question": "How would you say \"16 houses\"?",
                 "choices": [
-                    "Bí mé ag obair",
-                    "Bhí mé ag obair",
-                    "Táim ag obair",
-                    "Tá mé i mo obair"
+                    "sé theach dhéág",
+                    "sé theach déag",
+                    "sé dteach déag",
+                    "sé dteach dhéág"
                 ],
-                "correctAnswer": "Bhí mé ag obair",
-                "reason": "Regular verbs in the past tense get a séimhiú.",
+                "correctAnswer": "sé theach déag",
+                "reason": "11-16 get a séimhiú",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             },
             {
                 "id": 9,
-                "question": "What is the correct translation for \"Will you be there\"?",
+                "question": "Translate \"seacht mbosca dhéag\".",
                 "choices": [
-                    "An beidh tú ann?",
-                    "An mbeidh tú ann?",
-                    "An bhfuil tú ann?",
-                    "An gbeidh tú ann?"
+                    "seven boxes",
+                    "seventeen boxes",
+                    "seventy boxes",
+                    "seven hundred boxes"
                 ],
-                "correctAnswer": "An mbeidh tú ann?",
-                "reason": "Questions in future tense get an úrú.",
+                "correctAnswer": "seventeen boxes",
+                "reason": "direct translation",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             },
             {
                 "id": 10,
-                "question": "What is the correct translation for \"Our home?\"",
+                "question": "How would you say \"10 pens\"?",
                 "choices": [
-                    "Ár gteach",
-                    "Ár teach",
-                    "Ár dteach",
-                    "Ár theach"
+                    "deich peann",
+                    "peann deich",
+                    "deich bheann",
+                    "deich bpeann"
                 ],
-                "correctAnswer": "Ár dteach",
-                "reason": "Possessions for our, your, and plural get an úrú.",
+                "correctAnswer": "deich bpeann",
+                "reason": "7-10 get an úrú.",
                 "state": "unanswered",
                 "selectedAnswer": "",
-                "category": "Eclipsis and Lenition",
+                "category": "Numbers and times",
                 "isSubmitted": false
             }
         ]
