@@ -76,6 +76,7 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                             </PrimeButton>
                             <PrimeButton @click='handleCardClick(quizSection.section, Practice.Quiz)' 
                                 data-testid='quiz'
+                                :disabled='!quizStore.isSectionAvailable(quizSection.id)'
                                 class='m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Quiz 
                             </PrimeButton>
@@ -83,31 +84,6 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                     </div>
                 </template>
             </PrimeCard> 
-
-            <PrimeCard :data-testid="'section-'+2" role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
-                <template #title>
-                    <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 2</h1>
-                </template>
-                <template #content>
-                    <div class='p-2'>
-                        <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
-                        <div class='flex justify-around'>
-                            <PrimeButton
-                                data-testid='matching'
-                                disabled
-                                class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
-                                Matching
-                            </PrimeButton>
-                            <PrimeButton
-                                data-testid='quiz'
-                                disabled 
-                                class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
-                                Quiz
-                            </PrimeButton>
-                        </div>
-                    </div>
-                </template>
-            </PrimeCard>
 
             <PrimeCard :data-testid="'section-'+3" role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
@@ -125,7 +101,7 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
                             </PrimeButton>
                             <PrimeButton
                                 data-testid='quiz'
-                                disabled 
+                                disabled
                                 class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
                                 Quiz
                             </PrimeButton>
@@ -137,7 +113,7 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
             <PrimeCard :data-testid="'section-'+4" role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
                     <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 4</h1>
-                </template>               
+                </template>
                 <template #content>
                     <div class='p-2'>
                         <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
@@ -162,6 +138,31 @@ async function handleCardClick(sectionId: number, type: PracticeType) {
             <PrimeCard :data-testid="'section-'+5" role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
                     <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 5</h1>
+                </template>               
+                <template #content>
+                    <div class='p-2'>
+                        <span class='lg:text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra ligula nec mauris placerat, vel.</span>
+                        <div class='flex justify-around'>
+                            <PrimeButton
+                                data-testid='matching'
+                                disabled
+                                class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
+                                Matching
+                            </PrimeButton>
+                            <PrimeButton
+                                data-testid='quiz'
+                                disabled 
+                                class='disabled:bg-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
+                                Quiz
+                            </PrimeButton>
+                        </div>
+                    </div>
+                </template>
+            </PrimeCard>
+
+            <PrimeCard :data-testid="'section-'+6" role='section' class='disabled-card p-2 border border-emerald-500 rounded lg:p-6'>
+                <template #title>
+                    <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>Section 6</h1>
                 </template>                
                 <template #content>
                     <div class='p-2'>

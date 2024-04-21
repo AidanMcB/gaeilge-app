@@ -19,6 +19,7 @@ import router from './router';
 import NavBar from './components/NavBar.vue';
 import TimerClock from './components/TimerClock.vue';
 import FlipCard from './components/FlipCard.vue';
+import BannerMessage from './components/BannerMessage.vue';
 
 
 const app = createApp(App);
@@ -35,6 +36,7 @@ app.component("NavBar", NavBar);
 app.component("TimerClock", TimerClock);
 app.component("MultipleChoiceOptions", MultipleChoiceOptions);
 app.component("FlipCard", FlipCard);
+app.component("BannerMessage", BannerMessage);
 
 app.use(router);
 

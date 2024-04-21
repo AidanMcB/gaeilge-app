@@ -82,7 +82,95 @@
             {
                 "id": 19,
                 "phrase": "to come"
+            }
+        ],
+        "irishTerms": [
+            {
+                "id": 0,
+                "phrase": "briathra gearra"
             },
+            {
+                "id": 1,
+                "phrase": "briathra fada"
+            },
+            {
+                "id": 2,
+                "phrase": "briathar"
+            },
+            {
+                "id": 3,
+                "phrase": "ainmní"
+            },
+            {
+                "id": 4,
+                "phrase": "cuspóir"
+            },
+            {
+                "id": 5,
+                "phrase": "firinscneach"
+            },
+            {
+                "id": 6,
+                "phrase": "baininscneach"
+            },
+            {
+                "id": 7,
+                "phrase": "inscne"
+            },
+            {
+                "id": 8,
+                "phrase": "an t-arán"
+            },
+            {
+                "id": 9,
+                "phrase": "eochair"
+            },
+            {
+                "id": 10,
+                "phrase": "an samhradh"
+            },
+            {
+                "id": 11,
+                "phrase": "crann"
+            },
+            {
+                "id": 12,
+                "phrase": "an bhróg"
+            },
+            {
+                "id": 13,
+                "phrase": "déan"
+            },
+            {
+                "id": 14,
+                "phrase": "dona"
+            },
+            {
+                "id": 15,
+                "phrase": "salann"
+            },
+            {
+                "id": 16,
+                "phrase": "sona"
+            },
+            {
+                "id": 17,
+                "phrase": "sú"
+            },
+            {
+                "id": 18,
+                "phrase": "siúcra"
+            },
+            {
+                "id": 19,
+                "phrase": "tar"
+            }    
+        ]
+    },
+    {
+        "id": 1,
+        "section": 2,
+        "englishTerms": [
             {
                 "id": 20,
                 "phrase": "sofa"
@@ -166,86 +254,6 @@
         ],
         "irishTerms": [
             {
-                "id": 0,
-                "phrase": "briathra gearra"
-            },
-            {
-                "id": 1,
-                "phrase": "briathra fada"
-            },
-            {
-                "id": 2,
-                "phrase": "briathar"
-            },
-            {
-                "id": 3,
-                "phrase": "ainmní"
-            },
-            {
-                "id": 4,
-                "phrase": "cuspóir"
-            },
-            {
-                "id": 5,
-                "phrase": "firinscneach"
-            },
-            {
-                "id": 6,
-                "phrase": "baininscneach"
-            },
-            {
-                "id": 7,
-                "phrase": "inscne"
-            },
-            {
-                "id": 8,
-                "phrase": "an t-arán"
-            },
-            {
-                "id": 9,
-                "phrase": "eochair"
-            },
-            {
-                "id": 10,
-                "phrase": "an samhradh"
-            },
-            {
-                "id": 11,
-                "phrase": "crann"
-            },
-            {
-                "id": 12,
-                "phrase": "an bhróg"
-            },
-            {
-                "id": 13,
-                "phrase": "déan"
-            },
-            {
-                "id": 14,
-                "phrase": "dona"
-            },
-            {
-                "id": 15,
-                "phrase": "salann"
-            },
-            {
-                "id": 16,
-                "phrase": "sona"
-            },
-            {
-                "id": 17,
-                "phrase": "sú"
-            },
-            {
-                "id": 18,
-                "phrase": "siúcra"
-            },
-            {
-                "id": 19,
-                "phrase": "tar"
-            },
-            {
                 "id": 20,
                 "phrase": "tolg"
             },
@@ -324,7 +332,7 @@
             {
                 "id": 39,
                 "phrase": "póg"
-            }        
+            }    
         ]
     }
 ]

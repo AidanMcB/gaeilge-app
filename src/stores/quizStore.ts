@@ -15,6 +15,7 @@ export const useQuizStore = defineStore('quizStore', {
         sectionId: 0,
         questionId: 0,
         selected: '',
+        availableSections: [1]
 	}),
 	actions: {
         startNewQuiz(id: number): Number {
@@ -33,6 +34,17 @@ export const useQuizStore = defineStore('quizStore', {
                 return question;
             }
             return undefined;
+        },
+        async getAvailableSections(): Promise<void> {
+            try {
+                const sections = await quizService._getAvailableQuizSections();
+                if (sections) {
+                    this.availableSections = sections;
+                } 
+            } catch(err) {
+                console.error('Could not get the available sections. Error: ', err);
+            }
+            this.availableSections = [1];
         },
         // Setters
         async initQuestionView(sectionId: number, questionId: number) {
@@ -133,6 +145,16 @@ export const useQuizStore = defineStore('quizStore', {
             }
             this.selected = '';
         },
+        async setAvailableSection(sections: number[]): Promise<void> {
+            // strip out duplicates
+            const uniqueSections = [...new Set(sections)];
+            this.availableSections = uniqueSections;
+            try {
+                await quizService._setAvailableQuizSections(uniqueSections);
+            } catch (err) {
+                console.error('Unable to set available quiz sections. Error: ', err);
+            }
+        },
         updateSelected(val: string): void {
             this.selected = val;
         },
@@ -145,6 +167,10 @@ export const useQuizStore = defineStore('quizStore', {
             this.sectionId = 0;
             this.questionId = 0;
             this.selected = '';
+        },
+        isSectionAvailable(section: number): boolean {
+            console.log('section is enabled: ', section);
+            return this.availableSections.includes(section);
         }
 	},
 });

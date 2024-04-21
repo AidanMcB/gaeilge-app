@@ -96,7 +96,7 @@ import { clearAllStoredData } from '../utils/helper';
 
 </template>
 
-<style lang='scss'>
+<style scoped lang='scss'>
 @import '../styles/variables.scss';
 @media (min-width: 768px) and (max-width: 1023px) { 
     .answer-grid {
