@@ -1,176 +1,139 @@
-import type { Answer, QuizQuestion, QuizData, SubmittedData } from '@/ts/interfaces';
+import type { Answer, QuizQuestion, QuizData } from '@/ts/interfaces';
 import { defineStore } from 'pinia';
-import { clearCachedQuestion, clearCachedQuiz, clearCachedSubmittedData, getLocalQuizData } from '@/utils/helper';
-import { MultipleChoiceDataKeys } from '@/ts/enums';
+import { clearCachedQuestion, clearCachedQuiz } from '@/utils/helper';
 import * as quizService from '@/services/quiz.service';
+import { computed, ref } from 'vue';
 
-export const useQuizStore = defineStore('quizStore', {
-	state: () => ({
-        // Source of truth for quiz and questions
-		activeQuiz: {} as QuizData,
-        // Currently active questions
-		activeQuestion: {} as QuizQuestion,
-        // Current section id and submitted answers
-        submittedData: {} as SubmittedData,
-        sectionId: 0,
-        questionId: 0,
-        selected: '',
-        availableSections: [1]
-	}),
-	actions: {
-        startNewQuiz(id: number): Number {
-            this.clearQuizData();
-            quizService._setSubmittedQuizData({ section: id, questions: []});
-            return Math.floor(Math.random() * 10)+1;
-        },
-        // Getters
-        getSubmittedData(): SubmittedData {
-            return getLocalQuizData(MultipleChoiceDataKeys.AnsweredQuestions);
-        },
-        getActiveQuestion(questionId: number): QuizQuestion | undefined {
-            // from URL
-            const question = this.activeQuiz?.questions?.find((q: QuizQuestion) => q.id === questionId);
-            if (question) {
-                return question;
-            }
-            return undefined;
-        },
-        async getAvailableSections(): Promise<void> {
-            try {
-                const sections = await quizService._getAvailableQuizSections();
-                if (sections) {
-                    this.availableSections = sections;
-                } 
-            } catch(err) {
-                console.error('Could not get the available sections. Error: ', err);
-            }
-            this.availableSections = [1];
-        },
-        // Setters
-        async initQuestionView(sectionId: number, questionId: number) {
-            this.sectionId = sectionId;
-            this.questionId = questionId;
-            this.setSubmittedData();
-            await this.setActiveQuiz(undefined, sectionId);
-            this.setActiveQuestion(questionId);
-            this.selected = '';
-        },
-        async setActiveQuiz(quizData?: QuizData, quizId?: number): Promise<void> {
-            if (quizData) {
-                this.activeQuiz = quizData;
-            } 
-            if (quizId) {
-                const quiz = await quizService._getQuizById(quizId);
-                if (quiz) {
-                    this.activeQuiz = quiz
-                }
-            }
-        },
-		setActiveQuestion(questionId: number): void {
-			const question = this.activeQuiz.questions.find((q) => q.id == questionId);
-			if (question) {
-                // check for answered questions in localStorage
-                const index = this.submittedData.questions?.findIndex(q => questionId === q.id);
-                if (index > -1) {
-                    this.setActiveQuestionFromSubmittedAnswers(index);
-                } else {
-                    this.activeQuestion = question;
-                }
-			}
-		},
-        async setSubmittedData(): Promise<void> {
-            this.submittedData = await quizService._getSubmittedAnswers();
-        },
-        submitAnswer(answeredQuestion: Answer): void {
-            const matchedQuestion = this.activeQuiz.questions.find(q => q.id === answeredQuestion.questionId);
-            if (!matchedQuestion) {
-                // question does not exist
-                return;
-            }
-            if (this.submittedData) {
-                // If not the first question
-                if (this.submittedData.questions) {
-                    const index = this.submittedData.questions?.findIndex(q => q.id === this.questionId);
-                    // if this question has not yet been answered, add the selected answer
-                    if (index === -1) {
-                        this.submittedData.questions.push({
-                            ...matchedQuestion,
-                            isCorrect: answeredQuestion.isCorrect,
-                            isSubmitted: true,
-                            selectedAnswer: answeredQuestion.selectedAnswer
-                        });
-                        quizService._setSubmittedQuizData(this.submittedData);
-                    } else {
-                        console.log('Already Answered');
-                    }
-                // first question being answered 
-                } else {
-                    const newSubmittedData = {
-                        section: this.activeQuiz.section,
-                        questions: [ {
-                            ...matchedQuestion,
-                            answer: answeredQuestion.answer,
-                            isCorrect: answeredQuestion.isCorrect,
-                            isSubmitted: true,
-                            selectedAnswer: answeredQuestion.selectedAnswer
-                        }]
-                    };
-                    quizService._setSubmittedQuizData(newSubmittedData);
-                    this.submittedData = newSubmittedData;
-                }
-            // Create stored data if does not exist
-            } else {
-                const newSubmittedData: SubmittedData = { 
-                    section: this.sectionId, 
-                    questions: [ {
-                        ...matchedQuestion,
-                        isCorrect: answeredQuestion.isCorrect,
-                        isSubmitted: true,
-                        selectedAnswer: answeredQuestion.selectedAnswer
-                    } 
-                ]};
-                quizService._setSubmittedQuizData(newSubmittedData);
-                this.submittedData = newSubmittedData;
-            }
-        },
-        setActiveQuestionFromSubmittedAnswers(index: number): void {
-            const answeredQuestionData = this.submittedData.questions[index];
-            const storedQuestionData = this.activeQuiz.questions.find(q => q.id == answeredQuestionData.id) || {} as QuizQuestion;
+export const useQuizStore = defineStore('quizStore', () => {
+    const quizData = ref<QuizData>({} as QuizData);
+    const activeQuestion = ref<QuizQuestion>({} as QuizQuestion);
+    const unlockedSections = ref<number[]>([1]);
+    const selected = ref<string>('');
 
-            this.activeQuestion = {
-                ...storedQuestionData,
-                isCorrect: answeredQuestionData.isCorrect,
-                selectedAnswer: answeredQuestionData.selectedAnswer,
-                isSubmitted: true
+    async function startNewQuiz(data: QuizData): Promise<number> {
+        clearQuizData(); // remove all existing quiz data from the DB and State
+        setQuizData(data);
+        updateQuizInDb();
+        return Math.floor(Math.random() * 10)+1;
+    }
+
+    async function initQuestionView(sectionId: number, questionId: number): Promise<void> {
+        if (!quizData.value || !quizData.value.questions) {
+            const fetchedQuizData = await getActiveQuizDataFromDb();
+            if (fetchedQuizData) {
+                quizData.value = fetchedQuizData;
             }
-            this.selected = '';
-        },
-        async setAvailableSection(sections: number[]): Promise<void> {
-            // strip out duplicates
-            const uniqueSections = [...new Set(sections)];
-            this.availableSections = uniqueSections;
+        }
+        setActiveQuestion(questionId);
+        selected.value = '';
+    }
+
+    function setActiveQuestion(questionId: number): void {
+		const question = quizData.value.questions.find((q) => q.id == questionId);
+		if (question) {
+            activeQuestion.value = question;
+		}
+	}
+
+    function setQuizData(data: QuizData): void {
+        quizData.value = data;
+    }
+
+    async function updateQuizInDb(): Promise<void> {
+        try {
+            quizService._updateQuiz(quizData.value);
+        } catch (err) {
+            console.error('Failed to update quiz data. Error: ', err);
+        }
+    }
+
+    function updateSelected(val: string): void {
+        selected.value = val;
+    }
+
+    async function getActiveQuizDataFromDb(): Promise<QuizData | void> {
+        try {
+            const quiz = quizService._getActiveQuizData();
+            if (quiz) {
+                return quiz;
+            }
+        } catch (err) {
+            console.error('Failed to get active Quiz Data. Error: ', err);
+        }
+    }
+
+    function isSectionUnlocked(section: number): boolean {
+        return unlockedSections.value.includes(section)
+    }
+
+    async function submitAnswer(answer: Answer): Promise<void> {
+        const newQuestionData: QuizQuestion = {
+            ...activeQuestion.value,
+            selectedAnswer: answer.selectedAnswer,
+            submittedAnswer: answer.selectedAnswer,
+            isCorrect: answer.isCorrect,
+        };
+
+        const index: number = quizData.value.questions.findIndex(q => q.id === answer.questionId);
+        if (index > -1) {
+            quizData.value.questions.splice(index, 1, newQuestionData);
+            await updateQuizInDb();
+            return;
+        }
+        if (!index) {
+            // question does not exist
+            console.error('Question was not found. Try refreshing the page and submitting again.');
+            return;
+        }
+    }
+
+    function randomNextQuestion(): number {
+        const unansweredQuestions: QuizQuestion[] = quizData.value.questions.filter(q => !q.isSubmitted);
+        const remainingQuestionIds = unansweredQuestions.map(q => q.id);
+        return remainingQuestionIds[Math.floor(Math.random()*remainingQuestionIds.length)];
+    }
+
+    function isLastQuestion() {
+        return quizData.value.questions.every(q => q.isSubmitted === true);
+    }
+
+    function clearQuizData(): void {
+        // Because currently using JSON file instead of db, some caching is throwing things off
+        // these functions reset any possible cached data by reassigning to desired empty values
+        quizData.value = clearCachedQuiz(quizData.value);
+        activeQuestion.value = clearCachedQuestion(activeQuestion.value);
+        selected.value = '';
+    }
+
+    async function unlockSection(section: number): Promise<void> {
+        if (!unlockedSections.value.includes(section)) {
+            unlockedSections.value = [...unlockedSections.value, section];
             try {
-                await quizService._setAvailableQuizSections(uniqueSections);
+               await quizService._setAvailableQuizSections(unlockedSections.value);
             } catch (err) {
                 console.error('Unable to set available quiz sections. Error: ', err);
             }
-        },
-        updateSelected(val: string): void {
-            this.selected = val;
-        },
-        clearQuizData(): void {
-            // Because currently using JSON file instead of db, some caching is throwing things off
-            // these functions reset any possible cached data by reassigning to desired empty values
-            this.activeQuiz = clearCachedQuiz(this.activeQuiz);
-            this.activeQuestion = clearCachedQuestion(this.activeQuestion);
-            this.submittedData = clearCachedSubmittedData(this.submittedData);
-            this.sectionId = 0;
-            this.questionId = 0;
-            this.selected = '';
-        },
-        isSectionAvailable(section: number): boolean {
-            console.log('section is enabled: ', section);
-            return this.availableSections.includes(section);
         }
-	},
+    }
+
+    const answeredQuestionCount = computed(() => quizData.value?.questions?.filter(q => q.isSubmitted === true).length);
+
+
+    return {
+        answeredQuestionCount,
+        quizData,
+        activeQuestion,
+        selected,
+        unlockSection,
+        startNewQuiz,
+        isSectionUnlocked,
+        initQuestionView,
+        submitAnswer,
+        isLastQuestion,
+        randomNextQuestion,
+        updateSelected,
+        clearQuizData,
+        getActiveQuizDataFromDb
+    }
+
 });

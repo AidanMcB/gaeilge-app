@@ -22,19 +22,14 @@ export interface QuizQuestion {
 	reason: string;
     state: string // TBD: make enum val
 	selectedAnswer: string;
+    submittedAnswer: string;
 	category: string; // TBD: make enum value
     isSubmitted: boolean,
     isCorrect?: boolean,
 }
 
-export interface SubmittedData {
-    section: number;
-    questions: QuizQuestion[];
-}
-
 export interface Answer {
     questionId: number;
-    answer: string;
     isCorrect: boolean;
     selectedAnswer: string;
 }

@@ -4,7 +4,7 @@
   "compilerOptions": {
     "isolatedModules": false,
     "target": "es5",
-    "lib": ["es5", "dom"],
+    "lib": ["es5", "dom", "ES2015"],
     "types": ["cypress"],
     "resolveJsonModule": true
   }
