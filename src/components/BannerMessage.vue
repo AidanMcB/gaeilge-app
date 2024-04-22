@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div :class="{
+    <div data-testid='banner-message' :class="{
             'fixed bottom-4 left-0 w-full flex justify-center transition ease-in-out duration-1000': true,
             'opacity-90 ': props.isVisible,
             'opacity-0': !props.isVisible,

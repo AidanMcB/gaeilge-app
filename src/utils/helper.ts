@@ -1,14 +1,14 @@
 import { MatchingDataKeys, MultipleChoiceDataKeys } from '@/ts/enums';
-import type { QuizData, QuizQuestion, SubmittedData } from '@/ts/interfaces';
+import type { QuizData, QuizQuestion } from '@/ts/interfaces';
 import type { VocabSection } from '@/ts/matching.interfaces';
 
 export function getLocalQuizData(itemKey: string) {
     const localStorageData = localStorage.getItem(itemKey);
-    let submittedData: SubmittedData = {} as SubmittedData;
+    let storedQuizData: QuizData = {} as QuizData;
     if (localStorageData) {
-        submittedData = JSON.parse(localStorageData);
+        storedQuizData = JSON.parse(localStorageData);
     } 
-    return submittedData;
+    return storedQuizData;
 }
 
 export function getLocalVocabData(itemKey: string) {
@@ -21,6 +21,7 @@ export function getLocalVocabData(itemKey: string) {
 }
 
 export function clearAllStoredData(): void {
+    localStorage.removeItem(MultipleChoiceDataKeys.StoredQuizData);
     localStorage.removeItem(MultipleChoiceDataKeys.AnsweredQuestions);
     localStorage.removeItem(MultipleChoiceDataKeys.QuestionNumber);
     localStorage.removeItem(MatchingDataKeys.ErrorCount);
@@ -41,13 +42,6 @@ export function randomizeArr(arr: any[]): any[] {
     }
 }
 
-export function randomNextQuestion(allQuestions: QuizQuestion[], submittedQuestions: QuizQuestion[]): number {
-    const allQuestionIds: number[] = allQuestions.map(q => q.id);
-    const answeredQuestionIds: number[] = submittedQuestions?.map(q => q.id) || [];
-    const remainingQuestionIds = allQuestionIds.filter(id => !answeredQuestionIds.includes(id));
-    return remainingQuestionIds[Math.floor(Math.random()*remainingQuestionIds.length)];
-}
-
 export function calcPercent(num: number, total: number): number {
     return ((num / total)*100);
 }
@@ -66,12 +60,5 @@ export function clearCachedQuiz(quiz: QuizData): QuizData {
     return {
         ...quiz,
         questions: quiz?.questions?.map(q => clearCachedQuestion(q)) || []
-    };
-}
-
-export function clearCachedSubmittedData(data: SubmittedData): SubmittedData {
-    return {
-        ...data,
-        questions: []
     };
 }
