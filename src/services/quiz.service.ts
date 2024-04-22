@@ -1,4 +1,4 @@
-import type { QuizData, SubmittedData } from '@/ts/interfaces';
+import type { QuizData } from '@/ts/interfaces';
 import allQuizQuestions from '../assets/quizQuestions.json';
 import { clearCachedQuiz, getLocalQuizData } from '@/utils/helper';
 import { MultipleChoiceDataKeys } from '@/ts/enums';
@@ -15,7 +15,7 @@ export function _getAllQuizData(): Promise<QuizData[]> {
     });
 }
 
-export function _getQuizById(id: number): Promise<QuizData | undefined> {
+export function _getNewQuizById(id: number): Promise<QuizData | undefined> {
     // Faked as async to mimic future behavior when API is built
     return new Promise(resolve => {
         setTimeout(() => {
@@ -28,11 +28,11 @@ export function _getQuizById(id: number): Promise<QuizData | undefined> {
     });
 }
 
-export function _getSubmittedAnswers(): Promise<SubmittedData> {
+export function _getActiveQuizData(): Promise<QuizData | undefined> {
     // Faked as async to mimic future behavior when API is built
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve(getLocalQuizData(MultipleChoiceDataKeys.AnsweredQuestions) as SubmittedData);
+            resolve(getLocalQuizData(MultipleChoiceDataKeys.StoredQuizData) as QuizData);
         }, 300);
     });
 }
@@ -47,11 +47,11 @@ export function _getAvailableQuizSections(): Promise<number []> {
 }
 
 // Setters
-export function _setSubmittedQuizData(submittedQuizData: SubmittedData): Promise<void> {
+export function _updateQuiz(quizData: QuizData): Promise<void> {
     // Faked as async to mimic future behavior when API is built
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve(localStorage.setItem(MultipleChoiceDataKeys.AnsweredQuestions, JSON.stringify(submittedQuizData) ))
+            resolve(localStorage.setItem(MultipleChoiceDataKeys.StoredQuizData, JSON.stringify(quizData) ))
         }, 300);
     });
 }

@@ -20,6 +20,7 @@ import { useQuizStore } from '../stores/quizStore';
 
 <template>
     <span v-for='(opt, index) in store.activeQuestion?.choices' :key='opt' :disabled='store.activeQuestion.isSubmitted'
+            :data-cy='"radio-option-wrapper-"+opt'
            :class="{
                'text-emerald-500': (!store.activeQuestion.isSubmitted && store.selected === opt) || isSubmittedAndCorrect(opt),
                'text-rose-500': isSubmittedAndIncorrect(opt),
@@ -27,8 +28,8 @@ import { useQuizStore } from '../stores/quizStore';
            }"
     >
         <span v-if='store.activeQuestion.isSubmitted' class='mr-2'>
-            <i class='pi pi-check text-emerald-500' v-if='isSubmittedAndCorrect(opt)'></i>
-            <i class='pi pi-times text-rose-500' v-if='isSubmittedAndIncorrect(opt)'></i>
+            <i class='pi pi-check text-emerald-500' data-testid='check-mark-icon' v-if='isSubmittedAndCorrect(opt)'></i>
+            <i class='pi pi-times text-rose-500' data-testid='x-icon' v-if='isSubmittedAndIncorrect(opt)'></i>
         </span>
 
         <input
@@ -40,6 +41,7 @@ import { useQuizStore } from '../stores/quizStore';
             :disabled='store.activeQuestion.isSubmitted'
             v-if='!store.activeQuestion.isSubmitted'
             :data-testid="'radio-option-'+index"
+            :data-cy='"radio-option-"+opt'
             :class="{
                     'option mr-2 lg:mr-4': true,
                     'text-rose-500': isSubmittedAndIncorrect(opt),

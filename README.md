@@ -21,7 +21,7 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+## App Setup
 
 ```sh
 npm install
@@ -70,7 +70,6 @@ npm run lint
 ### Testing
 Uses Vitest for Unit testing and Cypress for e2e testing
 
-
 To run Vitest unit tests, run
 ```sh
 npm run test:unit
@@ -79,6 +78,18 @@ npm run test:unit
 To run Cypress e2e tests, run
 ```sh
 npm run test:e2e
+```
+#### Important
+In order to run Cypress e2e tests, you must first build the app. Cypress runs the app build on a port, so be sure to build before running the above command.
+
+To run Cypress and open in browser, run
+```sh
+npm run cy:open
+```
+#### Important
+This opens the Cypress UI in a new browser. Cypress runs against the localhost:PORT by default, so be sure you have the app running at the port specified in baseUrl in `cypress.config.js`.
+```sh
+npm run dev-cy
 ```
 
 # gaeilge-app

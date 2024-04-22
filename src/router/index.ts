@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import QuizView from '../views/QuizView.vue';
+import SectionSelectView from '../views/SectionSelectView.vue';
 import QuestionView from '../views/QuestionView.vue';
-import ResultsView from '../views/ResultsView.vue';
+import QuizResultsView from '../views/QuizResultsView.vue';
 import MatchingView from '../views/MatchingView.vue';
 import MatchingResultsView from '@/views/MatchingResultsView.vue';
 
@@ -25,7 +25,7 @@ const router = createRouter({
         {
             path: '/section-select',
             name: 'section-select',
-            component: QuizView,
+            component: SectionSelectView,
         },
         {
             path: '/quiz/section/:section_id/question/:question_id',
@@ -35,7 +35,7 @@ const router = createRouter({
         {
             path: '/quiz/section/:section_id/results',
             name: 'results',
-            component: ResultsView
+            component: QuizResultsView
         },
         {
             path: '/matching/section/:section_id/',

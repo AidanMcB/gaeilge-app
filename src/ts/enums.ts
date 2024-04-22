@@ -15,6 +15,7 @@ export enum AnswerState {
 }
 
 export enum MultipleChoiceDataKeys {
+    StoredQuizData = 'stored_quiz_data',
     AnsweredQuestions = 'answered_questions',
     QuestionNumber = 'question_number',
     AvailableSections = 'available_sections'

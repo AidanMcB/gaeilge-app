@@ -3,47 +3,47 @@
 	import { useRoute, useRouter } from 'vue-router';
 	import { useQuizStore } from '../stores/quizStore';
     import { type QuizQuestion } from '../ts/interfaces';
-    import { randomNextQuestion } from '../utils/helper';
 
     const route = useRoute()
     const router = useRouter();
 	const store = useQuizStore();
     const state = ref({
         isLoading: true,
+        sectionId: 0, 
+        questionId: 0,
     });
 
     onMounted(async () => {
-        await store.initQuestionView(parseInt(route.params.section_id as string), parseInt(route.params.question_id as string));
+        state.value.sectionId = parseInt(route.params.section_id as string);
+        state.value.questionId = parseInt(route.params.question_id as string);
+
+        await store.initQuestionView(state.value.sectionId, state.value.questionId);
         state.value.isLoading = false;
     });
 
     function handleSubmit(question: QuizQuestion) {
-        const answer = store.selected;
-        if (answer) {
+        const selectedAnswer = store.selected;
+        if (selectedAnswer) {
             store.activeQuestion.isSubmitted = true;
-            const isCorrect = question.correctAnswer === answer;
+            const isCorrect = question.correctAnswer === selectedAnswer;
             store.activeQuestion.isCorrect = isCorrect;
-            store.submitAnswer({ questionId: store.questionId, answer, isCorrect, selectedAnswer: answer });
+            store.submitAnswer({ questionId: state.value.questionId, isCorrect, selectedAnswer: selectedAnswer });
         } 
     }
 
-    function isLastQuestionsInQuiz(): boolean {
-        return store.submittedData.questions?.length === 10;
-    }
-
     function handleNext() {
-        if (isLastQuestionsInQuiz()) {
-            router.push(`/quiz/section/${store.sectionId}/results`);
+        if (store.isLastQuestion()) {
+            router.push(`/quiz/section/${state.value.sectionId}/results`);
         } else {
-            const nextQuestion = randomNextQuestion(store.activeQuiz.questions, store.submittedData.questions);
-            router.push(`/quiz/section/${store.sectionId}/question/${nextQuestion}`);
+            const nextQuestion = store.randomNextQuestion();
+            router.push(`/quiz/section/${state.value.sectionId}/question/${nextQuestion}`);
         }
     }
 
 </script>
 
 <template>
-	<div data-testid='question-view'
+	<div data-testid='question-view' :data-cy='"question-"+state.questionId' :data-question-id='state.questionId'
     :class="{
         'question-view transition-all duration-200': true, 
         'submitted': store.activeQuestion.isSubmitted,
@@ -69,8 +69,8 @@
                 @click='handleNext' 
                 severity='info'
                 data-testid='next-or-see-answer-btn'>
-                <span v-if='isLastQuestionsInQuiz() && store.activeQuestion.isSubmitted'>See Answers</span>
-                <span v-if='!isLastQuestionsInQuiz() && store.activeQuestion.isSubmitted'>Next</span>  
+                <span v-if='store.isLastQuestion() && store.activeQuestion.isSubmitted'>See Answers</span>
+                <span v-if='!store.isLastQuestion() && store.activeQuestion.isSubmitted'>Next</span>  
             </PrimeButton>
         </div>
 
@@ -79,7 +79,7 @@
                 <i class='pi pi-spinner animate-spin lg:text-2xl'></i>
                 loading ...
             </span>
-            <p class='ml-auto lg:text-2xl'> {{ store.submittedData?.questions?.length }} / 10</p>
+            <p class='ml-auto lg:text-2xl'> {{ store.answeredQuestionCount }} / 10</p>
         </div>
 
 	</div>
