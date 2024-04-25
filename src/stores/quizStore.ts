@@ -13,7 +13,7 @@ export const useQuizStore = defineStore('quizStore', () => {
     async function startNewQuiz(data: QuizData): Promise<number> {
         clearQuizData(); // remove all existing quiz data from the DB and State
         setQuizData(data);
-        updateQuizInDb();
+        await updateQuizInDb();
         return Math.floor(Math.random() * 10)+1;
     }
 
@@ -117,7 +117,6 @@ export const useQuizStore = defineStore('quizStore', () => {
     }
 
     const answeredQuestionCount = computed(() => quizData.value?.questions?.filter(q => q.isSubmitted === true).length);
-
 
     return {
         answeredQuestionCount,

@@ -1,6 +1,6 @@
-import { MatchingDataKeys, MultipleChoiceDataKeys } from '@/ts/enums';
+import { AnswerState, MatchingDataKeys, MultipleChoiceDataKeys } from '@/ts/enums';
 import type { QuizData, QuizQuestion } from '@/ts/interfaces';
-import type { VocabSection } from '@/ts/matching.interfaces';
+import type { Term, VocabSection } from '@/ts/matching.interfaces';
 
 export function getLocalQuizData(itemKey: string) {
     const localStorageData = localStorage.getItem(itemKey);
@@ -25,8 +25,7 @@ export function clearAllStoredData(): void {
     localStorage.removeItem(MultipleChoiceDataKeys.AnsweredQuestions);
     localStorage.removeItem(MultipleChoiceDataKeys.QuestionNumber);
     localStorage.removeItem(MatchingDataKeys.ErrorCount);
-    localStorage.removeItem(MatchingDataKeys.AnsweredQuestions);
-    localStorage.removeItem(MatchingDataKeys.GroupNumber);
+    localStorage.removeItem(MatchingDataKeys.StoredMatchingData);
     localStorage.removeItem(MatchingDataKeys.TermsToPractice);
 }
 
@@ -60,5 +59,22 @@ export function clearCachedQuiz(quiz: QuizData): QuizData {
     return {
         ...quiz,
         questions: quiz?.questions?.map(q => clearCachedQuestion(q)) || []
+    };
+}
+
+
+export function clearCachedMatchingData(vocabSection: VocabSection): VocabSection {
+    return {
+        ...vocabSection,
+        englishTerms: vocabSection?.englishTerms.map(term => clearAnsweredTerm(term)),
+        irishTerms: vocabSection?.irishTerms.map(term => clearAnsweredTerm(term))
+    };
+}
+
+export function clearAnsweredTerm(term: Term): Term {
+    return {
+        ...term,
+        isSelected: false,
+        state: AnswerState.Unanswered
     };
 }

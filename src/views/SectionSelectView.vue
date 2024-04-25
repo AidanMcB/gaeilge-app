@@ -32,7 +32,7 @@ async function handleCardClick(sectionId: number, type: PracticeType): Promise<v
     if (type == Practice.Matching) {
         const matchingData = await _getNewVocabSectionById(sectionId);
         if (matchingData) {
-            matchingStore.startNewMatchingQuiz(matchingData);
+            await matchingStore.startNewMatching(matchingData);
             router.push(`/matching/section/${sectionId}/`);
         }
     } else if (type == Practice.Quiz) {

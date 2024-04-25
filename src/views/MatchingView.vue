@@ -10,10 +10,10 @@
     const router = useRouter();
 
     onMounted( async () => {
-        await store.initVocabMatchingView(parseInt(route.params.section_id as string));
-    })
+        await store.initMatchingView();
+    });
 
-    function handleItemClick( term: Term, language: LanguageType ): void {
+    function handleItemClick( term: Term, language: LanguageType): void {
         if ((term.state === AnswerState.Unanswered || !term.state) && !store.isDisabled) {
             store.handleSelectTerm(term, language);
         }
@@ -21,14 +21,13 @@
 
     function handleNext(): void {
         if (store.isComplete()) {
-            router.push(`/matching/section/${store.sectionId}/results`);
+            router.push(`/matching/section/${route.params.section_id as string}/results`);
         } else {
            store.nextBatchOfVocabQuestions();
         }
     }
 
 </script>
-
 
 <template>
     <div class='w-full h-full p-2 grid grid-rows-[1fr,8fr,1fr,1fr]'>
@@ -42,41 +41,12 @@
                 'opacity-100': store.activeVocab?.englishTerms?.length,
                 'opacity-0': !store.activeVocab?.englishTerms?.length,
             }">
-            <div class='grid grid-rows-4 md:place-content-center lg:place-content-center xl:place-content-center'>
-                <PrimeCard v-for='english in store.activeVocab.englishTerms' :key='english.id'
-                    role='english-terms' 
-                    :class="{
-                        'p-2 h-24 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 md:w-72 lg:w-80': true,
-                        'hover:bg-transparent hover:pointer-events-disabled hover:cursor-default hover:text-gray-400': store.isDisabled,
-                        'bg-emerald-500 text-white': english.isSelected,
-                        'bg-transparent border-rose-500 hover:bg-transparent': english.state === AnswerState.Incorrect && english.isSelected,
-                        'opacity-30 bg-emerald-500 text-white pointer-events-none': english.state === AnswerState.Correct,
-                    }"  
-                    :disabled='(english.state === AnswerState.Correct) || (english.state === AnswerState.Incorrect && english.isSelected)'
-                    @click='handleItemClick(english, Language.English)'>
-                    <template #title>
-                        <h1 class='text-xl font-bold text-center lg:text-3xl lg:p-4'>{{ english.phrase }}</h1>
-                    </template>
-                </PrimeCard>
-            </div>
-
-            <div class='grid grid-rows-4 md:place-content-center lg:place-content-center xl:place-content-center'>
-                <PrimeCard v-for='irish in store.activeVocab.irishTerms' :key='irish.id'
-                    role='irish-terms'
-                    :class="{
-                        'p-2 h-24 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 md:w-72 lg:w-80': true,
-                        'hover:bg-transparent hover:pointer-events-disabled hover:cursor-default hover:text-gray-400': store.isDisabled,
-                        'bg-emerald-500 text-white': irish.isSelected,
-                        'bg-transparent border-rose-500 hover:bg-transparent': irish.state === AnswerState.Incorrect && irish.isSelected,
-                        'opacity-30 bg-emerald-500 text-white pointer-events-none': irish.state === AnswerState.Correct,
-                    }"  
-                    :disabled='irish.state === AnswerState.Correct'
-                    @click='handleItemClick(irish, Language.Irish)'>
-                    <template #title>
-                        <h1 class='text-xl font-bold text-center lg:text-3xl lg:p-4'>{{ irish.phrase }}</h1>
-                    </template>
-                </PrimeCard>
-            </div>
+                <div class='grid grid-rows-4 md:place-content-center lg:place-content-center xl:place-content-center'>
+                    <VocabCard v-for='term in store.activeVocab.englishTerms' :key='term.id' :term='term' :isDisabled='store.isDisabled' :lang='Language.English' :handleClick='handleItemClick'></VocabCard>
+                </div>
+                <div class='grid grid-rows-4 md:place-content-center lg:place-content-center xl:place-content-center'>
+                    <VocabCard v-for='term in store.activeVocab.irishTerms' :key='term.id' :term='term' :isDisabled='store.isDisabled' :lang='Language.Irish' :handleClick='handleItemClick'></VocabCard>
+                </div>
         </div>
 
         <div class='flex justify-center self-end flex-wrap text-xl'>
