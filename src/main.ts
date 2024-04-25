@@ -21,6 +21,7 @@ import TimerClock from './components/TimerClock.vue';
 import FlipCard from './components/FlipCard.vue';
 import BannerMessage from './components/BannerMessage.vue';
 import QuizQuestionResult from './components/QuizQuestionResult.vue';
+import VocabCard from './components/VocabCard.vue';
 
 
 const app = createApp(App);
@@ -39,6 +40,7 @@ app.component("MultipleChoiceOptions", MultipleChoiceOptions);
 app.component("FlipCard", FlipCard);
 app.component("BannerMessage", BannerMessage);
 app.component("QuizQuestionResult", QuizQuestionResult);
+app.component("VocabCard", VocabCard);
 
 app.use(router);
 
