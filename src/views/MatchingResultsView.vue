@@ -14,7 +14,7 @@ import { clearAllStoredData } from '../utils/helper';
     });
 
     onMounted( async () => {
-        await store.initVocabMatchingView(parseInt(route.params.section_id as string));
+        await store.initMatchingView();
         for (let i = 0; i < store.termsToPractice.length; i++) {
             const term = store.termsToPractice[i];
             let translation = store.getTranslatedTerm(term);
@@ -42,7 +42,7 @@ import { clearAllStoredData } from '../utils/helper';
 <template>
     <div class='justify-center h-full w-full p-2 grid grid-rows-[1fr,1fr,40vh,1fr] text-center'>
 
-        <h1 class='text-3xl text-center content-center font-bold lg:text-6xl'>Section {{store.sectionId}} <br/>Matching Results</h1>
+        <h1 class='text-3xl text-center content-center font-bold lg:text-6xl'>Section {{ route.params.section_id }} <br/>Matching Results</h1>
 
         <!-- how many answers incorrect -->
         <div :class="{
@@ -59,7 +59,7 @@ import { clearAllStoredData } from '../utils/helper';
         </div>
 
         <!-- answers that you got wrong --> 
-        <div v-if='state.translated && state.translated.length > 0' class='flex justify-around flex-wrap overflow-y-scroll answer-grid p-4'>
+        <div v-if='state.translated && state.translated.length > 0' class='flex justify-around flex-wrap overflow-y-auto answer-grid p-4'>
             <FlipCard v-for='(term) in state.translated' :key='term.id' class='h-12'>
                 <template v-slot:front>
                     <span class='inline-flex items-center bg-transparent text-base font-bold text-lg lg:text-2xl text-rose-500'>

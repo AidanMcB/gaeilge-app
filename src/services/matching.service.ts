@@ -24,13 +24,13 @@ export function _getNewVocabSectionById(id: number): Promise<VocabSection | unde
     });
 }
 
-export function _getActiveVocabSectionById(id: number): Promise<VocabSection> {
+export function _getActiveVocabSection(): Promise<VocabSection> {
     // Eventually ID will be used to query DB. 
     // For now, only one matching quiz will be available in localStorage at a time, so no need to use it.
     // Faked as async to mimic future behavior when API is built
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve(getLocalVocabData(MatchingDataKeys.AnsweredQuestions) as VocabSection);
+            resolve(getLocalVocabData(MatchingDataKeys.StoredMatchingData) as VocabSection);
         }, 300);
     });
 }
@@ -56,11 +56,11 @@ export function _getTermsToPractice(): Promise<Term[]> {
 }
 
 // Setters
-export function _updateActiveVocabSection(submittedVocabData: VocabSection): Promise<void> {
+export function _updateActiveVocabSection(vocabData: VocabSection): Promise<void> {
     // Faked as async to mimic future behavior when API is built
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve(localStorage.setItem(MatchingDataKeys.AnsweredQuestions, JSON.stringify(submittedVocabData) ));
+            resolve(localStorage.setItem(MatchingDataKeys.StoredMatchingData, JSON.stringify(vocabData) ));
         }, 300);
     });
 }
