@@ -19,7 +19,10 @@ export function _getNewVocabSectionById(id: number): Promise<VocabSection | unde
     // Faked as async to mimic future behavior when API is built
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve(translateTerms.find((section: VocabSection) => section.section === id));
+            const translatedTerms = translateTerms.find((section: VocabSection) => section.id === id);
+            if (translateTerms) {
+                resolve(translatedTerms);
+            }
         }, 300);
     });
 }
