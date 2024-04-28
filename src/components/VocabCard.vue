@@ -13,7 +13,9 @@ const props = defineProps<{
 
 
 <template>
-    <PrimeCard
+    <PrimeCard unstyled
+        data-testid="term-card"
+        :data-termid='term.id'
         role='english-terms' 
         :class="{
             'p-2 h-24 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 md:w-72 lg:w-80': true,

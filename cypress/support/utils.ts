@@ -1,7 +1,10 @@
-import { type QuizData, type QuizQuestion } from '../../src/ts/interfaces';
-import quizDataJson from '../fixtures/quizQuestions.json';
+import { type QuizData } from '../../src/ts/interfaces';
+import type { VocabSection } from '../../src/ts/matching.interfaces';
+import quizDataJson from '../fixtures/fixtures_quizQuestions.json';
+import matchingDataJson from '../fixtures/fixtures_translateTerms.json';
 
 const quizData = quizDataJson as QuizData[];
+const matchingData = matchingDataJson as VocabSection[];
 
 export function getCorrectAnswer(sectionId: number, questionId: number): string | undefined {
     const quiz = quizData.find(quiz => quiz.id == sectionId);

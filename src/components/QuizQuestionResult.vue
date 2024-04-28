@@ -16,7 +16,7 @@ function isCorrect(question: QuizQuestion, option: string): boolean {
 </script>
 
 <template>
-    <PrimeCard :header='props.question.question' :key='props.question.id'>
+    <PrimeCard unstyled :header='props.question.question' :key='props.question.id'>
         <template #title>
             <span class='card-title text-lg font-bold sm:text-xl md:text-2xl'>{{ index+1 }}. {{ props.question.question }}</span>
         </template>

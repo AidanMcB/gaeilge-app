@@ -76,8 +76,7 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
 
         <div v-if='state.error.length === 0 && !state.isLoading && !state.isQuizComplete' class='flex flex-col justify-center items-center h-full' data-testid='unfinished-quiz'>
             <span class='text-center text-emerald-500 text-2xl mb-12'> You have not answered all 10 quiz questions!</span>
-            <button @click='goBack()' 
-                class='transition ease-in-out duration-300 text-lg border border-orange-500 rounded-md bg-orange-600 p-2 text-white lg:text-2xl lg:p-4 hover:bg-orange-500 hover:text-white'>
+            <button @click='goBack()' class='btn-secondary'>
                 Go Back
             </button>
         </div>
@@ -99,18 +98,18 @@ import { calcPercent, clearAllStoredData } from '../utils/helper';
             }">
                 {{ state.percentage }}%
             </h1>
-            <h1 class='text-xl m-2 sm:text-lg lg:text-2xl'>You answered {{ state.correctAnswers }} / 10 questions correctly.</h1>
+            <h1 class='text-xl m-2 sm:text-lg lg:text-2xl'>You answered {{ state.correctAnswers }} / 10 questions correctly in section {{ state.answeredQuestions.section }}.</h1>
 
             <div class='card-grid grid gap-10 place-content-center mt-6 mb-1'>
                 <QuizQuestionResult v-for='(q, index) in state.answeredQuestions.questions' :question='q' :index='index' :key='q.id'></QuizQuestionResult>
                 <div class='flex justify-evenly mb-16'>
                     <PrimeButton 
-                        class='transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-600 p-2 text-white lg:text-2xl lg:p-4 hover:bg-emerald-500 hover:text-white' 
+                        class='btn-primary' 
                         @click='tryAnotherQuiz' severity='secondary'>
                         Try another quiz
                     </PrimeButton>
                     <PrimeButton 
-                        class='transition ease-in-out duration-300 text-lg border border-orange-500 rounded-md bg-orange-600 p-2 text-white lg:text-2xl lg:p-4 hover:bg-orange-500 hover:text-white' 
+                        class='btn-secondary' 
                         @click='returnHome' severity='info'>
                         Home
                     </PrimeButton>
