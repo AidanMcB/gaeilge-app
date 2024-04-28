@@ -1,6 +1,6 @@
 [
     { 
-        "id": 0,
+        "id": 1,
         "section": 1,
         "englishTerms": [
             {
@@ -168,7 +168,7 @@
         ]
     },
     {
-        "id": 1,
+        "id": 2,
         "section": 2,
         "englishTerms": [
             {
@@ -336,7 +336,7 @@
         ]
     },
     {
-        "id": 2,
+        "id": 3,
         "section": 3,
         "englishTerms": [
             {
@@ -504,351 +504,343 @@
         ]
     },
     { 
-        "id": 3,
+        "id": 4,
         "section": 4,
         "englishTerms": [
-            [
-                {
-                    "id": 60,
-                    "phrase": "carrot"
-                },
-                {
-                    "id": 61,
-                    "phrase": "broccoli"
-                },
-                {
-                    "id": 62,
-                    "phrase": "lettuce"
-                },
-                {
-                    "id": 63,
-                    "phrase": "garlic"
-                },
-                {
-                    "id": 64,
-                    "phrase": "apple"
-                },
-                {
-                    "id": 65,
-                    "phrase": "peach"
-                },
-                {
-                    "id": 66,
-                    "phrase": "orange"
-                },
-                {
-                    "id": 67,
-                    "phrase": "sausages"
-                },
-                {
-                    "id": 68,
-                    "phrase": "steak"
-                },
-                {
-                    "id": 69,
-                    "phrase": "lamb"
-                },
-                {
-                    "id": 70,
-                    "phrase": "Chinese food"
-                },
-                {
-                    "id": 71,
-                    "phrase": "Brazilian food"
-                },
-                {
-                    "id": 72,
-                    "phrase": "delicious"
-                },
-                {
-                    "id": 73,
-                    "phrase": "i hate"
-                },
-                {
-                    "id": 74,
-                    "phrase": "feelings"
-                },
-                {
-                    "id": 75,
-                    "phrase": "hunger"
-                },
-                {
-                    "id": 76,
-                    "phrase": "sadness"
-                },
-                {
-                    "id": 77,
-                    "phrase": "cute"
-                },
-                {
-                    "id": 78,
-                    "phrase": "remember"
-                },
-                {
-                    "id": 79,
-                    "phrase": "world"
-                }
-            ]
+            {
+                "id": 60,
+                "phrase": "carrot"
+            },
+            {
+                "id": 61,
+                "phrase": "broccoli"
+            },
+            {
+                "id": 62,
+                "phrase": "lettuce"
+            },
+            {
+                "id": 63,
+                "phrase": "garlic"
+            },
+            {
+                "id": 64,
+                "phrase": "apple"
+            },
+            {
+                "id": 65,
+                "phrase": "peach"
+            },
+            {
+                "id": 66,
+                "phrase": "orange"
+            },
+            {
+                "id": 67,
+                "phrase": "sausages"
+            },
+            {
+                "id": 68,
+                "phrase": "steak"
+            },
+            {
+                "id": 69,
+                "phrase": "lamb"
+            },
+            {
+                "id": 70,
+                "phrase": "Chinese food"
+            },
+            {
+                "id": 71,
+                "phrase": "Brazilian food"
+            },
+            {
+                "id": 72,
+                "phrase": "delicious"
+            },
+            {
+                "id": 73,
+                "phrase": "i hate"
+            },
+            {
+                "id": 74,
+                "phrase": "feelings"
+            },
+            {
+                "id": 75,
+                "phrase": "hunger"
+            },
+            {
+                "id": 76,
+                "phrase": "sadness"
+            },
+            {
+                "id": 77,
+                "phrase": "cute"
+            },
+            {
+                "id": 78,
+                "phrase": "remember"
+            },
+            {
+                "id": 79,
+                "phrase": "world"
+            }
         ],
         "irishTerms": [
-            [
-                {
-                    "id": 60,
-                    "phrase": "cairéad"
-                },
-                {
-                    "id": 61,
-                    "phrase": "brocailí"
-                },
-                {
-                    "id": 62,
-                    "phrase": "leitís"
-                },
-                {
-                    "id": 63,
-                    "phrase": "geirleog"
-                },
-                {
-                    "id": 64,
-                    "phrase": "úll"
-                },
-                {
-                    "id": 65,
-                    "phrase": "péitseog"
-                },
-                {
-                    "id": 66,
-                    "phrase": "oráiste"
-                },
-                {
-                    "id": 67,
-                    "phrase": "ispíní"
-                },
-                {
-                    "id": 68,
-                    "phrase": "stéig"
-                },
-                {
-                    "id": 69,
-                    "phrase": "uaineoil"
-                },
-                {
-                    "id": 70,
-                    "phrase": "bia Síneach"
-                },
-                {
-                    "id": 71,
-                    "phrase": "bia Brasaíleach"
-                },
-                {
-                    "id": 72,
-                    "phrase": "blasta"
-                },
-                {
-                    "id": 73,
-                    "phrase": "is fuath liom"
-                },
-                {
-                    "id": 74,
-                    "phrase": "mothúcháin"
-                },
-                {
-                    "id": 75,
-                    "phrase": "ocras"
-                },
-                {
-                    "id": 76,
-                    "phrase": "brón"
-                },
-                {
-                    "id": 77,
-                    "phrase": "gleoite"
-                },
-                {
-                    "id": 78,
-                    "phrase": "cuimhnigh"
-                },
-                {
-                    "id": 79,
-                    "phrase": "domhan"
-                }
-            ]
-        ]
-    },
-    {
-        "id": 4,
-        "section": 5,
-        "englishTerms": [
-            [
-                {
-                    "id": 80,
-                    "phrase": "colours"
-                },
-                {
-                    "id": 81,
-                    "phrase": "colourful"
-                },
-                {
-                    "id": 82,
-                    "phrase": "yellow"
-                },
-                {
-                    "id": 83,
-                    "phrase": "blue"
-                },
-                {
-                    "id": 84,
-                    "phrase": "red"
-                },
-                {
-                    "id": 85,
-                    "phrase": "flag"
-                },
-                {
-                    "id": 86,
-                    "phrase": "gold"
-                },
-                {
-                    "id": 87,
-                    "phrase": "i am not"
-                },
-                {
-                    "id": 88,
-                    "phrase": "we"
-                },
-                {
-                    "id": 89,
-                    "phrase": "my bag"
-                },
-                {
-                    "id": 90,
-                    "phrase": "our father"
-                },
-                {
-                    "id": 91,
-                    "phrase": "their father"
-                },
-                {
-                    "id": 92,
-                    "phrase": "my essay"
-                },
-                {
-                    "id": 93,
-                    "phrase": "your egg"
-                },
-                {
-                    "id": 94,
-                    "phrase": "her apartment"
-                },
-                {
-                    "id": 95,
-                    "phrase": "it's mine"
-                },
-                {
-                    "id": 96,
-                    "phrase": "we are not"
-                },
-                {
-                    "id": 97,
-                    "phrase": "you (plural)"
-                },
-                {
-                    "id": 98,
-                    "phrase": "their house"
-                },
-                {
-                    "id": 99,
-                    "phrase": "their clothes"
-                }
-            ]
-        ],
-        "irishTerms": [
-            [
-                {
-                    "id": 80,
-                    "phrase": "dathanna"
-                },
-                {
-                    "id": 81,
-                    "phrase": "dathúil"
-                },
-                {
-                    "id": 82,
-                    "phrase": "buí"
-                },
-                {
-                    "id": 83,
-                    "phrase": "gorm"
-                },
-                {
-                    "id": 84,
-                    "phrase": "dearg"
-                },
-                {
-                    "id": 85,
-                    "phrase": "bratach"
-                },
-                {
-                    "id": 86,
-                    "phrase": "ór"
-                },
-                {
-                    "id": 87,
-                    "phrase": "níl mé"
-                },
-                {
-                    "id": 88,
-                    "phrase": "muid"
-                },
-                {
-                    "id": 89,
-                    "phrase": "mo mhála"
-                },
-                {
-                    "id": 90,
-                    "phrase": "ár n-athair"
-                },
-                {
-                    "id": 91,
-                    "phrase": "a n-athair"
-                },
-                {
-                    "id": 92,
-                    "phrase": "m'aiste"
-                },
-                {
-                    "id": 93,
-                    "phrase": "d'ubh"
-                },
-                {
-                    "id": 94,
-                    "phrase": "a hárasán"
-                },
-                {
-                    "id": 95,
-                    "phrase": "is liomsa é"
-                },
-                {
-                    "id": 96,
-                    "phrase": "mílimid"
-                },
-                {
-                    "id": 97,
-                    "phrase": "sibh"
-                },
-                {
-                    "id": 98,
-                    "phrase": "a dteach"
-                },
-                {
-                    "id": 99,
-                    "phrase": "a n-éadaí"
-                }
-            ]
+            {
+                "id": 60,
+                "phrase": "cairéad"
+            },
+            {
+                "id": 61,
+                "phrase": "brocailí"
+            },
+            {
+                "id": 62,
+                "phrase": "leitís"
+            },
+            {
+                "id": 63,
+                "phrase": "geirleog"
+            },
+            {
+                "id": 64,
+                "phrase": "úll"
+            },
+            {
+                "id": 65,
+                "phrase": "péitseog"
+            },
+            {
+                "id": 66,
+                "phrase": "oráiste"
+            },
+            {
+                "id": 67,
+                "phrase": "ispíní"
+            },
+            {
+                "id": 68,
+                "phrase": "stéig"
+            },
+            {
+                "id": 69,
+                "phrase": "uaineoil"
+            },
+            {
+                "id": 70,
+                "phrase": "bia Síneach"
+            },
+            {
+                "id": 71,
+                "phrase": "bia Brasaíleach"
+            },
+            {
+                "id": 72,
+                "phrase": "blasta"
+            },
+            {
+                "id": 73,
+                "phrase": "is fuath liom"
+            },
+            {
+                "id": 74,
+                "phrase": "mothúcháin"
+            },
+            {
+                "id": 75,
+                "phrase": "ocras"
+            },
+            {
+                "id": 76,
+                "phrase": "brón"
+            },
+            {
+                "id": 77,
+                "phrase": "gleoite"
+            },
+            {
+                "id": 78,
+                "phrase": "cuimhnigh"
+            },
+            {
+                "id": 79,
+                "phrase": "domhan"
+            }
         ]
     },
     {
         "id": 5,
+        "section": 5,
+        "englishTerms": [
+            {
+                "id": 80,
+                "phrase": "colours"
+            },
+            {
+                "id": 81,
+                "phrase": "colourful"
+            },
+            {
+                "id": 82,
+                "phrase": "yellow"
+            },
+            {
+                "id": 83,
+                "phrase": "blue"
+            },
+            {
+                "id": 84,
+                "phrase": "red"
+            },
+            {
+                "id": 85,
+                "phrase": "flag"
+            },
+            {
+                "id": 86,
+                "phrase": "gold"
+            },
+            {
+                "id": 87,
+                "phrase": "i am not"
+            },
+            {
+                "id": 88,
+                "phrase": "we"
+            },
+            {
+                "id": 89,
+                "phrase": "my bag"
+            },
+            {
+                "id": 90,
+                "phrase": "our father"
+            },
+            {
+                "id": 91,
+                "phrase": "their father"
+            },
+            {
+                "id": 92,
+                "phrase": "my essay"
+            },
+            {
+                "id": 93,
+                "phrase": "your egg"
+            },
+            {
+                "id": 94,
+                "phrase": "her apartment"
+            },
+            {
+                "id": 95,
+                "phrase": "it's mine"
+            },
+            {
+                "id": 96,
+                "phrase": "we are not"
+            },
+            {
+                "id": 97,
+                "phrase": "you (plural)"
+            },
+            {
+                "id": 98,
+                "phrase": "their house"
+            },
+            {
+                "id": 99,
+                "phrase": "their clothes"
+            }
+        ],
+        "irishTerms": [
+            {
+                "id": 80,
+                "phrase": "dathanna"
+            },
+            {
+                "id": 81,
+                "phrase": "dathúil"
+            },
+            {
+                "id": 82,
+                "phrase": "buí"
+            },
+            {
+                "id": 83,
+                "phrase": "gorm"
+            },
+            {
+                "id": 84,
+                "phrase": "dearg"
+            },
+            {
+                "id": 85,
+                "phrase": "bratach"
+            },
+            {
+                "id": 86,
+                "phrase": "ór"
+            },
+            {
+                "id": 87,
+                "phrase": "níl mé"
+            },
+            {
+                "id": 88,
+                "phrase": "muid"
+            },
+            {
+                "id": 89,
+                "phrase": "mo mhála"
+            },
+            {
+                "id": 90,
+                "phrase": "ár n-athair"
+            },
+            {
+                "id": 91,
+                "phrase": "a n-athair"
+            },
+            {
+                "id": 92,
+                "phrase": "m'aiste"
+            },
+            {
+                "id": 93,
+                "phrase": "d'ubh"
+            },
+            {
+                "id": 94,
+                "phrase": "a hárasán"
+            },
+            {
+                "id": 95,
+                "phrase": "is liomsa é"
+            },
+            {
+                "id": 96,
+                "phrase": "mílimid"
+            },
+            {
+                "id": 97,
+                "phrase": "sibh"
+            },
+            {
+                "id": 98,
+                "phrase": "a dteach"
+            },
+            {
+                "id": 99,
+                "phrase": "a n-éadaí"
+            }
+        ]
+    },
+    {
+        "id": 6,
         "section": 6,
         "englishTerms": [
             {
