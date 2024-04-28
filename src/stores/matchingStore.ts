@@ -32,6 +32,7 @@ export const useMatchingStore = defineStore('matchingStore', () => {
     }
 
     async function initMatchingView() {
+        isLoading.value = true;
         if (!vocabData.value || ! !vocabData.value.irishTerms || !vocabData.value.englishTerms) {
             const fetchedMatchingData = await getVocabDatFromDb();
             if (fetchedMatchingData) {

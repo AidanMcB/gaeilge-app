@@ -76,13 +76,11 @@ import { clearAllStoredData } from '../utils/helper';
 
         <!-- CTA -->
         <div  v-if='!state.isLoading' class='flex justify-evenly self-end'>
-            <PrimeButton 
-                class='transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-600 p-2 text-white lg:text-2xl lg:p-4 hover:bg-emerald-500 hover:text-white' 
+            <PrimeButton class='btn-primary' 
                 @click='tryAnotherQuiz' severity='secondary'>
                 Try another section
             </PrimeButton>
-            <PrimeButton 
-                class='transition ease-in-out duration-300 text-lg border border-orange-500 rounded-md bg-orange-600 p-2 text-white lg:text-2xl lg:p-4 hover:bg-orange-500 hover:text-white' 
+            <PrimeButton class='btn-secondary' 
                 @click='returnHome' severity='info'>
                 Home
             </PrimeButton>
