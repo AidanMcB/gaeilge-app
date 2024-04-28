@@ -54,7 +54,7 @@ async function handleCardClick(sectionId: number, type: PracticeType): Promise<v
 
 <template>
     <div data-testid='section-select'>
-        <h1 class='font-bold text-center text-4xl m-2 mb-6 lg:text5xl lg:mb-6'>Choose a section</h1>
+        <h1 class='header-1'>Choose a section</h1>
 
         <span v-if='state.isLoading' class='flex flex-col justify-center items-center h-5/6'>
             <i class='pi pi-spinner animate-spin text-emerald-500 text-8xl'></i>
@@ -69,7 +69,7 @@ async function handleCardClick(sectionId: number, type: PracticeType): Promise<v
                 'opacity-100': !state.isLoading,
                 'opacity-0': state.isLoading
             }">
-            <PrimeCard :data-testid="'section-'+quizSection.id" role='section' v-for='quizSection in state.allQuizData' :key='quizSection.id' class='p-2 border border-emerald-500 rounded lg:p-6'>
+            <PrimeCard unstyled :data-testid="'section-'+quizSection.id" role='section' v-for='quizSection in state.allQuizData' :key='quizSection.id' class='p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
                     <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>{{ "Section " + quizSection.section}}</h1>
                 </template>
@@ -80,13 +80,13 @@ async function handleCardClick(sectionId: number, type: PracticeType): Promise<v
                             <PrimeButton @click='handleCardClick(quizSection.section, Practice.Matching)' 
                                 data-testid='matching'
                                 :disabled='!quizStore.isSectionUnlocked(quizSection.id)'
-                                class='disabled:bg-gray-500 disabled:border-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
+                                class='btn-action'>
                                 Matching
                             </PrimeButton>
                             <PrimeButton @click='handleCardClick(quizSection.section, Practice.Quiz)' 
                                 data-testid='quiz'
                                 :disabled='!quizStore.isSectionUnlocked(quizSection.id)'
-                                class='disabled:bg-gray-500 disabled:border-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white-300 flex lg:text-2xl'>
+                                class='btn-action'>
                                 Quiz 
                             </PrimeButton>
                         </div>

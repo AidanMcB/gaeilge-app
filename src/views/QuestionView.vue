@@ -57,14 +57,14 @@
         </div>
 
         <div class='button-section'>
-            <PrimeButton class='transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-500 p-2 text-white lg:text-2xl lg:p-4 disabled:opacity-60' 
+            <PrimeButton class='btn-primary' 
                 @click='handleSubmit(store.activeQuestion)' 
                 v-if='!store.activeQuestion.isSubmitted'
                 :disabled='store.activeQuestion.isSubmitted || !store.selected'
                 data-testid='submit-btn'>
                 Submit
             </PrimeButton>
-            <PrimeButton class='transition ease-in-out duration-300 text-lg border border-orange-500 rounded-md p-2 lg:text-2xl lg:p-4 hover:border-orange-200 hover:bg-orange-500 hover:text-white' 
+            <PrimeButton class='btn-secondary' 
                 v-if='store.activeQuestion.isSubmitted' 
                 @click='handleNext' 
                 severity='info'

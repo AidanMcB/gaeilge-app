@@ -36,15 +36,17 @@
             <span v-if='!store.isLoading && store.isComplete()' class='w-full text-center self-center text-emerald-500'>Complete!</span>
         </div>
 
-        <div :class="{
+        <div data-testid='active-matching-section'
+            v-if='!store.isLoading'
+            :class="{
                 'grid grid-cols-2 gap-4 transition-all duration-200': true,
                 'opacity-100': store.activeVocab?.englishTerms?.length,
                 'opacity-0': !store.activeVocab?.englishTerms?.length,
             }">
-                <div class='grid grid-rows-4 md:place-content-center lg:place-content-center xl:place-content-center'>
+                <div class='grid grid-rows-4 md:place-content-center lg:place-content-center xl:place-content-center' data-testid='english-col'>
                     <VocabCard v-for='term in store.activeVocab.englishTerms' :key='term.id' :term='term' :isDisabled='store.isDisabled' :lang='Language.English' :handleClick='handleItemClick'></VocabCard>
                 </div>
-                <div class='grid grid-rows-4 md:place-content-center lg:place-content-center xl:place-content-center'>
+                <div class='grid grid-rows-4 md:place-content-center lg:place-content-center xl:place-content-center' data-testid='irish-col'>
                     <VocabCard v-for='term in store.activeVocab.irishTerms' :key='term.id' :term='term' :isDisabled='store.isDisabled' :lang='Language.Irish' :handleClick='handleItemClick'></VocabCard>
                 </div>
         </div>
@@ -59,7 +61,7 @@
         </div>
 
         <div class='flex items-end'>
-            <span v-if='store.isLoading && !store.isComplete()' class='text-emerald-500 lg:text-2xl w-full'> 
+            <span v-if='store.isLoading && !store.isComplete()' class='text-emerald-500 lg:text-2xl w-full text-center'> 
                 <i class='pi pi-spinner animate-spin lg:text-2xl'></i>
                 loading ...
             </span>

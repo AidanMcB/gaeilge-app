@@ -1,13 +1,26 @@
+<!-- 
+    englishTerm: string;
+    irishTem: string;
+    tags: string[];
+    color: string;
+
+    - each notecard has its own state as a ref
+ -->
+
 <script setup lang='ts'>
 import { ref } from 'vue';
 
+// const props = withDefaults(defineProps<{
+
+// }>({
+
+// }));
+
 const flipped = ref(false);
+
 const flip = () => {
     if (flipped.value === false) {
         flipped.value = !flipped.value;
-        setTimeout(() => {
-            flipped.value = false;
-        }, 1500)
     }
 };
 

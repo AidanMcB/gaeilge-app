@@ -62,6 +62,17 @@ export const useQuizStore = defineStore('quizStore', () => {
         }
     }
 
+    async function getAvailableQuizSectionsFromDb(): Promise<number[] | void> {
+        try {
+            const sections = quizService._getAvailableQuizSections();
+            if (sections) {
+                return sections;
+            }
+        } catch (err) {
+            console.error('Unable to get unlocked sections. Error: ', err);
+        }
+    }
+
     function isSectionUnlocked(section: number): boolean {
         return unlockedSections.value.includes(section)
     }
@@ -106,6 +117,7 @@ export const useQuizStore = defineStore('quizStore', () => {
     }
 
     async function unlockSection(section: number): Promise<void> {
+        unlockedSections.value = await getAvailableQuizSectionsFromDb() || unlockedSections.value;
         if (!unlockedSections.value.includes(section)) {
             unlockedSections.value = [...unlockedSections.value, section];
             try {

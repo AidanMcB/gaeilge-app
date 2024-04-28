@@ -5,6 +5,7 @@ import QuestionView from '../views/QuestionView.vue';
 import QuizResultsView from '../views/QuizResultsView.vue';
 import MatchingView from '../views/MatchingView.vue';
 import MatchingResultsView from '@/views/MatchingResultsView.vue';
+import NoteCardListView from '@/views/NoteCardListView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,11 @@ const router = createRouter({
             path: '/matching/section/:section_id/results',
             name: 'matchingResults',
             component:  MatchingResultsView
+        },
+        {
+            path: '/notecards',
+            name: 'notecards',
+            component:  NoteCardListView
         },
     ]
 })
