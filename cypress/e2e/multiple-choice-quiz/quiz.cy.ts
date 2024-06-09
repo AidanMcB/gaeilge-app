@@ -6,7 +6,7 @@ describe('Multiple Choice Quiz', () => {
 
     beforeEach(() => {
         cy.visit('/section-select');
-        cy.contains('h1', 'Choose a section');
+        cy.contains('h1', 'Roghnaigh modúl');
         cy.get('[data-testid="section-1"]').find('[data-testid="quiz"]').click();
 
         cy.get('[data-testid="question-view"]').should('be.visible');
@@ -14,7 +14,7 @@ describe('Multiple Choice Quiz', () => {
 
     it('Take Section 1 quiz and fail with 30%.', () => {
         cy.visit('/section-select');
-        cy.contains('h1', 'Choose a section');
+        cy.contains('h1', 'Roghnaigh modúl');
         cy.get('[data-testid="section-1"]').find('[data-testid="quiz"]').click();
         // Assuming each quiz has 10 questions
         for (let i = 0; i < 10; i++) {
@@ -31,7 +31,7 @@ describe('Multiple Choice Quiz', () => {
 
     it('Take Section 1 quiz and achieve a score of 100%. This should unlock section 2.', () => {
         cy.visit('/section-select');
-        cy.contains('h1', 'Choose a section');
+        cy.contains('h1', 'Roghnaigh modúl');
         cy.passQuiz(1);
         // After test completes
         cy.get('[data-testid="result-percentage"]').should('contain.text', '100%')
@@ -43,7 +43,7 @@ describe('Multiple Choice Quiz', () => {
 
     it('Pass all quizzes. Next section should be unlocked after each quiz.', () => {
         cy.visit('/section-select');
-        cy.contains('h1', 'Choose a section');
+        cy.contains('h1', 'Roghnaigh modúl');
 
         for(let i = 1; i <= 5; i++) {
             cy.passQuiz(i);
@@ -59,7 +59,7 @@ describe('Multiple Choice Quiz', () => {
 
     it('Navigating to /results view before finishing a test will not show answers', () => {
         cy.visit('/section-select');
-        cy.contains('h1', 'Choose a section');
+        cy.contains('h1', 'Roghnaigh modúl');
         cy.get('[data-testid="section-1"]').find('[data-testid="quiz"]').click();
 
         cy.get('[data-testid="question-view"]').should('be.visible');

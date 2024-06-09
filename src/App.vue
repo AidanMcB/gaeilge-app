@@ -1,8 +1,7 @@
 <template>
-    <div class='app-wrap grid w-full h-full'>
-        <header class='w-full absolute top-0'>
-            <NavBar />
-        </header>
+    <div class='h-full w-full'>
+        <NavBar />
+        <PrimeToast></PrimeToast>
         <RouterView :key="$route.fullPath" />
     </div>
 </template>

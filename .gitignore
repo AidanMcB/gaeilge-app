@@ -29,6 +29,7 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+.env
 
 ToDo.md
 scrap.txt
