@@ -3,7 +3,9 @@
 	import { useRoute, useRouter } from 'vue-router';
 	import { useQuizStore } from '../stores/quizStore';
     import { type QuizQuestion } from '../ts/interfaces';
+    import { useTitle } from '@vueuse/core';
 
+    const title = useTitle('Ceisteanna');
     const route = useRoute()
     const router = useRouter();
 	const store = useQuizStore();

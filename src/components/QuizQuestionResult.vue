@@ -10,9 +10,9 @@ function isCorrect(question: QuizQuestion, option: string): boolean {
         return (option === question.correctAnswer);
     }
 
-    function isIncorrect(question: QuizQuestion, option: string): boolean {
-        return (option === question.selectedAnswer && option != question.correctAnswer);
-    }
+function isIncorrect(question: QuizQuestion, option: string): boolean {
+    return (option === question.selectedAnswer && option != question.correctAnswer);
+}
 </script>
 
 <template>

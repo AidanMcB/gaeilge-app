@@ -10,7 +10,7 @@
     }
 
     .btn-primary {
-        @apply transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-500 p-2 text-white lg:text-2xl lg:p-4 disabled:opacity-60;
+        @apply transition ease-in-out duration-300 text-lg border border-emerald-500 rounded-md bg-emerald-500 p-2 text-white lg:text-2xl lg:p-4 disabled:opacity-60 bright-hover;
     }
 
     .btn-secondary {
@@ -19,5 +19,17 @@
 
     .btn-action {
         @apply disabled:bg-gray-500 disabled:border-gray-500 m-3 text-white bg-emerald-600 border border-emerald-700 rounded p-1 rounded enabled:hover:bg-emerald-500 enabled:hover:text-white flex lg:text-2xl;
+    }
+
+    .btn-danger {
+        @apply transition ease-in-out duration-300 text-lg border border-rose-500 rounded-md bg-rose-500 p-2 text-white lg:text-2xl lg:p-4 disabled:opacity-60;
+    }
+
+    .notecard-grid {
+        @apply gap-4 mobile:grid-cols-3 sm:grid-rows-3 overflow-y-scroll
+    }
+
+    .bright-hover {
+        @apply hover:brightness-110 focus:brightness-110 hover:brightness-110 active:brightness-110
     }
 }

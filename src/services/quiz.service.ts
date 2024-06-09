@@ -3,8 +3,6 @@ import allQuizQuestions from '../assets/quizQuestions.json';
 import { clearCachedQuiz, getLocalQuizData } from '@/utils/helper';
 import { MultipleChoiceDataKeys } from '@/ts/enums';
 
-// process.env === 'develop'
-
 // Getters
 export function _getAllQuizData(): Promise<QuizData[]> {
     // Faked as async to mimic future behavior when API is built

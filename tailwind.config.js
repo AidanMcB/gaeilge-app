@@ -8,7 +8,18 @@ export default {
         extend: {
             transitionDuration: {
                 '2000': '5000ms',
-            }    
+            }, 
+            colors: {
+                mute: {
+                    light: '#5d5d5d',
+                    standard: '#282828',
+                    dark: '#222222',
+                    darker: '#181818'
+                }
+            },
+            screens: {
+                'mobile': '320px'
+            }
         },
     },
     future: {
