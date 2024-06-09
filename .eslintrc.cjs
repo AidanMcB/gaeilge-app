@@ -20,4 +20,7 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: "latest",
 	},
+    rules: {
+        'vue/no-multiple-template-root': 'off'
+    }
 };

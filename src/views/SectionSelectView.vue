@@ -53,8 +53,8 @@ async function handleCardClick(sectionId: number, type: PracticeType): Promise<v
 </script>
 
 <template>
-    <div data-testid='section-select'>
-        <h1 class='header-1'>Choose a section</h1>
+    <div data-testid='section-select' class='h-full' :class="{ 'flex justify-center items-center': state.isLoading }">
+        <h1 v-if='!state.isLoading' class='header-1'>Roghnaigh modúl</h1>
 
         <span v-if='state.isLoading' class='flex flex-col justify-center items-center h-5/6'>
             <i class='pi pi-spinner animate-spin text-emerald-500 text-8xl'></i>
@@ -64,12 +64,13 @@ async function handleCardClick(sectionId: number, type: PracticeType): Promise<v
             <span class='text-rose-500 text-2xl basis-2/3'>{{ state.error }}</span>
         </div>
 
-        <div :activeIndex='0' :class="{
-                'p-2 grid gap-6 lg:grid-cols-2 sm:grid-cols-1 transition-all duration-200': true,
+        <div :activeIndex='0' v-if='!state.isLoading' class='p-2' :class="{
+                'grid gap-6 lg:grid-cols-2 sm:grid-cols-1 transition-all duration-200 overflow-y-scroll': true,
                 'opacity-100': !state.isLoading,
                 'opacity-0': state.isLoading
             }">
-            <PrimeCard unstyled :data-testid="'section-'+quizSection.id" role='section' v-for='quizSection in state.allQuizData' :key='quizSection.id' class='p-2 border border-emerald-500 rounded lg:p-6'>
+            <PrimeCard unstyled :data-testid="'section-'+quizSection.id" role='section' v-for='quizSection in state.allQuizData' :key='quizSection.id' 
+                class='p-2 border border-emerald-500 rounded lg:p-6'>
                 <template #title>
                     <h1 class='text-xl font-bold text-center lg:text-4xl lg:p-4'>{{ "Section " + quizSection.section}}</h1>
                 </template>

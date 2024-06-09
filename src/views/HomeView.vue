@@ -4,9 +4,9 @@
         <RouterLink to='/section-select'>
             <PrimeButton class='bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded sm:text-lg md:text-2xl'>Cleachtadh do chuid Ghaeilge</PrimeButton>
         </RouterLink>
-        <!-- <RouterLink to='/notecards'>
+        <RouterLink to='/notecards'>
             <PrimeButton class='bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded sm:text-lg md:text-2xl'>Cártaí Nótaí</PrimeButton>
-        </RouterLink> -->
+        </RouterLink>
     </div>
 </template>
 
