@@ -24,7 +24,7 @@ function isIncorrect(question: QuizQuestion, option: string): boolean {
             <div class='grid gap-2 grid-cols-2 grid-rows-4 md:grid-cols-3 place-content-center m-4 lg:text-2xl'>
                 <div class='row-span-4 flex items-center'>
                     <span v-if='!props.question.isCorrect' class='inline-flex items-center border border-rose-500 rounded-md bg-transparent text-base p-1 font-bold text-red-700 ring-1 ring-inset ring-red-600/10 lg:text-2xl lg:p-4'>Incorrect</span>
-                    <span v-if='props.question.isCorrect' class='inline-flex items-center border border-emerald-500 rounded-md bg-transparent text-base p-1 font-bold text-emerald-700 ring-1 ring-inset ring-emerald-600/10 lg:text-2xl'>Correct</span>
+                    <span v-if='props.question.isCorrect' class='inline-flex items-center border border-emerald-500 rounded-md bg-transparent text-base p-1 font-bold text-emerald-700 ring-1 ring-inset ring-emerald-600/10 lg:text-2xl lg:p-4'>Correct</span>
                 </div>
                 <div v-for='choice in props.question.choices' :key='choice' class='mr-2 flex justify-start items-center md:row-span-2 lg:mb-2 lg:mt-2'>
                     <span :class="{

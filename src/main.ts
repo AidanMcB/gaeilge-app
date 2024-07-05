@@ -4,7 +4,7 @@ import './styles/index.scss';
 import 'primevue/resources/themes/aura-light-green/theme.css';
 //Vue
 import { createApp } from 'vue';
-import MultipleChoiceOptions from './components/MultipleChoiceOptions.vue';
+
 // PrimeVue
 import PrimeVue from 'primevue/config';
 import Button from 'primevue/button';
@@ -37,6 +37,7 @@ import MultiSelectDropdown from './components/MultiSelectDropdown.vue';
 import NoteCardCarousel from './components/NoteCardCarousel.vue';
 import NoteCardActions from './components/NoteCardActions.vue';
 import DeleteNoteCardForm from './components/DeleteNoteCardForm.vue';
+import MultipleChoiceOptions from './components/MultipleChoiceOptions.vue';
 
 const app = createApp(App);
 const pinia = createPinia();
