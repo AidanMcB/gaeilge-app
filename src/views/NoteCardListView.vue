@@ -4,7 +4,7 @@ import { useNoteCardStore } from '../stores/notecardStore';
 import { useTitle } from '@vueuse/core';
 
 const notecardStore = useNoteCardStore();
-const title = useTitle('Cárta Nótaí');
+const title = useTitle('Cárta Nótaí!');
 
 onMounted(async () => {
     await notecardStore.getNoteCards();
@@ -20,7 +20,10 @@ onMounted(async () => {
     
         <div v-if='!notecardStore.gridView && notecardStore.notecards && notecardStore.notecards.length > 0' 
             class='flex pt-2 pb-2 transition ease-in-out duration-500' 
-            :class="{ 'display-block opacity-0': notecardStore.gridView, 'display-none opacity-100': !notecardStore.gridView }"
+            :class="{ 
+                'display-block opacity-0': notecardStore.gridView, 
+                'display-none opacity-100': !notecardStore.gridView 
+            }"
         >
             <NoteCardCarousel :notecards='notecardStore.notecards'></NoteCardCarousel>
         </div>
