@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer components {
 
     .header-1 {
@@ -26,7 +25,7 @@
     }
 
     .notecard-grid {
-        @apply gap-4 mobile:grid-cols-3 sm:grid-rows-3 overflow-y-scroll
+        @apply gap-4 mobile:grid-cols-3 sm:grid-rows-4 overflow-y-scroll
     }
 
     .bright-hover {
