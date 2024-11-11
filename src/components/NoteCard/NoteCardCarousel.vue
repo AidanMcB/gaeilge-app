@@ -1,8 +1,8 @@
 <script setup lang='ts'>
-import { type NoteCard } from '../ts/notecard.interfaces';
+import { type INoteCard } from '../../ts/notecard.interfaces';
 
 const props = defineProps<{
-    notecards: NoteCard[];
+    notecards: INoteCard[];
 }>()
 
 const pt = {

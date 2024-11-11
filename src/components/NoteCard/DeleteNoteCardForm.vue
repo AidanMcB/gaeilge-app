@@ -1,7 +1,7 @@
 
 <script setup lang='ts'>
 import { ref } from 'vue';
-import { useNoteCardStore } from '../stores/notecardStore';
+import { useNoteCardStore } from '../../stores/notecardStore';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();

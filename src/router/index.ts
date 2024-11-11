@@ -5,7 +5,7 @@ import QuestionView from '../views/QuestionView.vue';
 import QuizResultsView from '../views/QuizResultsView.vue';
 import MatchingView from '../views/MatchingView.vue';
 import MatchingResultsView from '@/views/MatchingResultsView.vue';
-import NoteCardListView from '@/views/NoteCardListView.vue';
+import NoteCardListView from '@/views/NoteCard/NoteCardListView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
