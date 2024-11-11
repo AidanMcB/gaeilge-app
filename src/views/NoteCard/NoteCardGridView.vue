@@ -17,7 +17,6 @@
         >
             <template #grid="slotProps">
                 <div class="bg-base-black-main h-full grid grid-cols-3 grid-rows-4 gap-4 p-2">
-                    {{ console.log('data? ', slotProps) }}
                     <NoteCard v-for='card in slotProps.items' 
                         data-testid='notecard-preview' 
                         :key='card.id' 
