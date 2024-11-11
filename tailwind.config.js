@@ -15,6 +15,9 @@ export default {
                     standard: '#282828',
                     dark: '#222222',
                     darker: '#181818'
+                },
+                base: {
+                    'black-main': 'var(--vt-c-black)'
                 }
             },
             screens: {

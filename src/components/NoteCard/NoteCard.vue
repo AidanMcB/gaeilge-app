@@ -1,10 +1,10 @@
 <script setup lang='ts'>
-import type { NoteCard } from '../ts/notecard.interfaces';
+import type { INoteCard } from '../../ts/notecard.interfaces';
 import { ref } from 'vue';
-import { useNoteCardStore } from '../stores/notecardStore';
+import { useNoteCardStore } from '../../stores/notecardStore';
 
 const props = defineProps<{
-    notecard: NoteCard;
+    notecard: INoteCard;
     variant?: string;
 }>();
 
@@ -28,7 +28,8 @@ async function handleDelete(event: Event): Promise<void> {
 </script>
 
 <template>
-    <div @click='flip' :class="['card-container hover:cursor-pointer h-[125px] md:h-full w-full relative', flipped ? 'flipped' : '', variant]">
+    <div @click='flip' 
+        :class="['card-container hover:cursor-pointer h-[125px] md:h-full w-full relative', flipped ? 'flipped' : '', variant]">
         <div class='front bg-mute-standard border border-emerald-500 flex justify-center items-center relative'>
             <slot name='front'>
                 <p class='md:text-2xl lg:text-3xl'>{{ props.notecard.irishPhrase }}</p>

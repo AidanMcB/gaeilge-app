@@ -78,3 +78,7 @@ export function clearAnsweredTerm(term: Term): Term {
         state: AnswerState.Unanswered
     };
 }
+
+export const divideWithRemainder = (x: number, y: number): number[] => {
+    return [Math.floor(x / y), x % y];
+}

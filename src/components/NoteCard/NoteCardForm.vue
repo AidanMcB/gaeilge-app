@@ -1,8 +1,8 @@
 
 <script setup lang='ts'>
 import { ref } from 'vue';
-import { useNoteCardStore } from '../stores/notecardStore';
-import { type NewNoteCardForm } from '../ts/notecard.interfaces';
+import { useNoteCardStore } from '../../stores/notecardStore';
+import { type NewNoteCardForm } from '../../ts/notecard.interfaces';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
@@ -67,12 +67,16 @@ const toast = useToast();
 
 
 <template>
-    <PrimeDialog :visible="notecardStore.isAddEditModalOpen" modal :header="notecardStore.isModalEditMode ? `In Eagar Cárta Nótaí - ID: ${notecardStore.selectedCard?.id}` : 'Cruthaigh Cárta Nótaí'"
+    <PrimeDialog 
+        modal 
+        :closable='false'
+        :visible="notecardStore.isAddEditModalOpen" 
+        :header="notecardStore.isModalEditMode ? `In Eagar Cárta Nótaí - ID: ${notecardStore.selectedCard?.id}` : 'Cruthaigh Cárta Nótaí'"
         :pt="{ 
-            root: { class: ['outer md:w-2/3 md:text-xl'] },
+            root: { class: ['outer md:w-2/3 md:text-xl border border-emerald-500'] },
             title: { class: ['font-bold'] },
-            header: { class: ['border border-emerald-500 border-t-2xl border-b-0 bg-mute-standard text-neutral-300'] },
-            content: { class: ['border border-emerald-500 border-t-2xl border-t-0 bg-mute-standard text-neutral-300 p-6'] }, 
+            header: { class: ['bg-mute-standard text-neutral-300 rounded-t-xl'] },
+            content: { class: ['bg-mute-standard text-neutral-300 p-6 rounded-b-xl'] }, 
             closebutton: { class: ['hidden'] }
         }"
     >

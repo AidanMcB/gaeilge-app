@@ -1,10 +1,17 @@
-export interface NoteCard {
+export interface INoteCard {
     id: number;
     englishPhrase: string;
     irishPhrase: string;
     category?: string;
     tags?: string[];
     color?: string;
+}
+
+export interface NoteCardGridData {
+    page: number;
+    totalPages: number;
+    pageSize: number;
+    cards: INoteCard[];
 }
 
 export interface NewNoteCardForm {
@@ -22,5 +29,5 @@ export interface DeleteNoteCardResp {
 export interface HttpNoteCardResponse {
     status: number;
     message: string;
-    notecard: NoteCard;
+    notecard: INoteCard;
 }
