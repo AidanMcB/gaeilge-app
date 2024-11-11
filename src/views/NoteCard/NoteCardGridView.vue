@@ -9,6 +9,7 @@
             :totalRecords="cards.length"
             :first="currentPage * 12"
             @page="onPageChange"
+            :dataKey="'notecard-grid-id'"
             :pt="{
                 root: { class: ['h-full'] },
                 content: { class: ['h-full'] },
