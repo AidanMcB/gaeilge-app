@@ -7,12 +7,13 @@ const props = defineProps<{
 
 const pt = {
     root: { class: ['flex justify-center w-full ml-2 mr-2'] },
-    item: { class:  ['h-full flex justify-center'] },
+    item: { class: ['h-full flex justify-center'] },
     nextButton: { class: ['lg:h-20 lg:w-20 hover:bg-emerald-400/[0.5]'] },
     nextButtonIcon: { class: ['lg:h-[38px] lg:w-[38px]'] },
     previousButton: { class: ['lg:h-20 lg:w-20 hover:bg-emerald-400/[0.5]'] },
     previousButtonIcon: { class: ['lg:h-[38px] lg:w-[38px]'] },
-    content: {class: [''] },
+    content: { class: [''] },
+    indicator: { class: ['mt-4 bg-emerald-800'] },
 }
 </script>
 
