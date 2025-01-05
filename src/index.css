@@ -32,3 +32,11 @@
         @apply hover:brightness-110 focus:brightness-110 hover:brightness-110 active:brightness-110
     }
 }
+
+/* Responsive - Base Level */
+@media (max-width: 768px) {
+    .p-toast.p-component,
+    .p-toast.p-component[data-pc-section="root"] {
+        width: 96% !important;
+    }
+}

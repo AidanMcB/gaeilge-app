@@ -1,11 +1,11 @@
 <script setup lang='ts'>
     import { onMounted, ref } from 'vue';
 	import { useRoute, useRouter } from 'vue-router';
-	import { useQuizStore } from '../stores/quizStore';
-    import { type QuizQuestion } from '../ts/interfaces';
+	import { useQuizStore } from '../../stores/quizStore';
+    import { type QuizQuestion } from '../../ts/interfaces';
     import { useTitle } from '@vueuse/core';
 
-    const title = useTitle('Ceisteanna');
+    useTitle('Ceisteanna');
     const route = useRoute()
     const router = useRouter();
 	const store = useQuizStore();
@@ -88,7 +88,7 @@
 </template>
 
 <style lang='scss'>
-@import '../styles/variables';
+@import '../../styles/variables';
 
 .question-view{
     height: 100%;

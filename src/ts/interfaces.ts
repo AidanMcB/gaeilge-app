@@ -35,3 +35,10 @@ export interface Answer {
 }
 
 export type PracticeType = Practice.Quiz | Practice.Matching;
+
+export enum ModalType {
+    Create = 'create',
+    Edit = 'edit', 
+    View = 'view',
+    None = 'none'
+}

@@ -2,8 +2,10 @@
 import { watchDebounced } from '@vueuse/core';
 import { useNoteCardStore } from '../../stores/notecardStore';
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const notecardStore = useNoteCardStore();
+const { gridView, isEditAllMode } = storeToRefs(notecardStore)
 
 function openModalAsAddMode(): void {
     notecardStore.openAddEditModal('add');
@@ -11,7 +13,7 @@ function openModalAsAddMode(): void {
 
 function toggleGridView() {
     notecardStore.toggleGridView();
-    localStorage.setItem('grid-view', notecardStore.gridView.toString())
+    localStorage.setItem('grid-view', gridView.toString())
 }
 
 const searchInput = ref('');
@@ -25,16 +27,18 @@ watchDebounced(searchInput, () => {
 
 <template>
     <div class='flex flex-wrap items-center w-full'>
-        <PrimeButton class='btn-primary h-12' title='Create a new card' @click='openModalAsAddMode'>
-            Cárta nua
+        <PrimeButton class='btn-primary h-10 bg-emerald-400' title='Create a new card' @click='openModalAsAddMode'>
+            <i class='pi pi-plus'></i> Cárta nua
         </PrimeButton>
-        <PrimeButton @click='notecardStore.toggleEditMode' class='bright-hover h-10 w-10 flex justify-center border border-emerald-500 transition ease-in-out duration-500 ml-auto text-white ml-auto'
-            :class="{ 'bg-emerald-400 text-white': !notecardStore.isEditAllMode }">
-            <i class='pi pi-pencil' v-if='!notecardStore.isEditAllMode'></i>
-            <i class='pi pi-times' v-if='notecardStore.isEditAllMode'></i>
+        <PrimeButton @click='notecardStore.toggleEditMode' 
+            class='bright-hover h-10 w-10 flex justify-center border border-emerald-500 transition ease-in-out duration-500 ml-auto text-white ml-auto'
+            :class="{ 'bg-emerald-400 text-white': isEditAllMode }"
+            :disabled='!gridView'
+            >
+            <i class='pi pi-pencil'></i>
         </PrimeButton>
-        <PrimeButton @click='toggleGridView' :title="notecardStore.gridView ? 'Show Single Card view' : 'Show Grid view'" class='bright-hover h-10 w-10 flex justify-center border border-emerald-500 transition ease-in-out duration-500 ml-2 text-white' 
-            :class="{ 'bg-emerald-400 text-white': notecardStore.gridView }">
+        <PrimeButton @click='toggleGridView' :title="gridView ? 'Show Single Card view' : 'Show Grid view'" class='bright-hover h-10 w-10 flex justify-center border border-emerald-500 transition ease-in-out duration-500 ml-2 text-white' 
+            :class="{ 'bg-emerald-400 text-white': gridView }">
             <i class='pi pi-th-large'></i>
         </PrimeButton>
         <InputText 
@@ -45,6 +49,6 @@ watchDebounced(searchInput, () => {
             root: { class: ['!border-emerald-500'] }
             }"
         />
-        <!-- <MultiSelectDropdown :id='"category-filter"' class='h-12 transition ease-in-out duration-500' :class="[notecardStore.gridView ? 'opacity-100' : 'opacity-0']"></MultiSelectDropdown> -->
+        <!-- <MultiSelectDropdown :id='"category-filter"' class='h-12 transition ease-in-out duration-500' :class="[gridView ? 'opacity-100' : 'opacity-0']"></MultiSelectDropdown> -->
     </div>
 </template>

@@ -1,9 +1,9 @@
 <script setup lang='ts'>
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useMatchingStore } from '../stores/matchingStore';
-import { type TermCard } from '../ts/interfaces';
-import { clearAllStoredData } from '../utils/helper';
+import { useMatchingStore } from '../../stores/matchingStore';
+import { type TermCard } from '../../ts/interfaces';
+import { clearAllStoredData } from '../../utils/helper';
 
     const store = useMatchingStore();
     const route = useRoute();
@@ -95,7 +95,7 @@ import { clearAllStoredData } from '../utils/helper';
 </template>
 
 <style scoped lang='scss'>
-@import '../styles/variables.scss';
+@import '../../styles//variables';
 @media (min-width: 768px) and (max-width: 1023px) { 
     .answer-grid {
         width: 60vw;

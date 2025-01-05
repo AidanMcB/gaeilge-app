@@ -1,7 +1,7 @@
 
 <template>
     <div class="card h-full flex flex-col">
-        <DataView 
+        <PrimeDataView 
             :value="cards" 
             layout="grid" 
             paginator 
@@ -13,6 +13,7 @@
             :pt="{
                 root: { class: ['h-full'] },
                 content: { class: ['h-full'] },
+                pcPaginator: { class: ['!py-2'] },
             }"
         >
             <template #grid="slotProps">
@@ -22,10 +23,10 @@
                         :key='card.id' 
                         :notecard='card' 
                         variant='!h-full'
-                        />
+                    />
                 </div>
             </template>
-        </DataView>
+        </PrimeDataView>
     </div>
 </template>
 
@@ -53,9 +54,12 @@ const onPageChange = (event: any) => {
 </script>
 
 <style lang='scss'>
-.p-paginator.p-component {
-    background: rgb(40,40,40);
-    color: var(--text-color);
+.p-dataview-paginator-bottom {
+    padding: .5em 0;
+    .p-paginator.p-component {
+        background: rgb(40,40,40);
+        color: var(--text-color);
+    }
 }
 [data-p-active="true"] {
     background: rgb(16 185 129);

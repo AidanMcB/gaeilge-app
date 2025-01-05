@@ -1,18 +1,25 @@
 import * as notecardService from '@/services/notecards.service';
+import { ModalType } from '@/ts/interfaces';
 import { type NewNoteCardForm, type INoteCard } from '@/ts/notecard.interfaces';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 export const useNoteCardStore = defineStore('useNotecardStore', () => {
     const notecards = ref<INoteCard[]>([]);
-    const preFilteredNotecards = ref();
+    const preFilteredNotecards = ref<INoteCard[]>([]);
 	const isEditAllMode = ref(false);
-	const selectedCard = ref<INoteCard>();
-	const isModalEditMode = ref(false);
-	const isAddEditModalOpen = ref(false);
-	const isDeleteModalOpen = ref(false);
-	const gridView = ref(false);
+    const selectedCard = ref<INoteCard>();
+    const selectedIndex = ref<number>(); // for card carousel
 
+    // Modals
+    const modalType = ref<ModalType>(ModalType.None);
+    const isModalVisible = ref<boolean>(false);
+    watch(modalType, (newValue) => {
+        isModalVisible.value = newValue !== ModalType.None;
+    });
+    
+    const gridView = ref(false);
+    
 	function initGridViewSetting() {
 		const isGridView = localStorage.getItem('grid-view');
 		if (isGridView === 'true') {
@@ -22,10 +29,14 @@ export const useNoteCardStore = defineStore('useNotecardStore', () => {
 		}
 	}
 
-	async function getNoteCards(): Promise<void> {
-		const resp = await notecardService._getAllNoteCards();
-		notecards.value = resp;
-		preFilteredNotecards.value = resp;
+    async function getNoteCards(): Promise<void> {
+        try {
+            const resp = await notecardService._getAllNoteCards();
+            notecards.value = resp;
+            preFilteredNotecards.value = resp;
+        } catch (err) {
+            console.error('Failed to get note cards from db.');
+        }
 	}
 
 	async function addNewNoteCard(
@@ -33,7 +44,8 @@ export const useNoteCardStore = defineStore('useNotecardStore', () => {
 	): Promise<void> {
 		try {
 			const resp = await notecardService._addNoteCard(newNoteCardData);
-			notecards.value = [...notecards.value, resp];
+            notecards.value = [...notecards.value, resp];
+            preFilteredNotecards.value = [...notecards.value, resp];
 		} catch (err) {
 			console.error('Problem adding a new notecard. Error: ', err);
 			throw err;
@@ -45,10 +57,12 @@ export const useNoteCardStore = defineStore('useNotecardStore', () => {
 			const resp = await notecardService._deleteNoteCard(id);
 			if (resp.status === 200) {
 				console.info(resp.message);
-				const index = notecards.value.findIndex(
-					(card: INoteCard) => card.id === id
-				);
-				notecards.value.splice(index, 1);
+                notecards.value = notecards.value.filter(card => card.id !== id);
+                preFilteredNotecards.value = [...notecards.value]
+                closeCardModal()
+                if (selectedIndex.value && selectedIndex.value > 0) {
+                    selectedIndex.value -= 1;  // Move carousel to the left
+                }
 			}
 		} catch (err) {
 			console.error(
@@ -104,35 +118,33 @@ export const useNoteCardStore = defineStore('useNotecardStore', () => {
 		selectedCard.value = card;
 	}
 
-	function closeAddEditModal(): void {
-		isAddEditModalOpen.value = false;
-	}
+    function closeCardModal(): void {
+        selectedCard.value = undefined;
+        isModalVisible.value = false;
+        modalType.value = ModalType.None;
+    }
 
-	function openAddEditModal(type: 'add' | 'edit', card?: INoteCard): void {
+    function openAddEditModal(type: 'add' | 'edit', card?: INoteCard): void {
+        isModalVisible.value = true
 		if (type === 'edit' && card) {
 			setSelectedCard(card);
-			isModalEditMode.value = true;
-		} else if (type === 'add') {
-			selectedCard.value = {} as INoteCard;
-			isModalEditMode.value = false;
+            modalType.value = ModalType.Edit
+        } else if (type === 'add') {
+            selectedCard.value = {} as INoteCard;
+            modalType.value = ModalType.Create
 		}
-		isAddEditModalOpen.value = true;
-	}
+    }
+    
+    function openViewCardModal(card: INoteCard): void {
+        selectedCard.value = card
+        modalType.value = ModalType.View
+    }
 
 	function toggleGridView(): void {
 		gridView.value = !gridView.value;
 		clearTextFilter();
 	}
-
-	function openDeleteModal(card: INoteCard): void {
-		setSelectedCard(card);
-		isDeleteModalOpen.value = true;
-	}
-
-	function closeDeleteModal(): void {
-		isDeleteModalOpen.value = false;
-	}
-
+    
 	return {
 		getNoteCards,
 		addNewNoteCard,
@@ -140,20 +152,19 @@ export const useNoteCardStore = defineStore('useNotecardStore', () => {
 		editNoteCard,
 		toggleEditMode,
 		setSelectedCard,
-		closeAddEditModal,
 		openAddEditModal,
 		toggleGridView,
-		openDeleteModal,
-		closeDeleteModal,
 		textFilter,
 		clearTextFilter,
-		initGridViewSetting,
+        initGridViewSetting,
+        openViewCardModal, 
+        closeCardModal,
 		notecards,
 		isEditAllMode,
 		selectedCard,
-		isAddEditModalOpen,
-		isDeleteModalOpen,
-		isModalEditMode,
         gridView,
+        modalType,
+        isModalVisible,
+        selectedIndex
 	};
 });

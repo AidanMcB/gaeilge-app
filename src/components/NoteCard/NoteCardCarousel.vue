@@ -1,15 +1,34 @@
 <script setup lang='ts'>
-import { type INoteCard } from '../../ts/notecard.interfaces';
+import { useNoteCardStore } from '@/stores/notecardStore';
+import type { INoteCard } from '@/ts/notecard.interfaces';
+import { storeToRefs } from 'pinia';
+import { ref, watch } from 'vue';
+
+const notecardStore = useNoteCardStore();
+const { selectedIndex } = storeToRefs(notecardStore);
 
 const props = defineProps<{
-    notecards: INoteCard[];
-}>()
+    cards: INoteCard[]
+}>();
+
+const notecards = ref([...props.cards])
+
+const carouselKey = ref(0);
+
+watch(
+    () => notecards.value,
+    (newVal) => {
+        carouselKey.value++;
+        notecards.value = [...newVal];
+    },
+    { deep: true }
+);
 
 const pt = {
-    root: { class: ['flex justify-center w-full ml-2 mr-2'] },
+    root: { class: ['flex justify-center w-full'] },
     item: { class: ['h-full flex justify-center'] },
     nextButton: { class: ['lg:h-20 lg:w-20 hover:bg-emerald-400/[0.5]'] },
-    nextButtonIcon: { class: ['lg:h-[38px] lg:w-[38px]'] },
+    nextButtonIcon: { class: ['lg:h-[38px] lg:w-[28px]'] },
     previousButton: { class: ['lg:h-20 lg:w-20 hover:bg-emerald-400/[0.5]'] },
     previousButtonIcon: { class: ['lg:h-[38px] lg:w-[38px]'] },
     content: { class: [''] },
@@ -17,11 +36,10 @@ const pt = {
 }
 </script>
 
-
 <template>
-    <PrimeCarousel :value="props.notecards" :numVisible="1" :numScroll="1" orientation="horizontal" verticalViewPortHeight="330px" contentClass="flex align-items-center" :pt="pt">
+    <PrimeCarousel :key='carouselKey' :value="cards" :numVisible="1" :numScroll="1" :activeIndex="selectedIndex" orientation="horizontal" verticalViewPortHeight="330px" contentClass="flex align-items-center" :pt="pt">
         <template #item="slotProps">
-            <div class='ml-2 mr-2 w-full md:w-2/3'>
+            <div class='w-full'>
                 <NoteCard data-testid='notecard-preview' :key='slotProps.data' :variant='"carousel-notecard text-4xl"' :notecard='slotProps.data'></NoteCard>
             </div>
         </template>
