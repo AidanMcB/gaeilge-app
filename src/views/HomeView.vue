@@ -36,8 +36,4 @@ h3 {
   display: flex;
   justify-content: center;
 }
-
-@media (min-width: 1024px) {
-
-}
 </style>
