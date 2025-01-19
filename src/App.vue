@@ -1,7 +1,31 @@
+<script lang='ts' setup>
+import { onMounted, onUnmounted, ref } from 'vue';
+
+const toastPosition = ref<string>(getPosition());
+
+function getPosition() {
+    return window.innerWidth < 768 ? 'top-center' : 'top-right';
+}
+
+const updatePosition = () => {
+    toastPosition.value = getPosition();
+};
+
+onMounted(() => {
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', updatePosition);
+})
+
+</script>
+
 <template>
-    <div class='h-full w-full overflow-y-scroll'>
+    <PrimeToast :position='toastPosition'></PrimeToast>
+    <div class='h-full w-full'>
         <NavBar />
-        <PrimeToast></PrimeToast>
         <RouterView :key="$route.fullPath" />
     </div>
 </template>
@@ -30,4 +54,5 @@ nav {
         justify-content: flex-end;
     }
 }
+
 </style>

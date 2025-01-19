@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import type { LanguageType, Term } from '../ts/matching.interfaces';
-import { AnswerState, Language } from '../ts/enums';
+import type { LanguageType, Term } from '../ts/matching';
+import { AnswerState } from '../ts/enums';
 
 const props = defineProps<{
     term: Term;
@@ -11,14 +11,13 @@ const props = defineProps<{
 
 </script>
 
-
 <template>
     <PrimeCard unstyled
         data-testid="term-card"
         :data-termid='term.id'
         role='english-terms' 
         :class="{
-            'p-2 h-24 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150 md:w-72 lg:w-80': true,
+            'p-2 h-24 flex justify-center items-center border border-emerald-500 rounded-2xl hover:cursor-pointer hover:bg-emerald-500 focus:bg-emerald-500 hover:text-white focus:text-white transition ease-in-out duration-150': true,
             'hover:bg-transparent hover:pointer-events-disabled hover:cursor-default hover:text-gray-400': props.isDisabled,
             'bg-emerald-500 text-white': props.term.isSelected,
             'bg-transparent border-rose-500 hover:bg-transparent': props.term.state === AnswerState.Incorrect && props.term.isSelected,

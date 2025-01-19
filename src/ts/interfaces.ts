@@ -1,5 +1,5 @@
 import { Practice } from './enums.ts';
-import './matching.interfaces.ts';
+import './matching.ts';
 
 export interface TermCard {
 	id: number;
@@ -35,3 +35,10 @@ export interface Answer {
 }
 
 export type PracticeType = Practice.Quiz | Practice.Matching;
+
+export enum ModalType {
+    Create = 'create',
+    Edit = 'edit', 
+    View = 'view',
+    None = 'none'
+}

@@ -1,6 +1,6 @@
 import { AnswerState, MatchingDataKeys, MultipleChoiceDataKeys } from '@/ts/enums';
 import type { QuizData, QuizQuestion } from '@/ts/interfaces';
-import type { Term, VocabSection } from '@/ts/matching.interfaces';
+import type { Term, VocabSection } from '@/ts/matching';
 
 export function getLocalQuizData(itemKey: string) {
     const localStorageData = localStorage.getItem(itemKey);
@@ -77,4 +77,8 @@ export function clearAnsweredTerm(term: Term): Term {
         isSelected: false,
         state: AnswerState.Unanswered
     };
+}
+
+export const divideWithRemainder = (x: number, y: number): number[] => {
+    return [Math.floor(x / y), x % y];
 }

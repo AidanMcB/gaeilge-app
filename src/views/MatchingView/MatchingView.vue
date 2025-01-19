@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-    import { useMatchingStore } from '../stores/matchingStore';
+    import { useMatchingStore } from '../../stores/matchingStore';
     import { onMounted } from 'vue';
     import { useRoute, useRouter } from 'vue-router';
-    import { type LanguageType, type Term } from '../ts/matching.interfaces';
-    import { Language, AnswerState } from '../ts/enums';
+    import { type LanguageType, type Term } from '../../ts/matching';
+    import { Language, AnswerState } from '../../ts/enums';
 
     const store = useMatchingStore();
     const route = useRoute();
