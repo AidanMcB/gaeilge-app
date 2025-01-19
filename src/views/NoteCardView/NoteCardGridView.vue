@@ -32,7 +32,7 @@
 
 <script setup lang='ts'>
 import NoteCard from '@/components/NoteCard/NoteCard.vue';
-import type { INoteCard } from '@/ts/notecard.interfaces';
+import type { INoteCard } from '@/ts/notecard';
 import { computed, ref } from "vue";
 
 const props = defineProps<{

@@ -1,6 +1,6 @@
 import { AnswerState, MatchingDataKeys, MultipleChoiceDataKeys } from '@/ts/enums';
 import type { QuizData, QuizQuestion } from '@/ts/interfaces';
-import type { Term, VocabSection } from '@/ts/matching.interfaces';
+import type { Term, VocabSection } from '@/ts/matching';
 
 export function getLocalQuizData(itemKey: string) {
     const localStorageData = localStorage.getItem(itemKey);

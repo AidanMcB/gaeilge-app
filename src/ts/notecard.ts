@@ -1,8 +1,10 @@
+import type { Category } from './category';
+
 export interface INoteCard {
     id: number;
     englishPhrase: string;
     irishPhrase: string;
-    category?: string;
+    categories: Category[];
     tags?: string[];
     color?: string;
 }
@@ -17,7 +19,7 @@ export interface NoteCardGridData {
 export interface NewNoteCardForm {
     englishPhrase: string;
     irishPhrase: string;
-    newCategory?: string;
+    categories?: Category[];
     id?: number
 }
 
@@ -29,5 +31,5 @@ export interface DeleteNoteCardResp {
 export interface HttpNoteCardResponse {
     status: number;
     message: string;
-    notecard: INoteCard;
+    data: INoteCard;
 }
