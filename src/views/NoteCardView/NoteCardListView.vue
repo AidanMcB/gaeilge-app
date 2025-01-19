@@ -31,7 +31,7 @@ const showNoteCardGrid = computed(() => {
 </script>
 
 <template>
-    <div class="h-full w-full justify-self-center grid grid-rows-[1fr,2fr,9fr] sm:w-4/5 lg:w-2/3">
+    <div class="h-full w-full justify-self-center grid grid-rows-[1fr,2fr,9fr] sm:w-4/5 lg:w-2/3 xl:w-2/5">
         <h1 class="header-1 m-0">Cárta Nótaí</h1>
 
         <NoteCardActions />
