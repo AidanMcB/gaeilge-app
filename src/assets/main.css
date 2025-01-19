@@ -12,7 +12,7 @@ html, body {
     height: 100vh;
     position: fixed;
     inset: 0;
-    overflow: hidden;
+    overflow: scroll;
     display: flex;
     justify-content: center;
 }

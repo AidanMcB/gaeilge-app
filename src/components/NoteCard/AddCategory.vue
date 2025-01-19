@@ -42,12 +42,12 @@ async function submitNewCategory(): Promise<void> {
 </script>
 
 <template>
-    <PrimeFloatLabel class="w-full flex">
+    <PrimeFloatLabel class="w-full flex gap-2">
         <PrimeInputText
             id="new_category"
             v-model="newCategory"
             variant="filled"
-            class="border rounded border-emerald-500 bg-mute-standard p-2 w-4/6"
+            class="border rounded border-emerald-500 bg-mute-standard p-2 w-full"
             autocomplete="off"
             :invalid="!valid"
         />
@@ -56,7 +56,7 @@ async function submitNewCategory(): Promise<void> {
             type="button"
             label="Add"
             icon="pi pi-plus"
-            class="ml-auto p-2 border border-emerald-400 active:bg-emerald-400 active:text-mute-standard"
+            class="ml-auto px-4 border border-emerald-400 active:bg-emerald-600 active:border-emerald-600 active:text-mute-standard text-sm hover:bg-emerald-400 hover:text-mute-standard"
             :loading="isLoading"
             @click="submitNewCategory"
         />

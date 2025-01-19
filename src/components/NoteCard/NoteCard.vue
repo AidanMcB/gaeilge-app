@@ -48,7 +48,7 @@ const showEditIcon = computed(() => {
         <!--  Front -->
         <div class='front bg-mute-standard border border-emerald-500 flex justify-center items-center relative'>
             <slot name='front'>
-                <i v-if="!gridView" @click.prevent="openCardModal" class='pi pi-arrow-up-right-and-arrow-down-left-from-center text-xs absolute top-2 right-2'></i>
+                <i v-if="!gridView" @click.prevent="openCardModal" class='pi pi-arrow-up-right-and-arrow-down-left-from-center text-xs absolute top-2 right-2 hover:text-emerald-300'></i>
                 <span class='text-xs absolute top-1 left-1'><i>{{ irishLabel }}</i></span>
 
                 <p class='text-center line-clamp-2 px-2'>
@@ -64,7 +64,7 @@ const showEditIcon = computed(() => {
         <!-- Back -->
         <div class='back bg-mute-standard border border-emerald-500 flex justify-center items-center relative'>
             <slot name='back'>
-                <i v-if="!gridView" @click="openCardModal" class='pi pi-arrow-up-right-and-arrow-down-left-from-center text-xs absolute top-2 right-2'></i>
+                <i v-if="!gridView" @click.prevent="openCardModal" class='pi pi-arrow-up-right-and-arrow-down-left-from-center text-xs absolute top-2 right-2 hover:text-emerald-300'></i>
                 <span class='text-xs absolute top-1 left-1'><i>{{ englishLabel }}</i></span>
 
                 <p class='text-center line-clamp-2 px-2'>
