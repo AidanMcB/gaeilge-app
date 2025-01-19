@@ -53,7 +53,7 @@ async function handleCardClick(sectionId: number, type: PracticeType): Promise<v
 </script>
 
 <template>
-    <div data-testid='section-select' class='h-full overflow-y-scroll' :class="{ 'flex justify-center items-center': state.isLoading }">
+    <div data-testid='section-select' class='h-full' :class="{ 'flex justify-center items-center': state.isLoading }">
         <h1 v-if='!state.isLoading' class='header-1'>Roghnaigh modúl</h1>
 
         <span v-if='state.isLoading' class='flex flex-col justify-center items-center h-5/6'>
@@ -65,7 +65,7 @@ async function handleCardClick(sectionId: number, type: PracticeType): Promise<v
         </div>
 
         <div :activeIndex='0' v-if='!state.isLoading' class='p-2' :class="{
-                'grid gap-6 lg:grid-cols-2 sm:grid-cols-1 transition-all duration-200 overflow-y-scroll': true,
+                'grid gap-6 lg:grid-cols-2 sm:grid-cols-1 transition-all duration-200': true,
                 'opacity-100': !state.isLoading,
                 'opacity-0': state.isLoading
             }">

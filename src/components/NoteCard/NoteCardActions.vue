@@ -26,7 +26,7 @@ watchDebounced(searchInput, () => {
 </script>
 
 <template>
-    <div class='flex flex-wrap items-center w-full'>
+    <div class='flex flex-wrap items-center w-full md:px-10'>
         <PrimeButton class='btn-primary h-10 bg-emerald-400' title='Create a new card' @click='openModalAsAddMode'>
             <i class='pi pi-plus'></i> Cárta nua
         </PrimeButton>

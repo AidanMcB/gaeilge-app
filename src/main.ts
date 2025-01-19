@@ -27,8 +27,10 @@ import Textarea from "primevue/textarea";
 import Toast from "primevue/toast";
 import ToastService from "primevue/toastservice";
 import ToggleButton from "primevue/togglebutton";
+import Tooltip from 'primevue/tooltip';
 import PrimeVue from "primevue/config";
 import FloatLabel from "primevue/floatlabel";
+
 
 // Pinia
 import { createPinia } from "pinia";
@@ -104,6 +106,8 @@ app.component("NoteCardActions", NoteCardActions);
 app.component("ModalSection", ModalSection);
 app.component("NoteCardFormActions", NoteCardFormActions);
 app.component("QuizResultsHeader", QuizResultsHeader);
+// Directives
+app.directive('tooltip', Tooltip);
 
 app.use(router);
 

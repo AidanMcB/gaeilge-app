@@ -22,39 +22,40 @@ watch(selectedCategories, (newValue) => {
 </script>
 
 <template>
-    <div class="card w-full">
+    <div class="card w-2/3">
         <PrimeMultiSelect
             v-model="selectedCategories"
             :options="categories"
             display="chip"
             optionLabel="name"
             placeholder="Select categories"
-            class="w-full"
             :maxSelectedLabels="1"
             selectedItemsLabel="{0} Items Selected"
             :pt="{
                 root: {
                     class: [
-                        'border rounded border-emerald-500 bg-mute-standard text-neutral-300 relative w-full'
+                        'box-border border rounded border-emerald-500 bg-mute-standard text-neutral-300 relative w-full h-10 text-sm hover:border-emerald-700 active:border-emerald-700'
                     ]
                 },
+                chipitem: { class: ['text-sm'] },
+                pcchip: { class: ['!p-0'] },
                 panel: { class: ['bg-mute-standard'] },
                 token: {
-                    class: [
-                        'border rounded border-emerald-500 m-1 bg-mute-standard text-neutral-300'
-                    ]
+                    class: ['border rounded border-emerald-500 bg-mute-standard text-neutral-300']
                 },
-                removeTokenIcon: { class: ['ml-2 text-rose-500'] },
-                header: { class: ['border border-emerald-500 bg-mute-standard p-2'] },
+                removeTokenIcon: { class: ['text-rose-500'] },
+                header: {
+                    class: ['border border-emerald-500 bg-mute-standard p-2 hover:']
+                },
                 list: { class: ['border rounded-b-lg border-emerald-500 border-t-0'] },
                 listContainer: { class: ['bg-mute-standard'] },
-                label: { class: ['text-neutral-300'] },
+                label: { class: ['text-neutral-300 h-full'] },
                 closeIcon: { class: ['text-neutral-300'] }
             }"
         >
             <template #option="slotProps">
                 <div class="flex align-items-center">
-                    <div class="text-neutral-300 ml-2">{{ slotProps.option.name }}</div>
+                    <div class="text-neutral-300">{{ slotProps.option.name }}</div>
                 </div>
             </template>
         </PrimeMultiSelect>
@@ -83,6 +84,15 @@ watch(selectedCategories, (newValue) => {
 
 .p-icon.p-chip-remove-icon {
     fill: #d4d4d4;
+    color: #d4d4d4;
+}
+
+.p-multiselect-header:hover {
+    background: var(--color-background-soft);
+}
+
+.p-inputtext.p-component.p-multiselect-filter {
+    background: var(--color-background);
     color: #d4d4d4;
 }
 </style>

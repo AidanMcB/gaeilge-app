@@ -10,7 +10,7 @@ import ModalSection from "./ModalSection.vue";
 import AddCategory from "./AddCategory.vue";
 import type { Category } from "@/ts/category";
 import CategorySelect from "../CategorySelect.vue";
-import CategoryChip from './CategoryChip.vue';
+import CategoryChip from "./CategoryChip.vue";
 
 const toast = useToast();
 
@@ -180,8 +180,6 @@ const confirmDelete = (event: any) => {
         }
     });
 };
-
-
 </script>
 
 <template>
@@ -201,17 +199,22 @@ const confirmDelete = (event: any) => {
         @hide="noteCardStore.closeCardModal"
         :header="cardHeader"
         :pt="{
-            root: { class: ['w-full mx-2 lg:mx-24 md:text-xl border border-emerald-500'] },
+            root: {
+                class: [
+                    'mx-2 lg:mx-24 border border-emerald-500 w-full max-h-full w-4/5 lg:w-2/3 xl:w-1/2'
+                ]
+            },
             title: { class: ['font-bold'] },
-            header: { class: ['bg-mute-standard text-neutral-300 rounded-t-xl'] },
+            header: { class: ['bg-mute-standard text-neutral-300 rounded-t-xl p-3'] },
             content: {
                 class: [
-                    'bg-mute-standard text-neutral-300 py-4 px-6 rounded-b-xl flex flex-wrap gap-4'
+                    'bg-mute-standard text-neutral-300 py-4 px-6 rounded-b-xl flex flex-wrap gap-4 h-full md:px-10'
                 ]
-            }
+            },
+            headeractions: { class: [' rounded-full hover:bg-red-500/[.40]'] }
         }"
     >
-        <div class="flex flex-wrap w-full">
+        <div class="flex flex-col w-full">
             <ModalSection
                 :allow-edit="allowEdit"
                 :is-view-mode="isViewMode"
@@ -222,7 +225,7 @@ const confirmDelete = (event: any) => {
             ></ModalSection>
         </div>
 
-        <div class="flex flex-wrap w-full">
+        <div class="flex flex-col w-full">
             <ModalSection
                 :allow-edit="allowEdit"
                 :is-view-mode="isViewMode"
@@ -233,9 +236,13 @@ const confirmDelete = (event: any) => {
             ></ModalSection>
         </div>
 
-        <div v-if="allowEdit" class="flex justify-between items-center gap-4 w-full">
+        <div v-if="allowEdit" class="flex items-center w-full py-1">
             <label for="category" class="font-semibold">Catagóir</label>
-            <PrimeButton class="toggle-button h-6" @click="toggleAddCategory">
+            <PrimeButton
+                class="toggle-button h-6 ml-2 mr-auto hover:text-emerald-300"
+                v-tooltip.top="'Create a new category'"
+                @click="toggleAddCategory"
+            >
                 <i v-if="!isNewCategoryVisible" class="pi pi-plus-circle"></i>
                 <i v-if="isNewCategoryVisible" class="pi pi-minus-circle"></i>
             </PrimeButton>
@@ -248,7 +255,10 @@ const confirmDelete = (event: any) => {
 
         <template v-else-if="hasCategories && isViewMode && selectedCard">
             <label for="category" class="font-semibold w-full">Catagóir</label>
-            <CategoryChip :note-card-id='selectedCard.id' :categories='selectedCard.categories'></CategoryChip>
+            <CategoryChip
+                :note-card-id="selectedCard.id"
+                :categories="selectedCard.categories"
+            ></CategoryChip>
         </template>
 
         <div v-if="isNewCategoryVisible && !isViewMode" class="flex items-center w-full">

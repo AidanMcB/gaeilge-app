@@ -36,7 +36,7 @@ const showExpandButton = computed(() => {
 </script>
 
 <template>
-    <label for='irish' class='font-semibold w-full my-2'>{{ label }}</label>
+    <label for='irish' class='font-semibold w-full mb-2 self-end'>{{ label }}</label>
     <PrimeTextarea v-if="allowEdit" autoResize rows='5' cols='30'
         required     
         id='irish' 
