@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { useNoteCardStore } from '@/stores/notecardStore';
-import type { INoteCard } from '@/ts/notecard.interfaces';
+import type { INoteCard } from '@/ts/notecard';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 

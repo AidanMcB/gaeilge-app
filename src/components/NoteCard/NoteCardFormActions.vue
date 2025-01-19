@@ -11,7 +11,7 @@ const emits = defineEmits(['changeToEditMode', 'confirmDelete', 'changeToViewMod
 </script>
 <template>
 
-<div class='flex justify-around gap-4'>
+<div class='flex justify-around w-full gap-4'>
     <template v-if='isCreateMode'>
         <PrimeButton @click="emits('closeCardModal')" class='h-10 w-32 text-neutral-300 border border-neutral-300 px-2'>
             <i class='pi pi-times'></i> Cancel

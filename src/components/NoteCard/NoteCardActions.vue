@@ -41,7 +41,7 @@ watchDebounced(searchInput, () => {
             :class="{ 'bg-emerald-400 text-white': gridView }">
             <i class='pi pi-th-large'></i>
         </PrimeButton>
-        <InputText 
+        <PrimeInputText 
             :id='"notecard-filter"' 
             v-model='searchInput'  
             class='w-full h-12 !bg-mute-standard border border-rounded ! p-1 transition ease-in-out duration-500' 
@@ -49,6 +49,5 @@ watchDebounced(searchInput, () => {
             root: { class: ['!border-emerald-500'] }
             }"
         />
-        <!-- <MultiSelectDropdown :id='"category-filter"' class='h-12 transition ease-in-out duration-500' :class="[gridView ? 'opacity-100' : 'opacity-0']"></MultiSelectDropdown> -->
     </div>
 </template>

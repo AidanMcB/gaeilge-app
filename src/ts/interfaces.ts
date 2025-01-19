@@ -1,5 +1,5 @@
 import { Practice } from './enums.ts';
-import './matching.interfaces.ts';
+import './matching.ts';
 
 export interface TermCard {
 	id: number;

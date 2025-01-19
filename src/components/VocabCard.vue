@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { LanguageType, Term } from '../ts/matching.interfaces';
+import type { LanguageType, Term } from '../ts/matching';
 import { AnswerState } from '../ts/enums';
 
 const props = defineProps<{
