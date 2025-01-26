@@ -18,6 +18,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@primevue/forms": "^4.2.5",
     "@primevue/themes": "^4.2.1",
     "@vueuse/core": "^10.10.0",
     "axios": "^1.7.0",

@@ -1,5 +1,8 @@
 <script lang='ts' setup>
 import { onMounted, onUnmounted, ref } from 'vue';
+import { useAuthStore } from './stores/authStore';
+import { storeToRefs } from 'pinia';
+
 
 const toastPosition = ref<string>(getPosition());
 
@@ -20,12 +23,16 @@ onUnmounted(() => {
     window.removeEventListener('resize', updatePosition);
 })
 
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
+
+
 </script>
 
 <template>
     <PrimeToast :position='toastPosition'></PrimeToast>
     <div class='h-full w-full'>
-        <NavBar />
+        <NavBar v-if='user'/>
         <RouterView :key="$route.fullPath" />
     </div>
 </template>

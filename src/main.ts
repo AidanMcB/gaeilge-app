@@ -18,6 +18,8 @@ import ConfirmationService from "primevue/confirmationservice";
 import ConfirmDialog from "primevue/confirmdialog";
 import DataView from "primevue/dataview";
 import Dialog from "primevue/dialog";
+import { Form } from '@primevue/forms';
+import Fieldset from 'primevue/fieldset';
 import MultiSelect from "primevue/multiselect";
 import InputGroup from "primevue/inputgroup";
 import InputGroupAddon from "primevue/inputgroupaddon";
@@ -30,7 +32,6 @@ import ToggleButton from "primevue/togglebutton";
 import Tooltip from 'primevue/tooltip';
 import PrimeVue from "primevue/config";
 import FloatLabel from "primevue/floatlabel";
-
 
 // Pinia
 import { createPinia } from "pinia";
@@ -78,6 +79,8 @@ app.component("PrimeCard", Card);
 app.component("PrimeCarousel", Carousel);
 app.component("PrimeChip", Chip);
 app.component("PrimeFloatLabel", FloatLabel);
+app.component("PrimeForm", Form);
+app.component("PrimeFieldset", Fieldset);
 app.component("PrimeTag", Tag);
 app.component("PrimeMultiSelect", MultiSelect);
 app.component("PrimeDialog", Dialog);
