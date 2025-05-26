@@ -1,8 +1,8 @@
-import type { Answer, QuizQuestion, QuizData } from '@/ts/interfaces';
 import { defineStore } from 'pinia';
 import { clearCachedQuestion, clearCachedQuiz } from '@/utils/helper';
 import * as quizService from '@/services/quiz.service';
 import { computed, ref } from 'vue';
+import type { Answer, QuizData, QuizQuestion } from '@/ts/Quiz';
 
 export const useQuizStore = defineStore('quizStore', () => {
     const quizData = ref<QuizData>({} as QuizData);

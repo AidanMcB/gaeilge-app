@@ -1,7 +1,8 @@
 export interface User {
     uid: string;
-    email: string;
-    providerData: UserProviderData;
+    email?: string;
+    displayName?: string;
+    providerData?: UserProviderData;
 }
 
 export interface UserProviderData {
@@ -9,8 +10,6 @@ export interface UserProviderData {
     uid: string;
     displayName?: string;
     email: string;
-    phoneNumber?: number;
+    phoneNumber?: string;
     photoURL?: string;
-    createdAt: string;
-    lastLoginAt: string;
 }

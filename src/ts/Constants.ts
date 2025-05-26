@@ -27,3 +27,11 @@ export enum MatchingDataKeys {
     TermsToPractice = 'terms_to_practice',
     AvailableSections = 'available_sections'
 }
+
+
+export enum ModalType {
+    Create = 'create',
+    Edit = 'edit', 
+    View = 'view',
+    None = 'none'
+}

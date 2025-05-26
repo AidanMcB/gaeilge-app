@@ -1,4 +1,4 @@
-import type { AnswerState, Language } from './enums';
+import type { AnswerState, Language } from './Constants';
 
 export interface VocabSection {
     id: number;
@@ -14,6 +14,13 @@ export interface Term {
     lang?: LanguageType;
     state?: AnswerStateType;
 }
+
+export interface TermCard {
+    id: number;
+    englishPhrase?: string;
+    irishPhrase?: string;
+}
+
 
 export interface VocabSubmittedData {
     section: number;

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import type { LanguageType,  Term,  VocabSection } from '@/ts/matching';
-import { AnswerState, Language } from '@/ts/enums';
+import type { LanguageType,  Term,  VocabSection } from '@/ts/Matching';
+import { AnswerState, Language } from '@/ts/Constants';
 import * as matchingService from '@/services/matching.service';
 import { calcPercent, clearCachedMatchingData } from '@/utils/helper';
 import { ref } from 'vue';

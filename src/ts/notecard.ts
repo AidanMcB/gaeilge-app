@@ -1,4 +1,4 @@
-import type { Category } from './category';
+import type { Category } from "./Category";
 
 export interface INoteCard {
     id: number;

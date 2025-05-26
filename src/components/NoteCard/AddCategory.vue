@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useCategoryStore } from "@/stores/categoryStore";
+import { useCategoryStore } from "@/stores/useCategoryStore";
 import { useToast } from "primevue/usetoast";
 import { ref } from "vue";
 

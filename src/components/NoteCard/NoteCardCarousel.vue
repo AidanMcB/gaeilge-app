@@ -1,6 +1,31 @@
-<script setup lang='ts'>
-import { useNoteCardStore } from '@/stores/notecardStore';
-import type { INoteCard } from '@/ts/notecard';
+<template>
+    <PrimeCarousel
+        :key="carouselKey"
+        :value="cards"
+        :numVisible="1"
+        :numScroll="1"
+        :activeIndex="selectedIndex"
+        orientation="horizontal"
+        verticalViewPortHeight="330px"
+        contentClass="flex align-items-center"
+        :pt="pt"
+    >
+        <template #item="slotProps">
+            <div class="w-full">
+                <NoteCard
+                    data-testid="notecard-preview"
+                    :key="slotProps.data"
+                    :variant="'h-[300px] text-4xl'"
+                    :notecard="slotProps.data"
+                ></NoteCard>
+            </div>
+        </template>
+    </PrimeCarousel>
+</template>
+
+<script setup lang="ts">
+import { useNoteCardStore } from '@/stores/useNotecardStore';
+import type { INoteCard } from '@/ts/Notecard';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 
@@ -8,10 +33,10 @@ const notecardStore = useNoteCardStore();
 const { selectedIndex } = storeToRefs(notecardStore);
 
 const props = defineProps<{
-    cards: INoteCard[]
+    cards: INoteCard[];
 }>();
 
-const notecards = ref([...props.cards])
+const notecards = ref([...props.cards]);
 
 const carouselKey = ref(0);
 
@@ -32,22 +57,6 @@ const pt = {
     previousButton: { class: ['lg:h-20 lg:w-20 hover:bg-emerald-400/[0.5]'] },
     previousButtonIcon: { class: ['lg:h-[38px] lg:w-[38px]'] },
     content: { class: [''] },
-    indicator: { class: ['mt-4 bg-emerald-800'] },
-}
+    indicator: { class: ['mt-4 bg-emerald-800'] }
+};
 </script>
-
-<template>
-    <PrimeCarousel :key='carouselKey' :value="cards" :numVisible="1" :numScroll="1" :activeIndex="selectedIndex" orientation="horizontal" verticalViewPortHeight="330px" contentClass="flex align-items-center" :pt="pt">
-        <template #item="slotProps">
-            <div class='w-full'>
-                <NoteCard data-testid='notecard-preview' :key='slotProps.data' :variant='"carousel-notecard text-4xl"' :notecard='slotProps.data'></NoteCard>
-            </div>
-        </template>
-    </PrimeCarousel>
-</template>
-
-<style lang='scss'>
-.carousel-notecard {
-    height: 300px!important;
-}
-</style>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useNoteCardStore } from "@/stores/notecardStore";
-import type { Category } from "@/ts/category";
+import { useNoteCardStore } from "@/stores/useNotecardStore";
+import type { Category } from "@/ts/Category";
 import { useToast } from "primevue/usetoast";
 
 const props = defineProps<{

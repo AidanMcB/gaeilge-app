@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useCategoryStore } from "@/stores/categoryStore";
-import type { Category } from "@/ts/category";
+import { useCategoryStore } from "@/stores/useCategoryStore";
+import type { Category } from "@/ts/Category";
 import { storeToRefs } from "pinia";
 import { ref, watch } from "vue";
 
@@ -63,7 +63,7 @@ watch(selectedCategories, (newValue) => {
 </template>
 
 <style lang="scss">
-@import "../styles/variables.scss";
+@use "../../styles/_variables" as *;
 
 .p-multiselect-panel
     .p-multiselect-items

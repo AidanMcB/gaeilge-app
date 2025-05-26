@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { INoteCard } from '../../ts/notecard';
+import type { INoteCard } from '../../ts/Notecard';
 import { computed, ref } from 'vue';
-import { useNoteCardStore } from '../../stores/notecardStore';
+import { useNoteCardStore } from '../../stores/useNotecardStore';
 import { storeToRefs } from 'pinia';
 
 const props = defineProps<{
@@ -81,35 +81,33 @@ const showEditIcon = computed(() => {
 </template>
 
 <style scoped lang='scss'>
-    .card-container {
-        .front,
-        .back {
-            box-sizing: border-box;
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            backface-visibility: hidden;
-            transform-style: preserve-3d;
-            transition: -webkit-transform ease 500ms;
-            transition: transform ease 500ms;
-            height: 100%;
-        }
+.card-container {
+    .front,
+    .back {
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+        transition: -webkit-transform ease 500ms;
+        transition: transform ease 500ms;
+        height: 100%;
+    }
+    .front {
+        z-index: 2;
+        transform: rotateY(0deg);
+    }
+    .back {
+        transform: rotateY(-180deg);
+    }
+    &.flipped {
         .front {
-            z-index: 2;
+            transform: rotateY(180deg);
+        }
+        .back {
             transform: rotateY(0deg);
         }
-        .back {
-            transform: rotateY(-180deg);
-        }
-
-        &.flipped {
-            .front {
-                transform: rotateY(180deg);
-            }
-            .back {
-                transform: rotateY(0deg);
-            }
-        }
     }
-
+}
 </style>
