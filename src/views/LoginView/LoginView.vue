@@ -16,11 +16,12 @@ const password = ref<string>('');
 const showPassword = ref<boolean>(false);
 const errorMessage = ref<string>('');
 
-const logIn = async (): Promise<void> => {
+const logIn = async (e: Event): Promise<void> => {
+    e.preventDefault();
     errorMessage.value = '';
     if (email.value.length > 0 && password.value.length > 0) {
         try {
-            await authStore.logIn(email.value, password.value);
+            const resp = await authStore.logIn(email.value, password.value);
             toast.add({ severity: 'success', summary: `Logged in as ${email.value}.`, life: 3000 });
             router.push('/');
         } catch (err) {
@@ -32,7 +33,8 @@ const logIn = async (): Promise<void> => {
     }
 };
 
-const signUp = async (): Promise<void> => {
+const signUp = async (e: Event): Promise<void> => {
+    e.preventDefault();
     errorMessage.value = '';
     if (username.value.length > 0 && email.value.length > 0 && password.value.length > 0) {
         try {
@@ -72,8 +74,10 @@ const toggleText = computed(() => {
 <template>
     <div id="login-page" class="flex flex-col justify-center items-center h-full w-full">
         <h1 class="text-emerald-500 text-2xl">Cleachtadh Gaeilge</h1>
-
-        <div
+        <span class="text-xl">
+            {{ isRegisterView ? 'Create a new user' : 'Sign in' }}
+        </span>
+        <form
             id="login-form"
             class="flex flex-wrap justify-center items-end gap-4 p-6 sm:full md:w-1/2 lg:w-1/2 xl:w-1/2"
         >
@@ -156,6 +160,6 @@ const toggleText = computed(() => {
                     {{ toggleText }}
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 </template>

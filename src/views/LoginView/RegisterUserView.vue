@@ -17,7 +17,7 @@ const logIn = async (): Promise<void> => {
     errorMessage.value = "";
     if (email.value.length > 0 && password.value.length > 0) {
         try {
-            const resp = await authStore.signUp(email.value, password.value)
+            const resp = await authStore.logIn(email.value, password.value)
             console.log('resp in comp', resp)
             toast.add({ severity: "success", summary: `Welcome new user, ${email.value}!`, life: 3000 });
             // router.push("/");

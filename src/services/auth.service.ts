@@ -1,37 +1,75 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, type UserCredential } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "@/config/firebaseConfig";
 import { handleApiError, handleExternalApiError } from "@/utils/helper";
 import type { AxiosError } from "axios";
 import httpClient from "./httpClient";
+import type { GetCurrentUserApiResponse, LoginApiResponse, SignUpApiResponse } from "./ts/Auth.service.types";
 
-export async function _logIn(email: string, password: string): Promise<UserCredential> {
+export async function _logIn(email: string, password: string): Promise<LoginApiResponse> { 
     try {
-        const userCredentials = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredentials.user;
-        const token = await user.getIdToken();
-        localStorage.setItem('gaeilgeAuthToken', token)
-        return userCredentials;
+        // Sign in using Firebase client SDK
+        const userCred = await signInWithEmailAndPassword(auth, email, password);
+
+        // Get the Firebase ID token from the logged-in user
+        const idToken = await userCred.user.getIdToken();
+
+        // Send the ID token to your backend to set the secure session cookie
+        const response = await httpClient.post<LoginApiResponse>(
+            '/auth/users/login',
+            { idToken },
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }
+        );
+
+        return response.data;
+
     } catch (error) {
-        console.error('Unable to login. Error: ', error);
-        throw handleExternalApiError(error)
+        console.error('Login failed:', error);
+        throw handleExternalApiError(error as AxiosError);
     }
 }
 
-export async function _signUp(username: string, email: string, password: string): Promise<UserCredential> {
+export async function _signUp(username: string, email: string, password: string): Promise<SignUpApiResponse> { 
     try {
-        // Create new user
-        const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
-        // Update the user's display name
-        await updateProfile(userCredentials.user, {
-            displayName: username
+        // Create user
+        const resp = await httpClient.post('/auth/users/create', {
+            username, email, password
+        }, {
+            headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+            }
         });
-        const user = userCredentials.user;
-        const token = await user.getIdToken();
-        localStorage.setItem('gaeilgeAuthToken', token)
-        return userCredentials;
+
+        // Log user in with Firebase clientSDK
+        const userCred = await signInWithEmailAndPassword(auth, email, password);
+
+        // Get Firebase ID
+        const idToken = await userCred.user.getIdToken();
+
+        // Send ID token to backend to set the secure cookie
+        const signUpResp = await httpClient.post<SignUpApiResponse>('/auth/users/login', {
+            idToken
+        }, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+
+        });
+
+        console.log('Signup and login successful');
+        return signUpResp.data;
+
     } catch (error) {
         console.error('Unable to sign up. Error: ', error);
-        throw handleExternalApiError(error);
+        throw handleExternalApiError(error as AxiosError);
     }
 }
 
@@ -43,6 +81,19 @@ export async function _logOut(): Promise<void> {
     } catch (error) {
         console.error("Failed to log out. Error: ", error);
         throw handleExternalApiError(error);
+    }
+}
+
+export async function _getCurrentUser(): Promise<GetCurrentUserApiResponse> {
+    try {
+        const response = await httpClient.get('/auth/users/me', {
+            withCredentials: true,
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error('Failed to get current user. Error: ', error);
+        throw handleApiError(error as AxiosError);
     }
 }
 

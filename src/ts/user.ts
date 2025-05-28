@@ -1,9 +1,11 @@
 export interface User {
-    uid: string;
-    email?: string;
-    displayName?: string;
-    providerData?: UserProviderData;
-}
+    created_at: string;
+    email: string;
+    firebase_uid: string;
+    id: number;
+    updated_at: string;
+    username: string;
+};
 
 export interface UserProviderData {
     providerId: string;
@@ -12,4 +14,4 @@ export interface UserProviderData {
     email: string;
     phoneNumber?: string;
     photoURL?: string;
-}
+};

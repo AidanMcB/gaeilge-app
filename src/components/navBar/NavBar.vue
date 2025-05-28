@@ -35,7 +35,6 @@ import { useAuthStore } from '@/stores/useAuthStore';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { Menu, Button, useToast } from 'primevue';
-console.log('NavBar component loaded');
 
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);

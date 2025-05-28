@@ -8,7 +8,7 @@ import httpClient from "./httpClient";
 
 export async function _getAllNoteCards(): Promise<INoteCard[]> {
     try {
-        const resp = await httpClient.get<INoteCard[]>("/notecards");
+        const resp = await httpClient.get<INoteCard[]>("/notecards", { withCredentials: true });
         return resp.data;
     } catch (err) {
         console.error("Failed to fetch Note Cards. Error: ", err);

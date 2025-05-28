@@ -13,7 +13,6 @@ import InternalComponentsPlugin from './plugins/internal';
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import { createApp } from "vue";
-import { useAuthStore } from "./stores/useAuthStore";
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -28,9 +27,5 @@ app.use(PrimeVuePlugin);
 app.use(InternalComponentsPlugin)
 
 app.use(router);
-
-// Listen for auth state changes
-const authStore = useAuthStore();
-authStore.listenForAuthChanges(); // Start listening for auth changes
 
 app.mount("#app");
