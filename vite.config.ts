@@ -15,4 +15,26 @@ export default defineConfig({
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
 		},
 	},
+	css: {
+		preprocessorOptions: {
+			scss: {
+				api: 'modern-compiler'
+			}
+		}
+	},
+	define: {
+		global: 'globalThis',
+	},
+	optimizeDeps: {
+		include: ['crypto-js']
+	},
+	build: {
+		target: 'esnext',
+		rollupOptions: {
+			external: [],
+			output: {
+				format: 'es'
+			}
+		}
+	}
 });

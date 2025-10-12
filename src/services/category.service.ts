@@ -1,4 +1,4 @@
-import { httpClient } from "./httpClient";
+import httpClient from "./httpClient";
 
 // To Do: improve API return types
 export async function _getAllCategories(): Promise<any[]> {

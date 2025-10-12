@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useMatchingStore } from "../../stores/matchingStore";
-import { onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { type LanguageType, type Term } from "../../ts/matching";
-import { Language, AnswerState } from "../../ts/enums";
+import { useMatchingStore } from '../../stores/useMatchingStore';
+import { onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { type LanguageType, type Term } from '../../ts/Matching';
+import { Language, AnswerState } from '../../ts/Constants';
 
 const store = useMatchingStore();
 const route = useRoute();
@@ -40,38 +40,12 @@ function handleNext(): void {
         </div>
 
         <!-- Terms -->
-        <div
-            data-testid="active-matching-section"
+        <MatchingGrid
             v-if="!store.isLoading"
-            class="grid grid-cols-2 gap-6 py-16 md:p-4 md:gap-10 justify-self-center md:w-2/3 lg:2/3 transition-all duration-200"
-            :class="{
-                'opacity-100': store.activeVocab?.englishTerms?.length,
-                'opacity-0': !store.activeVocab?.englishTerms?.length
-            }"
-        >
-            <!-- English -->
-            <div class="flex flex-col justify-between" data-testid="english-col">
-                <VocabCard
-                    v-for="term in store.activeVocab.englishTerms"
-                    :key="term.id"
-                    :term="term"
-                    :isDisabled="store.isDisabled"
-                    :lang="Language.English"
-                    :handleClick="handleItemClick"
-                ></VocabCard>
-            </div>
-            <!-- Irish -->
-            <div class="flex flex-col justify-between" data-testid="irish-col">
-                <VocabCard
-                    v-for="term in store.activeVocab.irishTerms"
-                    :key="term.id"
-                    :term="term"
-                    :isDisabled="store.isDisabled"
-                    :lang="Language.Irish"
-                    :handleClick="handleItemClick"
-                ></VocabCard>
-            </div>
-        </div>
+            :is-disabled="store.isDisabled"
+            :active-vocab="store.activeVocab"
+            @handle-item-click="handleItemClick"
+        ></MatchingGrid>
 
         <!-- Actions -->
         <div class="flex justify-center self-end flex-wrap text-xl">

@@ -3,5 +3,6 @@
     "Vue.volar",
     "Vue.vscode-typescript-vue-plugin",
     "dbaeumer.vscode-eslint"
-  ]
+  ],
+  "prettier.configPath": "./.prettierrc.json"
 }

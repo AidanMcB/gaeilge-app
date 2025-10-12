@@ -1,67 +1,21 @@
-<script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useQuizStore } from "../../stores/quizStore";
-import { type QuizQuestion } from "../../ts/interfaces";
-import { useTitle } from "@vueuse/core";
-
-useTitle("Ceisteanna");
-const route = useRoute();
-const router = useRouter();
-const store = useQuizStore();
-const state = ref({
-    isLoading: true,
-    sectionId: 0,
-    questionId: 0
-});
-
-onMounted(async () => {
-    state.value.sectionId = parseInt(route.params.section_id as string);
-    state.value.questionId = parseInt(route.params.question_id as string);
-
-    await store.initQuestionView(state.value.sectionId, state.value.questionId);
-    state.value.isLoading = false;
-});
-
-function handleSubmit(question: QuizQuestion) {
-    const selectedAnswer = store.selected;
-    if (selectedAnswer) {
-        store.activeQuestion.isSubmitted = true;
-        const isCorrect = question.correctAnswer === selectedAnswer;
-        store.activeQuestion.isCorrect = isCorrect;
-        store.submitAnswer({
-            questionId: state.value.questionId,
-            isCorrect,
-            selectedAnswer: selectedAnswer
-        });
-    }
-}
-
-function handleNext() {
-    if (store.isLastQuestion()) {
-        router.push(`/quiz/section/${state.value.sectionId}/results`);
-    } else {
-        const nextQuestion = store.randomNextQuestion();
-        router.push(`/quiz/section/${state.value.sectionId}/question/${nextQuestion}`);
-    }
-}
-</script>
-
 <template>
     <div
         data-testid="question-view"
         :data-cy="'question-' + state.questionId"
         :data-question-id="state.questionId"
+        class="h-full grid grid-rows-3"
         :class="{
-            'question-view transition-all duration-200': true,
+            'transition-all duration-200': true,
             submitted: store.activeQuestion.isSubmitted,
             'opacity-100': store.activeQuestion.id && !state.isLoading,
             'opacity-0': !store.activeQuestion.id || state.isLoading
         }"
     >
-        <h1 class="question text-2xl lg:text-4xl">{{ store.activeQuestion?.question }}</h1>
+        <h1 class="font-bold text-center self-center text-2xl lg:text-4xl">
+            {{ store.activeQuestion?.question }}
+        </h1>
 
-        <div class="options-grid" v-if="store.activeQuestion?.choices">
+        <div class="grid grid-cols-[1fr] text-2xl" v-if="store.activeQuestion?.choices">
             <MultipleChoiceOptions />
         </div>
 
@@ -102,51 +56,51 @@ function handleNext() {
     </div>
 </template>
 
-<style lang="scss">
-@import "../../styles/variables";
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useQuizStore } from '../../stores/useQuizStore';
+import { useTitle } from '@vueuse/core';
+import type { QuizQuestion } from '@/ts/Quiz';
 
-.question-view {
-    height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-}
-.question {
-    font-weight: bold;
-    text-align: center;
-    align-self: center;
-}
-.options-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    font-size: 1.5em;
-    .option {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .p-radiobutton {
-            margin-right: 6px;
-        }
-        &.p-radiobutton,
-        label {
-            &:hover,
-            &:active,
-            &:focus {
-                cursor: pointer;
-            }
-        }
+useTitle('Ceisteanna');
+const route = useRoute();
+const router = useRouter();
+const store = useQuizStore();
+const state = ref({
+    isLoading: true,
+    sectionId: 0,
+    questionId: 0
+});
+
+onMounted(async () => {
+    state.value.sectionId = parseInt(route.params.section_id as string);
+    state.value.questionId = parseInt(route.params.question_id as string);
+
+    await store.initQuestionView(state.value.sectionId, state.value.questionId);
+    state.value.isLoading = false;
+});
+
+function handleSubmit(question: QuizQuestion) {
+    const selectedAnswer = store.selected;
+    if (selectedAnswer) {
+        store.activeQuestion.isSubmitted = true;
+        const isCorrect = question.correctAnswer === selectedAnswer;
+        store.activeQuestion.isCorrect = isCorrect;
+        store.submitAnswer({
+            questionId: state.value.questionId,
+            isCorrect,
+            selectedAnswer: selectedAnswer
+        });
     }
 }
-.question-view.submitted {
-    .options-grid {
-        .option {
-            pointer-events: none;
-            .p-radiobutton,
-            label {
-                &:hover {
-                    cursor: default;
-                }
-            }
-        }
+
+function handleNext() {
+    if (store.isLastQuestion()) {
+        router.push(`/quiz/section/${state.value.sectionId}/results`);
+    } else {
+        const nextQuestion = store.randomNextQuestion();
+        router.push(`/quiz/section/${state.value.sectionId}/question/${nextQuestion}`);
     }
 }
-</style>
+</script>

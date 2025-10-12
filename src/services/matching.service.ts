@@ -1,6 +1,6 @@
-import { MatchingDataKeys } from '@/ts/enums';
+import { MatchingDataKeys } from '@/ts/Constants';
 import translateTerms from '../assets/translateTerms.json';
-import type { Term, VocabSection } from '@/ts/matching';
+import type { Term, VocabSection } from '@/ts/Matching';
 import { getLocalVocabData } from '../utils/helper';
 
 // process.env === 'develop'
