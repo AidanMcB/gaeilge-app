@@ -60,11 +60,6 @@ function onClickHome() {
     router.push('/');
 }
 
-function onClickProfile() {
-    // router.push('/profile');
-    console.log('To Do: go to profile');
-}
-
 async function onClickLogout() {
     clearAllStoredData();
     try {
@@ -112,7 +107,6 @@ const menuItems = ref([
     {
         label: isGuestMode.value ? 'Guest User' : (user?.value?.email || 'Profile'),
         icon: 'pi pi-user',
-        command: onClickProfile
     },
     {
         label: 'Module Select',
