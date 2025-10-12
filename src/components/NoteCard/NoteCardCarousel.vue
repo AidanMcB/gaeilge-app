@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { useNoteCardStore } from '@/stores/useNotecardStore';
-import type { INoteCard } from '@/ts/notecard';
+import type { INoteCard } from '@/ts/Notecard';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 

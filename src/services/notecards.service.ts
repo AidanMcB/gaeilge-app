@@ -1,4 +1,4 @@
-import type { HttpNoteCardResponse, DeleteNoteCardResp, NewNoteCardForm, INoteCard } from '@/ts/notecard';
+import type { HttpNoteCardResponse, DeleteNoteCardResp, NewNoteCardForm, INoteCard } from '@/ts/Notecard';
 import httpClient from './httpClient';
 
 export async function _getAllNoteCards(): Promise<INoteCard[]> {

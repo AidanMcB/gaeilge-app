@@ -1,4 +1,4 @@
-import type { QuizData } from '@/ts/interfaces';
+import type { QuizData } from '@/ts/Quiz';
 import allQuizQuestions from '../assets/quizQuestions.json';
 import { clearCachedQuiz, getLocalQuizData } from '@/utils/helper';
 import { MultipleChoiceDataKeys } from '@/ts/Constants';

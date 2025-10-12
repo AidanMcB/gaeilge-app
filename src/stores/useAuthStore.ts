@@ -1,4 +1,4 @@
-import type { User } from '@/ts/user';
+import type { User } from '@/ts/User';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import * as authService from '@/services/auth.service';

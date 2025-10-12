@@ -1,7 +1,7 @@
 import * as noteCardService from "@/services/notecards.service";
 import type { Category } from "@/ts/Category";
 import { ModalType } from "@/ts/Constants";
-import { type NewNoteCardForm, type INoteCard } from "@/ts/notecard";
+import { type NewNoteCardForm, type INoteCard } from "@/ts/Notecard";
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 

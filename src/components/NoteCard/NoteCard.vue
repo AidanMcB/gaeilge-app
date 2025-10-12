@@ -71,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import type { INoteCard } from '../../ts/notecard';
+import type { INoteCard } from '../../ts/Notecard';
 import { computed, ref } from 'vue';
 import { useNoteCardStore } from '../../stores/useNotecardStore';
 import { storeToRefs } from 'pinia';
