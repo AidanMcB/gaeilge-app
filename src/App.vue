@@ -34,9 +34,8 @@ const isLoginPage = computed(() => {
 });
 
 const showNavBar = computed(() => {
-    return !isLoginPage.value && user.value && !loadingAuth.value;
+    return !isLoginPage.value && (user.value || authStore.isGuestMode) && !loadingAuth.value;
 });
-
 </script>
 
 <template>

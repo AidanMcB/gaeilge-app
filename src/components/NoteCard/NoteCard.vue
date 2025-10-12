@@ -1,5 +1,77 @@
-<script setup lang='ts'>
-import type { INoteCard } from '../../ts/Notecard';
+<template>
+    <div
+        @click="handleClick"
+        class="h-[125px] w-full max-w-[550px] p-0 m-0 relative hover:cursor-pointer box-border"
+        :class="['card-container', flipped ? 'flipped' : '', variant]"
+    >
+        <!--  Front -->
+        <div
+            class="front bg-mute-standard border border-emerald-500 flex justify-center items-center relative"
+        >
+            <slot name="front">
+                <i
+                    v-if="!gridView"
+                    @click.prevent="openCardModal"
+                    class="pi pi-arrow-up-right-and-arrow-down-left-from-center text-xs absolute top-2 right-2 hover:text-emerald-300"
+                ></i>
+                <span class="text-xs absolute top-1 left-1"
+                    ><i>{{ irishLabel }}</i></span
+                >
+
+                <p class="text-center line-clamp-2 px-2">
+                    {{ notecard.irishPhrase }}
+                </p>
+
+                <PrimeButton
+                    v-if="showEditIcon"
+                    @click="handleEdit($event)"
+                    class="w-6 h-6 absolute right-1 bottom-1"
+                    :class="{ 'right-2 bottom-2': !gridView }"
+                >
+                    <i
+                        class="pi pi-pencil text-green-500 text-sm md:text-xl"
+                        :class="{ 'text-xl': !gridView }"
+                    ></i>
+                </PrimeButton>
+            </slot>
+        </div>
+
+        <!-- Back -->
+        <div
+            class="back bg-mute-standard border border-emerald-500 flex justify-center items-center relative"
+        >
+            <slot name="back">
+                <i
+                    v-if="!gridView"
+                    @click.prevent="openCardModal"
+                    class="pi pi-arrow-up-right-and-arrow-down-left-from-center text-xs absolute top-2 right-2 hover:text-emerald-300"
+                ></i>
+                <span class="text-xs absolute top-1 left-1"
+                    ><i>{{ englishLabel }}</i></span
+                >
+
+                <p class="text-center line-clamp-2 px-2">
+                    {{ props.notecard.englishPhrase }}
+                </p>
+
+                <PrimeButton
+                    v-if="showEditIcon"
+                    @click="handleEdit($event)"
+                    class="w-6 h-6 absolute right-1 bottom-1"
+                    :class="{ 'right-2 bottom-2': !gridView }"
+                >
+                    <i
+                        class="pi pi-pencil text-green-500 text-sm md:text-xl"
+                        :class="{ 'text-xl': !gridView }"
+                    ></i>
+                </PrimeButton>
+            </slot>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import type { INoteCard } from '../../ts/notecard';
 import { computed, ref } from 'vue';
 import { useNoteCardStore } from '../../stores/useNotecardStore';
 import { storeToRefs } from 'pinia';
@@ -11,16 +83,15 @@ const props = defineProps<{
 
 const flipped = ref(false);
 const notecardStore = useNoteCardStore();
-const { gridView } = storeToRefs(notecardStore)
-
+const { gridView } = storeToRefs(notecardStore);
 
 function handleClick() {
     flipped.value = !flipped.value;
 }
 
 function openCardModal(e: Event): void {
-    e.stopPropagation()
-    notecardStore.openViewCardModal(props.notecard)
+    e.stopPropagation();
+    notecardStore.openViewCardModal(props.notecard);
 }
 
 async function handleEdit(event: Event): Promise<void> {
@@ -30,57 +101,18 @@ async function handleEdit(event: Event): Promise<void> {
 
 const irishLabel = computed(() => {
     return gridView.value ? 'GA' : 'Gaeilge';
-})
+});
 
 const englishLabel = computed(() => {
     return gridView.value ? 'EN' : 'Béarla';
-})
+});
 
 const showEditIcon = computed(() => {
     return notecardStore.isEditAllMode && gridView.value == true;
-})
+});
 </script>
 
-<template>
-    <div @click='handleClick' 
-        class='h-[125px] w-full md:h-full p-0 m-0 relative hover:cursor-pointer box-border'
-        :class="['card-container', flipped ? 'flipped' : '', variant]">
-        <!--  Front -->
-        <div class='front bg-mute-standard border border-emerald-500 flex justify-center items-center relative'>
-            <slot name='front'>
-                <i v-if="!gridView" @click.prevent="openCardModal" class='pi pi-arrow-up-right-and-arrow-down-left-from-center text-xs absolute top-2 right-2 hover:text-emerald-300'></i>
-                <span class='text-xs absolute top-1 left-1'><i>{{ irishLabel }}</i></span>
-
-                <p class='text-center line-clamp-2 px-2'>
-                    {{ notecard.irishPhrase }}
-                </p>
-
-                <PrimeButton v-if='showEditIcon' @click='handleEdit($event)' class='w-6 h-6 absolute right-1 bottom-1' :class="{'right-2 bottom-2': !gridView}">
-                    <i class='pi pi-pencil text-green-500 text-sm md:text-xl' :class="{'text-xl': !gridView}"></i>
-                </PrimeButton>
-            </slot>
-        </div>
-
-        <!-- Back -->
-        <div class='back bg-mute-standard border border-emerald-500 flex justify-center items-center relative'>
-            <slot name='back'>
-                <i v-if="!gridView" @click.prevent="openCardModal" class='pi pi-arrow-up-right-and-arrow-down-left-from-center text-xs absolute top-2 right-2 hover:text-emerald-300'></i>
-                <span class='text-xs absolute top-1 left-1'><i>{{ englishLabel }}</i></span>
-
-                <p class='text-center line-clamp-2 px-2'>
-                    {{ props.notecard.englishPhrase }}
-                </p>
-
-                <PrimeButton v-if='showEditIcon' @click='handleEdit($event)' class='w-6 h-6 absolute right-1 bottom-1' :class="{'right-2 bottom-2': !gridView}">
-                    <i class='pi pi-pencil text-green-500 text-sm md:text-xl' :class="{'text-xl': !gridView}"></i>
-                </PrimeButton>
-            </slot>
-        </div>
-    </div>
-    
-</template>
-
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .card-container {
     .front,
     .back {

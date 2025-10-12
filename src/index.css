@@ -5,7 +5,7 @@
 @layer components {
 
     .header-1 {
-        @apply font-bold text-center text-4xl m-4 mb-4 lg:text-5xl lg:mb-6;
+        @apply font-bold text-center text-4xl py-4 lg:text-5xl lg:py-6;
     }
 
     .btn-primary {
@@ -29,7 +29,7 @@
     }
 
     .bright-hover {
-        @apply hover:brightness-110 focus:brightness-110 hover:brightness-110 active:brightness-110
+        @apply hover:brightness-110 focus:brightness-110 active:brightness-110
     }
 }
 

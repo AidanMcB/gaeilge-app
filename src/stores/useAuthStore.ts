@@ -1,26 +1,36 @@
-import type { User } from '@/ts/User';
+import type { User } from '@/ts/user';
 import { defineStore } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import * as authService from '@/services/auth.service';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/config/firebaseConfig';
 import { getFirebaseErrorMessage } from '@/ts/Auth';
 import type { FirebaseError } from 'firebase/app';
 import type { AuthApiResponseBody } from '@/services/ts/Auth.service.types';
 
 export const useAuthStore = defineStore("useAuthStore", () => {
     const user = ref<User>();
-    const isAuthenticated = ref<boolean>();
+    const isAuthenticated = ref<boolean>(false);
     const loadingAuth = ref<boolean>(true);
+    const isGuestMode = ref<boolean>(false);
 
-    onMounted(() => {
-        console.log("useAuthStore mounted, checking current user...");
-        getCurrentUser()
-    });
+    // Initialize guest mode from localStorage
+    const savedGuestMode = localStorage.getItem('gaeilgeGuestMode');
+    if (savedGuestMode === 'true') {
+        isGuestMode.value = true;
+        loadingAuth.value = false;
+    }
+
+    // Initialize auth state listener
+    listenForAuthChanges();
 
     async function logIn(email: string, password: string): Promise<AuthApiResponseBody> {
         try {
             const resp = await authService._logIn(email, password);
             user.value = resp.data.user;
+            // Clear guest mode when logging in
+            isGuestMode.value = false;
+            localStorage.removeItem('gaeilgeGuestMode');
             return resp.data;
         } catch (error) {
             console.error("Failed to log in user. Error: ", error);
@@ -32,6 +42,9 @@ export const useAuthStore = defineStore("useAuthStore", () => {
         try {
             const resp = await authService._signUp(username, email, password);
             user.value = resp.data.user;
+            // Clear guest mode when signing up
+            isGuestMode.value = false;
+            localStorage.removeItem('gaeilgeGuestMode');
             return resp.data;
         } catch (error) {
             console.error("Failed to log in user. Error: ", error);
@@ -43,11 +56,25 @@ export const useAuthStore = defineStore("useAuthStore", () => {
         try {
             const resp = await authService._logOut();
             user.value = undefined;
+            isGuestMode.value = false;
             return resp;
         } catch (error) {
             console.error("Failed to log in user. Error: ", error);
             throw getFirebaseErrorMessage(error as FirebaseError)
         }
+    }
+
+    function enableGuestMode(): void {
+        isGuestMode.value = true;
+        isAuthenticated.value = false;
+        user.value = undefined;
+        loadingAuth.value = false;
+        localStorage.setItem('gaeilgeGuestMode', 'true');
+    }
+
+    function disableGuestMode(): void {
+        isGuestMode.value = false;
+        localStorage.removeItem('gaeilgeGuestMode');
     }
 
     async function getCurrentUser(): Promise<User | undefined> {
@@ -68,45 +95,67 @@ export const useAuthStore = defineStore("useAuthStore", () => {
         }
     }
 
-    // async function listenForAuthChanges(): Promise<() => void> {
-    //     loadingAuth.value = true;
+    function listenForAuthChanges(): () => void {
+        // Don't start auth listener if in guest mode
+        if (isGuestMode.value) {
+            return () => {};
+        }
 
-    //     const unsubscribe = onAuthStateChanged(auth, 
-    //         (firebaseUser) => {
-    //             if (firebaseUser) {
-    //                 // User is signed in
-    //                 const providerData = firebaseUser.providerData[0];
-    //                 user.value = {
-    //                     uid: firebaseUser.uid,
-    //                     email: firebaseUser.email || undefined,
-    //                     displayName: firebaseUser.displayName || undefined,
-    //                     providerData: providerData ? {
-    //                         providerId: providerData.providerId,
-    //                         uid: providerData.uid,
-    //                         displayName: providerData.displayName || undefined,
-    //                         email: providerData.email || '',
-    //                         phoneNumber: providerData.phoneNumber || undefined,
-    //                         photoURL: providerData.photoURL || undefined
-    //                     } : undefined
-    //                 };
-    //                 isAuthenticated.value = true;
-    //             } else {
-    //                 // User is signed out
-    //                 user.value = undefined;
-    //                 isAuthenticated.value = false;
-    //             }
-    //             loadingAuth.value = false;
-    //         },
-    //         (error) => {
-    //             console.error('Auth state change error:', error);
-    //             loadingAuth.value = false;
-    //             isAuthenticated.value = false;
-    //             user.value = undefined;
-    //         }
-    //     );
+        loadingAuth.value = true;
 
-    //     return unsubscribe;
-    // }
+        const unsubscribe = onAuthStateChanged(auth, 
+            async (firebaseUser) => {
+                // Don't process auth changes if in guest mode
+                if (isGuestMode.value) {
+                    return;
+                }
+
+                if (firebaseUser) {
+                    // User is signed in - get user data from backend
+                    try {
+                        const idToken = await firebaseUser.getIdToken();
+                        localStorage.setItem('gaeilgeAuthToken', idToken);
+                        
+                        // Try to get user data from backend, but don't fail if it doesn't work
+                        try {
+                            const userData = await authService._getCurrentUser();
+                            user.value = userData.data.user;
+                        } catch (backendError) {
+                            console.warn('Backend user data not available, using Firebase user data:', backendError);
+                            // Fallback to Firebase user data
+                            user.value = {
+                                id: firebaseUser.uid,
+                                email: firebaseUser.email || '',
+                                username: firebaseUser.displayName || firebaseUser.email || 'User',
+                                firebase_uid: firebaseUser.uid,
+                                created_at: new Date().toISOString(),
+                                updated_at: new Date().toISOString()
+                            };
+                        }
+                        isAuthenticated.value = true;
+                    } catch (error) {
+                        console.error('Failed to get user data:', error);
+                        user.value = undefined;
+                        isAuthenticated.value = false;
+                    }
+                } else {
+                    // User is signed out
+                    user.value = undefined;
+                    isAuthenticated.value = false;
+                    localStorage.removeItem('gaeilgeAuthToken');
+                }
+                loadingAuth.value = false;
+            },
+            (error) => {
+                console.error('Auth state change error:', error);
+                loadingAuth.value = false;
+                isAuthenticated.value = false;
+                user.value = undefined;
+            }
+        );
+
+        return unsubscribe;
+    }
 
     async function verifyUser(): Promise<boolean> {
         const auth = getAuth();
@@ -135,10 +184,13 @@ export const useAuthStore = defineStore("useAuthStore", () => {
         user,
         isAuthenticated,
         loadingAuth,
+        isGuestMode,
         logIn,
         signUp,
         logOut,
-        // listenForAuthChanges,
+        enableGuestMode,
+        disableGuestMode,
+        listenForAuthChanges,
         verifyUser
     }
 

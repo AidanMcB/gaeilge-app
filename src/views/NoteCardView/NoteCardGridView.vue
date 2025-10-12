@@ -10,13 +10,15 @@
             @page="onPageChange"
             :dataKey="'notecard-grid-id'"
             :pt="{
-                root: { class: ['h-full'] },
-                content: { class: ['h-full'] },
-                pcPaginator: { class: ['!py-2'] }
+                root: { class: ['h-full flex flex-col'] },
+                content: { class: ['flex-1 overflow-auto !border-0'] },
+                dataview: { class: ['border-0 !border-0 outline-none'] },
+                pcPaginator: { class: ['!py-2 flex-shrink-0'] },
+                grid: { class: ['border-0 !border-0 outline-none'] }
             }"
         >
             <template #grid="slotProps">
-                <div class="bg-base-black-main h-full grid grid-cols-3 grid-rows-4 gap-4 p-2">
+                <div class="bg-base-black-main grid grid-cols-3 grid-rows-4 gap-4 p-2 h-full">
                     <NoteCard
                         v-for="card in slotProps.items"
                         data-testid="notecard-preview"
@@ -31,9 +33,9 @@
 </template>
 
 <script setup lang="ts">
-import NoteCard from "@/components/noteCard/NoteCard.vue";
-import type { INoteCard } from "@/ts/Notecard";
-import { computed, ref } from "vue";
+import NoteCard from '@/components/noteCard/NoteCard.vue';
+import type { INoteCard } from '@/ts/notecard';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{
     cards: INoteCard[];
@@ -60,7 +62,13 @@ const onPageChange = (event: any) => {
         color: var(--text-color);
     }
 }
-[data-p-active="true"] {
+.p-dataview.no-border .p-dataview-content {
+    border: none;
+}
+.p-dataview-grid {
+    border: none !important;
+}
+[data-p-active='true'] {
     background: rgb(16 185 129);
     color: white;
 }

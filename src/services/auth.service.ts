@@ -13,6 +13,9 @@ export async function _logIn(email: string, password: string): Promise<LoginApiR
         // Get the Firebase ID token from the logged-in user
         const idToken = await userCred.user.getIdToken();
 
+        // Store token in localStorage for httpClient interceptor
+        localStorage.setItem('gaeilgeAuthToken', idToken);
+
         // Send the ID token to your backend to set the secure session cookie
         const response = await httpClient.post<LoginApiResponse>(
             '/auth/users/login',
@@ -49,8 +52,11 @@ export async function _signUp(username: string, email: string, password: string)
         // Log user in with Firebase clientSDK
         const userCred = await signInWithEmailAndPassword(auth, email, password);
 
-        // Get Firebase ID
+        // Get Firebase ID token
         const idToken = await userCred.user.getIdToken();
+
+        // Store token in localStorage for httpClient interceptor
+        localStorage.setItem('gaeilgeAuthToken', idToken);
 
         // Send ID token to backend to set the secure cookie
         const signUpResp = await httpClient.post<SignUpApiResponse>('/auth/users/login', {
@@ -61,7 +67,6 @@ export async function _signUp(username: string, email: string, password: string)
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
-
         });
 
         console.log('Signup and login successful');

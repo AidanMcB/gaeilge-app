@@ -1,28 +1,30 @@
 <template>
-    <div class="flex flex-wrap items-center w-full md:px-10">
-        <PrimeButton
-            class="btn-primary h-10 bg-emerald-400"
-            title="Create a new card"
-            @click="openModalAsAddMode"
-        >
-            <i class="pi pi-plus"></i> Cárta nua
-        </PrimeButton>
-        <PrimeButton
-            @click="notecardStore.toggleEditMode"
-            class="bright-hover h-10 w-10 flex justify-center border border-emerald-500 transition ease-in-out duration-500 ml-auto text-white ml-auto"
-            :class="{ 'bg-emerald-400 text-white': isEditAllMode }"
-            :disabled="!gridView"
-        >
-            <i class="pi pi-pencil"></i>
-        </PrimeButton>
-        <PrimeButton
-            @click="toggleGridView"
-            :title="gridView ? 'Show Single Card view' : 'Show Grid view'"
-            class="bright-hover h-10 w-10 flex justify-center border border-emerald-500 transition ease-in-out duration-500 ml-2 text-white"
-            :class="{ 'bg-emerald-400 text-white': gridView }"
-        >
-            <i class="pi pi-th-large"></i>
-        </PrimeButton>
+    <div class="flex flex-wrap items-center gap-4 w-full md:px-10">
+        <div class="flex w-full gap-2">
+            <PrimeButton
+                class="btn-primary h-10 bg-emerald-400"
+                title="Create a new card"
+                @click="openModalAsAddMode"
+            >
+                <i class="pi pi-plus"></i> Cárta nua
+            </PrimeButton>
+            <PrimeButton
+                @click="notecardStore.toggleEditMode"
+                class="bright-hover h-10 w-10 flex justify-center border border-emerald-500 transition ease-in-out duration-500 text-white ml-auto"
+                :class="{ 'bg-emerald-400 text-white': isEditAllMode }"
+                :disabled="!gridView"
+            >
+                <i class="pi pi-pencil"></i>
+            </PrimeButton>
+            <PrimeButton
+                @click="toggleGridView"
+                :title="gridView ? 'Show Single Card view' : 'Show Grid view'"
+                class="bright-hover h-10 w-10 flex justify-center border border-emerald-500 transition ease-in-out duration-500 ml-2 text-white"
+                :class="{ 'bg-emerald-400 text-white': gridView }"
+            >
+                <i class="pi pi-th-large"></i>
+            </PrimeButton>
+        </div>
         <PrimeInputText
             :id="'notecard-filter'"
             v-model="searchInput"
@@ -49,7 +51,6 @@ function openModalAsAddMode(): void {
 
 function toggleGridView() {
     notecardStore.toggleGridView();
-    localStorage.setItem('grid-view', gridView.toString());
 }
 
 const searchInput = ref('');

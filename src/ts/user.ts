@@ -2,7 +2,7 @@ export interface User {
     created_at: string;
     email: string;
     firebase_uid: string;
-    id: number;
+    id: string;
     updated_at: string;
     username: string;
 };

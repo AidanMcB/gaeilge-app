@@ -1,3 +1,96 @@
+<template>
+    <div id="login-page" class="flex flex-col justify-center items-center h-full w-full">
+        <h1 class="text-emerald-500 text-2xl">Cleachtadh Gaeilge</h1>
+        <span class="text-xl">
+            {{ isRegisterView ? 'Create a new user' : 'Sign in' }}
+        </span>
+        <form
+            id="login-form"
+            class="flex flex-wrap justify-center items-end gap-4 p-6 sm:full md:w-1/2 lg:w-1/2 xl:w-1/2"
+        >
+            <div v-if="isRegisterView" class="w-full">
+                <label for="username">Username</label>
+                <input
+                    class="w-full bg-mute-standard text-xl rounded p-2 border border-emerald-600 active:border-emerald-400 focus:border-emerald-400 focus:ring-0 focus:outline-emerald-400"
+                    id="username"
+                    v-model="username"
+                    aria-describedby="username-help"
+                />
+            </div>
+
+            <div class="w-full">
+                <label for="email">Email</label>
+                <input
+                    class="w-full bg-mute-standard text-xl rounded p-2 border border-emerald-600 active:border-emerald-400 focus:border-emerald-400 focus:ring-0 focus:outline-emerald-400"
+                    id="email"
+                    v-model="email"
+                    aria-describedby="email-help"
+                />
+            </div>
+
+            <div class="w-full">
+                <label for="password">Password</label>
+                <div class="relative">
+                    <input
+                        :type="showPassword ? 'text' : 'password'"
+                        class="w-full bg-mute-standard text-xl rounded p-2 border border-emerald-600 active:border-emerald-400 focus:border-emerald-400 focus:ring-0 focus:outline-emerald-400"
+                        id="password"
+                        v-model="password"
+                        aria-describedby="password-help"
+                    />
+                    <button
+                        type="button"
+                        class="absolute right-3 top-1/2 -translate-y-1/2"
+                        @click="togglePasswordVis"
+                    >
+                        <i :class="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+                    </button>
+                </div>
+            </div>
+
+            <PrimeMessage size="small" severity="error" variant="simple">
+                {{ errorMessage }}
+            </PrimeMessage>
+
+            <div class="w-full flex flex-wrap flex-col items-center gap-2">
+                <PrimeButton
+                    v-if="!isRegisterView"
+                    type="submit"
+                    severity="secondary"
+                    label="Login"
+                    class="btn-primary p-2 text-sm hover:bg-emerald-700 hover:border-emerald-700"
+                    @click="logIn"
+                />
+                <PrimeButton
+                    v-if="isRegisterView"
+                    type="submit"
+                    severity="secondary"
+                    label="Sign Up"
+                    class="btn-primary p-2 text-sm hover:bg-emerald-700 hover:border-emerald-700"
+                    @click="signUp"
+                />
+
+                <button
+                    type="button"
+                    class="p-2 text-sm hover:text-white hover:border-emerald-700 underline"
+                    @click="toggleRegisterView"
+                >
+                    {{ toggleText }}
+                </button>
+
+                <PrimeButton
+                    v-tooltip.bottom="'Explore features of the app without logging in'"
+                    type="button"
+                    severity="secondary"
+                    label="Continue as guest"
+                    class="btn-secondary p-2 text-sm"
+                    @click="continueAsGuest"
+                />
+            </div>
+        </form>
+    </div>
+</template>
+
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useToast } from 'primevue/usetoast';
@@ -62,6 +155,11 @@ const toggleRegisterView = (): void => {
     isRegisterView.value = !isRegisterView.value;
 };
 
+const continueAsGuest = (): void => {
+    authStore.enableGuestMode();
+    router.push('/');
+};
+
 const hasError = computed(() => {
     return errorMessage.value.length > 0 ? true : false;
 });
@@ -70,96 +168,3 @@ const toggleText = computed(() => {
     return isRegisterView.value ? 'Sign in with existing user' : 'Create a new user';
 });
 </script>
-
-<template>
-    <div id="login-page" class="flex flex-col justify-center items-center h-full w-full">
-        <h1 class="text-emerald-500 text-2xl">Cleachtadh Gaeilge</h1>
-        <span class="text-xl">
-            {{ isRegisterView ? 'Create a new user' : 'Sign in' }}
-        </span>
-        <form
-            id="login-form"
-            class="flex flex-wrap justify-center items-end gap-4 p-6 sm:full md:w-1/2 lg:w-1/2 xl:w-1/2"
-        >
-            <div v-if="isRegisterView" class="w-full">
-                <label for="username">Username</label>
-                <input
-                    class="w-full bg-mute-standard text-xl rounded p-2 border border-emerald-600 active:border-emerald-400 focus:border-emerald-400 focus:ring-0 focus:outline-emerald-400"
-                    :class="{
-                        '!border-red-500': hasError
-                    }"
-                    id="username"
-                    v-model="username"
-                    aria-describedby="username-help"
-                />
-            </div>
-
-            <div class="w-full">
-                <label for="email">Email</label>
-                <input
-                    class="w-full bg-mute-standard text-xl rounded p-2 border border-emerald-600 active:border-emerald-400 focus:border-emerald-400 focus:ring-0 focus:outline-emerald-400"
-                    :class="{
-                        '!border-red-500': hasError
-                    }"
-                    id="email"
-                    v-model="email"
-                    aria-describedby="email-help"
-                />
-            </div>
-
-            <div class="w-full">
-                <label for="password">Password</label>
-                <div class="relative">
-                    <input
-                        :type="showPassword ? 'text' : 'password'"
-                        class="w-full bg-mute-standard text-xl rounded p-2 border border-emerald-600 active:border-emerald-400 focus:border-emerald-400 focus:ring-0 focus:outline-emerald-400"
-                        :class="{
-                            '!border-red-500': hasError
-                        }"
-                        id="password"
-                        v-model="password"
-                        aria-describedby="password-help"
-                    />
-                    <button
-                        type="button"
-                        class="absolute right-3 top-1/2 -translate-y-1/2"
-                        @click="togglePasswordVis"
-                    >
-                        <i :class="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
-                    </button>
-                </div>
-            </div>
-
-            <PrimeMessage size="small" severity="error" variant="simple">
-                {{ errorMessage }}
-            </PrimeMessage>
-
-            <div class="w-full flex flex-wrap flex-col items-center gap-2">
-                <PrimeButton
-                    v-if="!isRegisterView"
-                    type="submit"
-                    severity="secondary"
-                    label="Login"
-                    class="btn-primary p-2 text-sm hover:bg-emerald-700 hover:border-emerald-700"
-                    @click="logIn"
-                />
-                <PrimeButton
-                    v-if="isRegisterView"
-                    type="submit"
-                    severity="secondary"
-                    label="Sign Up"
-                    class="btn-primary p-2 text-sm hover:bg-emerald-700 hover:border-emerald-700"
-                    @click="signUp"
-                />
-
-                <button
-                    type="button"
-                    class="p-2 text-sm hover:text-white hover:border-emerald-700 underline"
-                    @click="toggleRegisterView"
-                >
-                    {{ toggleText }}
-                </button>
-            </div>
-        </form>
-    </div>
-</template>

@@ -71,18 +71,23 @@ router.beforeEach(async (to, from, next) => {
     if (!requiresAuth) {
         return next();
     }
-    // Continue if user is already present in store
-    if (authStore.user) {
+    
+    // Wait for auth to finish loading (with timeout)
+    let attempts = 0;
+    const maxAttempts = 50; // 5 seconds max wait
+    
+    while (authStore.loadingAuth && attempts < maxAttempts) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        attempts++;
+    }
+    
+    // Continue if user is authenticated or in guest mode
+    if ((authStore.isAuthenticated && authStore.user) || authStore.isGuestMode) {
         return next();
     }
 
-    // If no user in store, check backend for active user
-    const isAuthenticated = await authStore.verifyUser();
-    if (isAuthenticated) {
-        next();
-    } else {
-        next({ name: 'login' })
-    }
+    // Redirect to login if not authenticated
+    next({ name: 'login' });
 });
 
 export default router;

@@ -1,7 +1,7 @@
 import * as noteCardService from "@/services/notecards.service";
 import type { Category } from "@/ts/Category";
 import { ModalType } from "@/ts/Constants";
-import { type NewNoteCardForm, type INoteCard } from "@/ts/Notecard";
+import { type NewNoteCardForm, type INoteCard } from "@/ts/notecard";
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 
@@ -169,6 +169,7 @@ export const useNoteCardStore = defineStore("useNotecardStore", () => {
 
     function toggleGridView(): void {
         gridView.value = !gridView.value;
+        localStorage.setItem('grid-view', gridView.value.toString());
         clearTextFilter();
     }
 

@@ -11,7 +11,7 @@
         :pt="pt"
     >
         <template #item="slotProps">
-            <div class="w-full">
+            <div class="w-full flex justify-center">
                 <NoteCard
                     data-testid="notecard-preview"
                     :key="slotProps.data"
@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { useNoteCardStore } from '@/stores/useNotecardStore';
-import type { INoteCard } from '@/ts/Notecard';
+import type { INoteCard } from '@/ts/notecard';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 
@@ -56,7 +56,7 @@ const pt = {
     nextButtonIcon: { class: ['lg:h-[38px] lg:w-[28px]'] },
     previousButton: { class: ['lg:h-20 lg:w-20 hover:bg-emerald-400/[0.5]'] },
     previousButtonIcon: { class: ['lg:h-[38px] lg:w-[38px]'] },
-    content: { class: [''] },
-    indicator: { class: ['mt-4 bg-emerald-800'] }
+    contentcontainer: { class: ['flex justify-center w-full gap-8'] },
+    indicator: { class: ['bg-emerald-800'] }
 };
 </script>

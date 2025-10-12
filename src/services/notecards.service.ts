@@ -1,14 +1,9 @@
-import type {
-    HttpNoteCardResponse,
-    DeleteNoteCardResp,
-    NewNoteCardForm,
-    INoteCard
-} from "@/ts/Notecard";
-import httpClient from "./httpClient";
+import type { HttpNoteCardResponse, DeleteNoteCardResp, NewNoteCardForm, INoteCard } from '@/ts/notecard';
+import httpClient from './httpClient';
 
 export async function _getAllNoteCards(): Promise<INoteCard[]> {
     try {
-        const resp = await httpClient.get<INoteCard[]>("/notecards", { withCredentials: true });
+        const resp = await httpClient.get<INoteCard[]>("/notecards");
         return resp.data;
     } catch (err) {
         console.error("Failed to fetch Note Cards. Error: ", err);
