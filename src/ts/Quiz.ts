@@ -25,3 +25,4 @@ export interface Answer {
     isCorrect: boolean;
     selectedAnswer: string;
 }
+// formated quiz question
