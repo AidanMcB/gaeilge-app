@@ -21,5 +21,20 @@ export default defineConfig({
 				api: 'modern-compiler'
 			}
 		}
+	},
+	define: {
+		global: 'globalThis',
+	},
+	optimizeDeps: {
+		include: ['crypto-js']
+	},
+	build: {
+		target: 'esnext',
+		rollupOptions: {
+			external: [],
+			output: {
+				format: 'es'
+			}
+		}
 	}
 });
