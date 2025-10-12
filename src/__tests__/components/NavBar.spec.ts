@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import NavBar from '../../components/NavBar.vue';
+import NavBar from '../../components/navBar/NavBar.vue';
 
 const homeLinkSelector = '[data-testid=home-link]'
 

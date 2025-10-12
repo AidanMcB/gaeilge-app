@@ -5,7 +5,7 @@ export interface User {
     id: string;
     updated_at: string;
     username: string;
-};
+}
 
 export interface UserProviderData {
     providerId: string;
@@ -14,4 +14,4 @@ export interface UserProviderData {
     email: string;
     phoneNumber?: string;
     photoURL?: string;
-};
+}
