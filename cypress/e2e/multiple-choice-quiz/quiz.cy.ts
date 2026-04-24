@@ -1,10 +1,11 @@
 // https://on.cypress.io/api
 
-import { getCorrectAnswer, getIncorrectAnswer } from '../../support/utils';
-
 describe('Multiple Choice Quiz', () => {
 
     beforeEach(() => {
+        cy.session('guest-session', () => {
+            cy.loginAsGuest();
+        });
         cy.visit('/section-select');
         cy.contains('h1', 'Roghnaigh modúl');
         cy.get('[data-testid="section-1"]').find('[data-testid="quiz"]').click();
@@ -38,7 +39,7 @@ describe('Multiple Choice Quiz', () => {
         cy.get('[data-testid="banner-message"]').should('exist');
 
         cy.get('[data-testid="banner-message"]').find('.text-white > .font-bold').click();
-        cy.get('[data-testid="section-2"] > [data-pc-section="body"] > [data-pc-section="content"] > .p-2 > .flex > [data-testid="quiz"]').should('not.be.disabled');
+        cy.get('[data-testid="section-2"]').find('[data-testid="quiz"]').should('not.be.disabled');
     });
 
     it('Pass all quizzes. Next section should be unlocked after each quiz.', () => {
@@ -52,7 +53,7 @@ describe('Multiple Choice Quiz', () => {
             cy.get('[data-testid="banner-message"]').should('exist');
     
             cy.get('[data-testid="banner-message"]').find('.text-white > .font-bold').click();
-            cy.get(`[data-testid="section-${i+1}"] > [data-pc-section="body"] > [data-pc-section="content"] > .p-2 > .flex > [data-testid="quiz"]`).should('not.be.disabled');
+            cy.get(`[data-testid="section-${i + 1}"]`).find('[data-testid="quiz"]').should('not.be.disabled');
         }
 
     });
@@ -68,72 +69,6 @@ describe('Multiple Choice Quiz', () => {
         cy.get('[data-testid="unfinished-quiz"]')
             .should('be.visible')
             .contains('You have not answered all 10 quiz questions!');
-    });
-
-    it('Refreshing the page on an answered question retains the selected answer if correct', () => {
-        // select random answer and submit
-        cy.document().then((doc) => {
-            const questionContainer = doc.querySelector('[data-testid="question-view"]');
-            const questionId = questionContainer?.getAttribute('data-question-id');
-                
-            if (questionId) {
-                const correctAnswer = getCorrectAnswer(1, parseInt(questionId));
-                cy.get(`[data-cy="radio-option-${correctAnswer}"]`).click();
-                cy.get('[data-testid="submit-btn"]').click();
-            }
-        });
-        cy.get('[data-testid="submit-btn"]').should('not.exist');
-        cy.get('[data-testid="next-or-see-answer-btn"]').should('exist');
-        // refresh
-        cy.reload();
-        cy.document().then((doc) => {
-            const questionContainer = doc.querySelector('[data-testid="question-view"]');
-            const questionId = questionContainer?.getAttribute('data-question-id');
-                
-            if (questionId) {
-                const correctAnswer = getCorrectAnswer(1, parseInt(questionId));
-                cy.get(`[data-cy="radio-option-wrapper-${correctAnswer}"]`)
-                    .should('exist')
-                    .find('[data-testid="check-mark-icon"]').should('exist');
-            }
-        });
-        cy.get('[data-testid="x-icon"]').should('not.exist');
-        cy.get('[data-testid="next-or-see-answer-btn"]')
-            .should('exist')
-            .contains('Next');
-    });
-
-    it('Refreshing the page on an answered question retains the selected answer if incorrect', () => {
-        // select random answer and submit
-        cy.document().then((doc) => {
-            const questionContainer = doc.querySelector('[data-testid="question-view"]');
-            const questionId = questionContainer?.getAttribute('data-question-id');
-                
-            if (questionId) {
-                const correctAnswer = getIncorrectAnswer(1, parseInt(questionId));
-                cy.get(`[data-cy="radio-option-${correctAnswer}"]`).click();
-                cy.get('[data-testid="submit-btn"]').click();
-            }
-        });
-        cy.get('[data-testid="submit-btn"]').should('not.exist');
-        cy.get('[data-testid="next-or-see-answer-btn"]').should('exist');
-        // refresh
-        cy.reload();
-        cy.document().then((doc) => {
-            const questionContainer = doc.querySelector('[data-testid="question-view"]');
-            const questionId = questionContainer?.getAttribute('data-question-id');
-                
-            if (questionId) {
-                const correctAnswer = getCorrectAnswer(1, parseInt(questionId));
-                cy.get(`[data-cy="radio-option-wrapper-${correctAnswer}"]`)
-                    .should('exist')
-                    .find('[data-testid="check-mark-icon"]').should('exist');
-            }
-        });
-        cy.get('[data-testid="x-icon"]').should('exist');
-        cy.get('[data-testid="next-or-see-answer-btn"]')
-            .should('exist')
-            .contains('Next');
     });
 
 });

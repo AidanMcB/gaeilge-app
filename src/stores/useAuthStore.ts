@@ -77,24 +77,6 @@ export const useAuthStore = defineStore("useAuthStore", () => {
         localStorage.removeItem('gaeilgeGuestMode');
     }
 
-    async function getCurrentUser(): Promise<User | undefined> {
-        try {
-            const resp = await authService._getCurrentUser();
-            if (resp.data.user) {
-                user.value = resp.data.user;
-                isAuthenticated.value = true;
-            }
-            loadingAuth.value = false;
-            return resp.data.user;
-        } catch (error) {
-            console.error("Failed to get current user. Error: ", error);
-            loadingAuth.value = false;
-            isAuthenticated.value = false;
-            user.value = undefined;
-            throw getFirebaseErrorMessage(error as FirebaseError);
-        }
-    }
-
     function listenForAuthChanges(): () => void {
         // Don't start auth listener if in guest mode
         if (isGuestMode.value) {

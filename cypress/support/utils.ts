@@ -1,10 +1,7 @@
-import { type QuizData } from '../../src/ts/interfaces';
-import type { VocabSection } from '../../src/ts/matching.interfaces';
+import type { QuizData } from '../../src/ts/Quiz';
 import quizDataJson from '../fixtures/fixtures_quizQuestions.json';
-import matchingDataJson from '../fixtures/fixtures_translateTerms.json';
 
 const quizData = quizDataJson as QuizData[];
-const matchingData = matchingDataJson as VocabSection[];
 
 export function getCorrectAnswer(sectionId: number, questionId: number): string | undefined {
     const quiz = quizData.find(quiz => quiz.id == sectionId);
@@ -16,6 +13,16 @@ export function getCorrectAnswer(sectionId: number, questionId: number): string 
     }
 }
 
+/** Index of the correct choice for `data-testid="radio-option-${index}"`. */
+export function getCorrectAnswerIndex(sectionId: number, questionId: number): number | undefined {
+    const quiz = quizData.find((q) => q.id == sectionId);
+    if (!quiz) return undefined;
+    const question = quiz.questions.find((q) => q.id === questionId);
+    if (!question) return undefined;
+    const idx = question.choices.findIndex((c) => c === question.correctAnswer);
+    return idx >= 0 ? idx : undefined;
+}
+
 export function getIncorrectAnswer(sectionId: number, questionId: number): string | undefined {
     const quiz = quizData.find(quiz => quiz.id == sectionId);
     if (quiz) {
@@ -24,4 +31,14 @@ export function getIncorrectAnswer(sectionId: number, questionId: number): strin
             return question.choices.find(choice => choice !== question.correctAnswer);
         }
     }
+}
+
+/** Index of an incorrect choice for `data-testid="radio-option-${index}"`. */
+export function getIncorrectAnswerIndex(sectionId: number, questionId: number): number | undefined {
+    const quiz = quizData.find((q) => q.id == sectionId);
+    if (!quiz) return undefined;
+    const question = quiz.questions.find((q) => q.id === questionId);
+    if (!question) return undefined;
+    const idx = question.choices.findIndex((c) => c !== question.correctAnswer);
+    return idx >= 0 ? idx : undefined;
 }

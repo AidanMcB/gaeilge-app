@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "@/config/firebaseConfig";
 import { handleApiError, handleExternalApiError } from "@/utils/helper";
 import type { AxiosError } from "axios";
@@ -39,8 +39,7 @@ export async function _logIn(email: string, password: string): Promise<LoginApiR
 
 export async function _signUp(username: string, email: string, password: string): Promise<SignUpApiResponse> { 
     try {
-        // Create user
-        const resp = await httpClient.post('/auth/users/create', {
+        await httpClient.post('/auth/users/create', {
             username, email, password
         }, {
             headers: {

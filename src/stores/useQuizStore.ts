@@ -83,19 +83,19 @@ export const useQuizStore = defineStore('quizStore', () => {
             selectedAnswer: answer.selectedAnswer,
             submittedAnswer: answer.selectedAnswer,
             isCorrect: answer.isCorrect,
+            isSubmitted: true
         };
 
         const index: number = quizData.value.questions.findIndex(q => q.id === answer.questionId);
         if (index > -1) {
             quizData.value.questions.splice(index, 1, newQuestionData);
+            if (activeQuestion.value.id === newQuestionData.id) {
+                activeQuestion.value = newQuestionData;
+            }
             await updateQuizInDb();
             return;
         }
-        if (!index) {
-            // question does not exist
-            console.error('Question was not found. Try refreshing the page and submitting again.');
-            return;
-        }
+        console.error('Question was not found. Try refreshing the page and submitting again.');
     }
 
     function randomNextQuestion(): number {

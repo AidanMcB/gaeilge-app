@@ -10,22 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run build
-      run: npm run build
+      - name: Typecheck
+        run: npm run type-check
 
-    - name: Run lint
-      run: npm run lint
+      - name: Run lint
+        run: npm run lint
 
-    - name: Run unit tests
-      run: npm run test:unit
+      - name: Run unit tests
+        run: npm run test:unit -- --run
+
+      - name: Build for e2e
+        run: npm run build-only
+
+      - name: Run Cypress e2e
+        run: npx start-server-and-test preview http://localhost:4173 'npx cypress run --e2e'

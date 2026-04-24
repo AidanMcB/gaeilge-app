@@ -84,10 +84,18 @@
                     severity="secondary"
                     label="Continue as guest"
                     class="btn-secondary p-2 text-sm"
+                    data-testid="login-continue-guest"
                     @click="continueAsGuest"
                 />
             </div>
         </form>
+        <RouterLink
+            to="/docs/overview"
+            class="mt-6 text-emerald-400/90 text-sm underline hover:text-emerald-300"
+            data-testid="login-link-docs"
+        >
+            Documentation
+        </RouterLink>
     </div>
 </template>
 
@@ -114,7 +122,7 @@ const logIn = async (e: Event): Promise<void> => {
     errorMessage.value = '';
     if (email.value.length > 0 && password.value.length > 0) {
         try {
-            const resp = await authStore.logIn(email.value, password.value);
+            await authStore.logIn(email.value, password.value);
             toast.add({ severity: 'success', summary: `Logged in as ${email.value}.`, life: 3000 });
             router.push('/');
         } catch (err) {
@@ -159,10 +167,6 @@ const continueAsGuest = (): void => {
     authStore.enableGuestMode();
     router.push('/');
 };
-
-const hasError = computed(() => {
-    return errorMessage.value.length > 0 ? true : false;
-});
 
 const toggleText = computed(() => {
     return isRegisterView.value ? 'Sign in with existing user' : 'Create a new user';

@@ -12,6 +12,7 @@
         <Button
             type="button"
             icon="pi pi-bars"
+            data-testid="navbar-menu-toggle"
             @click="toggle"
             aria-haspopup="true"
             aria-controls="overlay_menu"
@@ -45,8 +46,9 @@ import { useRouter } from 'vue-router';
 import { clearAllStoredData } from '../../utils/helper';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Menu, Button, useToast } from 'primevue';
+import type { MenuItem } from 'primevue/menuitem';
 
 const authStore = useAuthStore();
 const { user, isGuestMode } = storeToRefs(authStore);
@@ -54,6 +56,8 @@ const menu = ref();
 
 const router = useRouter();
 const toast = useToast();
+
+const canUseAppFeatures = computed(() => !!user.value || isGuestMode.value);
 
 function onClickHome() {
     clearAllStoredData();
@@ -98,37 +102,65 @@ const onClickNoteCards = () => {
     router.push('/notecards');
 };
 
-const menuItems = ref([
-    {
-        label: 'Home',
-        icon: 'pi pi-home',
-        command: onClickHome
-    },
-    {
-        label: isGuestMode.value ? 'Guest User' : (user?.value?.email || 'Profile'),
-        icon: 'pi pi-user',
-    },
-    {
-        label: 'Module Select',
-        icon: 'pi pi-list',
-        command: onClickModuleSelect
-    },
-    {
-        label: 'Note Cards',
-        icon: 'pi pi-book',
-        command: onClickNoteCards
-    },
-    {
-        separator: true
-    },
-    {
-        label: isGuestMode.value ? 'Exit Guest Mode' : 'Logout',
-        icon: 'pi pi-sign-out',
-        class: 'text-red-400',
-        command: onClickLogout
-    },
+const onClickDocs = () => {
+    router.push('/docs/overview');
+};
 
-]);
+const onClickLogin = () => {
+    router.push('/login');
+};
+
+const menuItems = computed<MenuItem[]>(() => {
+    const items: MenuItem[] = [
+        {
+            label: 'Home',
+            icon: 'pi pi-home',
+            command: onClickHome
+        },
+        {
+            label: 'Documentation',
+            icon: 'pi pi-info-circle',
+            command: onClickDocs
+        }
+    ];
+
+    if (canUseAppFeatures.value) {
+        items.push(
+            {
+                label: isGuestMode.value ? 'Guest User' : user.value?.email || 'Profile',
+                icon: 'pi pi-user'
+            },
+            {
+                label: 'Module Select',
+                icon: 'pi pi-list',
+                command: onClickModuleSelect
+            },
+            {
+                label: 'Note Cards',
+                icon: 'pi pi-book',
+                command: onClickNoteCards
+            },
+            { separator: true },
+            {
+                label: isGuestMode.value ? 'Exit Guest Mode' : 'Logout',
+                icon: 'pi pi-sign-out',
+                class: 'text-red-400',
+                command: onClickLogout
+            }
+        );
+    } else {
+        items.push(
+            { separator: true },
+            {
+                label: 'Sign in',
+                icon: 'pi pi-sign-in',
+                command: onClickLogin
+            }
+        );
+    }
+
+    return items;
+});
 </script>
 
 <style lang="scss">

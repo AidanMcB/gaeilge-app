@@ -7,11 +7,21 @@ import MatchingView from "../views/MatchingView/MatchingView.vue";
 import MatchingResultsView from "@/views/MatchingView/MatchingResultsView.vue";
 import NoteCardListView from "@/views/NoteCardView/NoteCardListView.vue";
 import LoginView from "@/views/LoginView/LoginView.vue";
+import DocsView from "@/views/DocsView/DocsView.vue";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
+        {
+            path: "/docs",
+            redirect: "/docs/overview"
+        },
+        {
+            path: "/docs/:page",
+            name: "docs",
+            component: DocsView,
+        },
         {
             path: "/login",
             name: "login",

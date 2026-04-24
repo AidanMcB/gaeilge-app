@@ -1,15 +1,12 @@
 import { defineStore } from "pinia";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import * as categoryService from "@/services/category.service";
+import type { Category } from "@/ts/Category";
 
 export const useCategoryStore = defineStore("useCategoryStore", () => {
-    const categories = ref<any[]>([]);
+    const categories = ref<Category[]>([]);
 
-    onMounted(() => {
-        getCategories();
-    });
-
-    async function getCategories(): Promise<any> {
+    async function getCategories(): Promise<void> {
         try {
             const resp = await categoryService._getAllCategories();
             categories.value = resp;
@@ -20,7 +17,7 @@ export const useCategoryStore = defineStore("useCategoryStore", () => {
 
     async function addNewCategory(newCategory: string): Promise<void> {
         try {
-            const resp = await categoryService._addNewCategory(newCategory);
+            const resp: Category = await categoryService._addNewCategory(newCategory);
             categories.value = [...categories.value, resp];
         } catch (err) {
             console.error("Failed to add a new category. Error: ", err);

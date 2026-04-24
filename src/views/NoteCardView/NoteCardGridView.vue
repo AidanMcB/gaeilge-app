@@ -35,21 +35,15 @@
 <script setup lang="ts">
 import NoteCard from '@/components/noteCard/NoteCard.vue';
 import type { INoteCard } from '@/ts/Notecard';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
-const props = defineProps<{
+defineProps<{
     cards: INoteCard[];
 }>();
 
 const currentPage = ref(0);
 
-const paginatedItems = computed(() => {
-    const start = currentPage.value * 12;
-    const end = start + 12;
-    return props.cards.slice(start, end);
-});
-
-const onPageChange = (event: any) => {
+const onPageChange = (event: { page: number }) => {
     currentPage.value = event.page;
 };
 </script>

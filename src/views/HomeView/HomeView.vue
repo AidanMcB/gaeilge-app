@@ -1,7 +1,11 @@
 <template>
-    <div class="flex flex-col mt-[30vh]  h-full w-full">
-        <h1 class="text-emerald-500 text-5xl m-4 md:w-full lg:text-8xl">Cleachtadh Gaeilge</h1>
-        <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+    <div class="flex flex-col mt-16 sm:mt-[25vh] md:mt-[30vh] h-full w-full px-2">
+        <h1
+            class="text-emerald-500 text-4xl sm:text-5xl m-2 sm:m-4 md:w-full lg:text-7xl xl:text-8xl text-center leading-tight"
+        >
+            Cleachtadh Gaeilge
+        </h1>
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center w-full max-w-xl sm:max-w-none mx-auto px-2">
             <RouterLink to="/section-select">
                 <PrimeButton
                     class="bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded sm:text-lg md:text-2xl"

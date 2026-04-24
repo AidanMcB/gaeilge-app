@@ -1,7 +1,7 @@
 <template>
     <div
         data-testid="active-matching-section"
-        class="grid grid-cols-2 gap-10 py-16 md:p-4 w-full max-w-4xl mx-auto transition-all duration-200"
+        class="grid grid-cols-2 gap-4 sm:gap-8 md:gap-10 py-8 sm:py-12 md:py-16 md:p-4 w-full max-w-4xl mx-auto transition-all duration-200"
         :class="{
             'opacity-100': activeVocab?.englishTerms?.length,
             'opacity-0': !activeVocab?.englishTerms?.length

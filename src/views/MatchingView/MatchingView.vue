@@ -3,7 +3,7 @@ import { useMatchingStore } from '../../stores/useMatchingStore';
 import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { type LanguageType, type Term } from '../../ts/Matching';
-import { Language, AnswerState } from '../../ts/Constants';
+import { AnswerState } from '../../ts/Constants';
 
 const store = useMatchingStore();
 const route = useRoute();

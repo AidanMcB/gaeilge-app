@@ -2,7 +2,7 @@
 import { useCategoryStore } from "@/stores/useCategoryStore";
 import type { Category } from "@/ts/Category";
 import { storeToRefs } from "pinia";
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 const props = defineProps<{
     id: string;
@@ -13,6 +13,10 @@ const emit = defineEmits(["update-categories"]);
 
 const categoryStore = useCategoryStore();
 const { categories } = storeToRefs(categoryStore);
+
+onMounted(() => {
+    void categoryStore.getCategories();
+});
 
 const selectedCategories = ref<Category[]>([...props.preSelectedCategories]);
 

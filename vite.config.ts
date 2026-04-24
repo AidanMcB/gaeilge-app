@@ -25,9 +25,6 @@ export default defineConfig({
 	define: {
 		global: 'globalThis',
 	},
-	optimizeDeps: {
-		include: ['crypto-js']
-	},
 	build: {
 		target: 'esnext',
 		rollupOptions: {

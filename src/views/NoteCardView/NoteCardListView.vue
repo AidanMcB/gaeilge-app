@@ -1,5 +1,8 @@
 <template>
-    <div class="h-full w-full flex flex-col justify-self-center gap-2 p-2 sm:w-4/5 lg:w-2/3 xl:w-4/5">
+    <div
+        class="h-full w-full flex flex-col justify-self-center gap-2 p-2 sm:w-4/5 lg:w-2/3 xl:w-4/5"
+        data-testid="notecards-page"
+    >
         <h1 class="header-1 m-0 self-center">Cárta Nótaí</h1>
 
         <NoteCardActions />
@@ -18,6 +21,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue';
 import { useNoteCardStore } from '../../stores/useNotecardStore';
+import { useAsyncAction } from '@/composables/useAsyncAction';
 import { useTitle } from '@vueuse/core';
 import NoteCardGridView from './NoteCardGridView.vue';
 import NoteCardCarousel from '@/components/noteCard/NoteCardCarousel.vue';
@@ -27,12 +31,13 @@ import { storeToRefs } from 'pinia';
 
 const notecardStore = useNoteCardStore();
 const { notecards, gridView } = storeToRefs(notecardStore);
+const { run: runWithLoading } = useAsyncAction();
 
 onMounted(async () => {
     useTitle('Cárta Nótaí');
     try {
         notecardStore.initGridViewSetting();
-        await notecardStore.getNoteCards();
+        await runWithLoading(() => notecardStore.getNoteCards());
     } catch (err) {
         console.error(err);
     }

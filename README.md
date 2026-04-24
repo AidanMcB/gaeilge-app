@@ -1,95 +1,62 @@
-# gaeilge-app
+# Cleachtadh Gaeilge — `gaeilge-app`
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 + Vite + TypeScript SPA for Irish language practice (quizzes, matching games, notecards).
 
-## Recommended IDE Setup
+## Stack
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- **Vue 3** (Composition API, `<script setup lang="ts">`)
+- **Vue Router** + **Pinia**
+- **PrimeVue 4** + **Tailwind CSS**
+- **Firebase** (client auth)
+- **Axios** via shared `src/services/httpClient.ts`
 
-## Type Support for `.vue` Imports in TS
+## Prerequisites
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- Node.js **≥ 20**
+- Running instance of [`gaeilge-app-api`](../gaeilge-app-api/) (or deployed API URL)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Environment variables
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+Copy `.env.example` to `.env` and fill values:
 
-## Customize configuration
+| Variable | Purpose |
+|----------|---------|
+| `VITE_API_BASE_URL` | REST API base URL (e.g. `http://localhost:3004`) |
+| `VITE_FIREBASE_API_KEY` | Firebase web app key |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Auth domain |
+| `VITE_FIREBASE_PROJECT_ID` | Project ID |
+| `VITE_FIREBASE_STORAGE_BUCKET` | Storage bucket |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Sender ID |
+| `VITE_FIREBASE_APP_ID` | App ID |
+| `VITE_FIREBASE_MEASUREMENT_ID` | Analytics (optional) |
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Setup
 
-## App Setup
-
-```sh
+```bash
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Open `http://localhost:5173`. In-app documentation is at **`/docs`**.
 
-```sh
-npm run build
-```
+## Scripts
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Vite dev server |
+| `npm run build` | Type-check + production build |
+| `npm run type-check` | `vue-tsc` only |
+| `npm run preview` | Preview production build |
+| `npm run lint` | ESLint |
+| `npm run test:unit` | Vitest |
+| `npm run test:e2e` | Cypress against preview (build first) |
+| `npm run test:e2e:dev` | Cypress + dev server on port 4173 |
+| `npm run cy:open` | Cypress interactive runner |
 
-```sh
-npm run test:unit
-```
+## IDE
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+VS Code + [Vue — Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (Volar) recommended.
 
-```sh
-npm run test:e2e:dev
-```
+## Project conventions
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-
-### Testing
-Uses Vitest for Unit testing and Cypress for e2e testing
-
-To run Vitest unit tests, run
-```sh
-npm run test:unit
-```
-
-To run Cypress e2e tests, run
-```sh
-npm run test:e2e
-```
-#### Important
-In order to run Cypress e2e tests, you must first build the app. Cypress runs the app build on a port, so be sure to build before running the above command.
-
-To run Cypress and open in browser, run
-```sh
-npm run cy:open
-```
-#### Important
-This opens the Cypress UI in a new browser. Cypress runs against the localhost:PORT by default, so be sure you have the app running at the port specified in baseUrl in `cypress.config.js`.
-```sh
-npm run dev-cy
-```
-
-# gaeilge-app
+See repo root [`AGENTS.md`](../AGENTS.md) and [`.cursor/rules/`](../.cursor/rules/).

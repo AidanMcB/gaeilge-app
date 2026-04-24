@@ -1,8 +1,10 @@
 <script lang='ts' setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { useAuthStore } from './stores/useAuthStore';
 import { storeToRefs } from 'pinia';
 
+const route = useRoute();
 const toastPosition = ref<string>(getPosition());
 const authStore = useAuthStore();
 const { user, loadingAuth } = storeToRefs(authStore);
@@ -18,30 +20,37 @@ const updatePosition = () => {
 onMounted(() => {
     updatePosition();
     window.addEventListener('resize', updatePosition);
-    
-    // Watch for auth state changes
-    watch([user, loadingAuth], ([newUser, isLoading]) => {
-        console.log('Auth State:', { user: newUser, isLoading });
-    });
 });
 
 onUnmounted(() => {
     window.removeEventListener('resize', updatePosition);
 });
 
-const isLoginPage = computed(() => {
-    return window.location.pathname === '/login';
-});
+const isLoginPage = computed(() => route.path === '/login');
+const isDocsPage = computed(() => route.path.startsWith('/docs'));
 
 const showNavBar = computed(() => {
-    return !isLoginPage.value && (user.value || authStore.isGuestMode) && !loadingAuth.value;
+    if (isLoginPage.value) return false;
+    if (isDocsPage.value) return true;
+    return (user.value || authStore.isGuestMode) && !loadingAuth.value;
 });
 </script>
 
 <template>
     <PrimeToast :position='toastPosition'></PrimeToast>
     <NavBar v-if='showNavBar'/>
-    <main class="flex-grow h-full p-2" :class="[showNavBar ? 'h-[calc(100vh-60px)] pt-[60px]' : 'h-screen']">
+    <main
+        class="flex-grow p-2 sm:p-3"
+        :class="[
+            showNavBar
+                ? isDocsPage
+                    ? 'min-h-[calc(100vh-50px)] pt-[52px] sm:min-h-[calc(100vh-60px)] sm:pt-[60px]'
+                    : 'h-[calc(100vh-50px)] pt-[52px] sm:h-[calc(100vh-60px)] sm:pt-[60px]'
+                : isDocsPage
+                    ? 'min-h-screen'
+                    : 'h-screen'
+        ]"
+    >
         <RouterView :key="$route.fullPath" />
     </main>
 </template>

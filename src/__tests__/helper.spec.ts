@@ -25,7 +25,7 @@ describe('randomizeArr()', () => {
     });
 });
 
-describe('calPercent()', () => {
+describe('calcPercent()', () => {
     test('returns a percentage value of two numbers', () => {
         expect(calcPercent(2,10)).toBe(20);
     });

@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import { useCategoryStore } from "@/stores/useCategoryStore";
 import { useToast } from "primevue/usetoast";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const newCategory = ref<string>("");
 const isLoading = ref<boolean>(false);
 const valid = ref<boolean>(true);
 
 const categoryStore = useCategoryStore();
+
+onMounted(() => {
+    void categoryStore.getCategories();
+});
 
 const toast = useToast();
 

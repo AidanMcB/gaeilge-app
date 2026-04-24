@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useToast } from "primevue/usetoast";
-import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 const toast = useToast();
-const router = useRouter();
 const authStore = useAuthStore();
 
 const email = ref<string>("");
@@ -17,8 +15,7 @@ const logIn = async (): Promise<void> => {
     errorMessage.value = "";
     if (email.value.length > 0 && password.value.length > 0) {
         try {
-            const resp = await authStore.logIn(email.value, password.value)
-            console.log('resp in comp', resp)
+            await authStore.logIn(email.value, password.value);
             toast.add({ severity: "success", summary: `Welcome new user, ${email.value}!`, life: 3000 });
             // router.push("/");
         } catch (err) {

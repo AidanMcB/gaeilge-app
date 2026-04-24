@@ -1,14 +1,8 @@
 /// <reference types="cypress" />
 
 declare namespace Cypress {
-    interface Chainable<Subject = any> {
-      passQuiz(sectionNum: number): Chainable<any>;
+    interface Chainable {
+        loginAsGuest(): Chainable<void>;
+        passQuiz(sectionNum: number): Chainable<void>;
     }
 }
-
-declare namespace Cypress {
-    interface Chainable<Subject = any> {
-      passMatching(sectionNum: number): Chainable<any>;
-    }
-}
-  

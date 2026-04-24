@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 ///<reference path="../index.d.ts" />
 
-import { getCorrectAnswer } from "./utils";
+import { getCorrectAnswerIndex } from "./utils";
 
 // ***********************************************
 // This example commands.ts shows you how to
@@ -40,6 +40,12 @@ import { getCorrectAnswer } from "./utils";
 //   }
 // }
 
+Cypress.Commands.add("loginAsGuest", () => {
+    cy.visit("/login");
+    cy.get('[data-testid="login-continue-guest"]').click();
+    cy.url({ timeout: 10000 }).should("eq", Cypress.config("baseUrl") + "/");
+});
+
 Cypress.Commands.add("passQuiz", (sectionNum: number) => {
     cy.get(`[data-testid="section-${sectionNum}"]`).find('[data-testid="quiz"]').click();
 
@@ -53,8 +59,9 @@ Cypress.Commands.add("passQuiz", (sectionNum: number) => {
              const questionId = questionContainer?.getAttribute('data-question-id');
                 
             if (questionId) {
-                const correctAnswer = getCorrectAnswer(sectionNum, parseInt(questionId));
-                cy.get(`[data-cy="radio-option-${correctAnswer}"]`).click();
+                const idx = getCorrectAnswerIndex(sectionNum, parseInt(questionId));
+                if (idx === undefined) return;
+                cy.get(`[data-testid="radio-option-${idx}"]`).click();
                 cy.get('[data-testid="submit-btn"]').click();
                 // go to next questions
                 cy.get('[data-testid="next-or-see-answer-btn"]').click()

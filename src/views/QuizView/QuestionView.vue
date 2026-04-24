@@ -11,11 +11,14 @@
             'opacity-0': !store.activeQuestion.id || state.isLoading
         }"
     >
-        <h1 class="font-bold text-center self-center text-2xl lg:text-4xl">
+        <h1 class="font-bold text-center self-center text-lg sm:text-xl md:text-2xl lg:text-4xl px-2">
             {{ store.activeQuestion?.question }}
         </h1>
 
-        <div class="grid grid-cols-[1fr] text-2xl" v-if="store.activeQuestion?.choices">
+        <div
+            class="grid grid-cols-[1fr] text-base sm:text-lg md:text-xl lg:text-2xl px-2"
+            v-if="store.activeQuestion?.choices"
+        >
             <MultipleChoiceOptions />
         </div>
 
@@ -81,13 +84,13 @@ onMounted(async () => {
     state.value.isLoading = false;
 });
 
-function handleSubmit(question: QuizQuestion) {
+async function handleSubmit(question: QuizQuestion) {
     const selectedAnswer = store.selected;
     if (selectedAnswer) {
         store.activeQuestion.isSubmitted = true;
         const isCorrect = question.correctAnswer === selectedAnswer;
         store.activeQuestion.isCorrect = isCorrect;
-        store.submitAnswer({
+        await store.submitAnswer({
             questionId: state.value.questionId,
             isCorrect,
             selectedAnswer: selectedAnswer
